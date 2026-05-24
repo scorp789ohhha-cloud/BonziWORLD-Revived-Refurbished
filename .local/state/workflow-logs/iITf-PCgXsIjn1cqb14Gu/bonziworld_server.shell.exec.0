@@ -1,0 +1,66 @@
+Welcome to BonziWORLD Revived! Time to meme!
+Server listening at 0.0.0.0:5000
+{"guid":"2544992bbee885e8","agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36","ip":"83.105.253.48, 10.81.14.138, 10.48.124.160, 127.0.0.1","level":"info","message":"connect"}
+{"guid":"256349cc9218564f","agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36","ip":"83.105.253.48, 10.81.2.143, 10.48.3.10, 127.0.0.1","level":"info","message":"connect"}
+{"guid":"2544992bbee885e8","level":"info","message":"login"}
+{"guid":"2544992bbee885e8","roomSpecified":true,"level":"info","message":"roomSpecified"}
+{"rid":"default","level":"info","message":"newRoom"}
+{"guid":"2544992bbee885e8","success":true,"level":"info","message":"overlus"}
+{"guid":"2544992bbee885e8","success":false,"level":"info","message":"mod_code"}
+{"guid":"2544992bbee885e8","success":false,"level":"info","message":"mod_code"}
+{"guid":"2544992bbee885e8","text":"./bombminigame ","level":"info","message":"talk"}
+{"guid":"2544992bbee885e8","text":"yay","level":"info","message":"talk"}
+{"room":{"rid":"default","prefs":{"char_limit":2500,"name_limit":25,"godword":"bonziworldrevivedisback","bonzitv_code":"bonztvfunnihaha","mod_code":"modvision","overlus":"overlusistheowner","runlevel":{"godmode":0,"youtube":0,"joke":0,"fact":0,"backflip":0,"color":0,"asshole":0,"triggered":0,"linux":0,"pitch":0,"speed":0,"pawn":0,"bees":0,"vaporwave":0,"unvaporwave":0,"name":0,"owo":0,"setbonzitvvid":0.5,"setbonzitvvid2":0.5,"setbonzitvvid3":0.5,"sanitize":3,"pope":3,"video":0.5,"image":0,"kick":3,"nuke":3,"bless":2,"inflate":3,"deflate":3,"stop":4,"smite":3,"bowserfight":3},"room_max":999999,"owner":"2544992bbee885e8","pitch":{"max":125,"min":15,"default":"random"},"speed":{"max":275,"min":125,"default":"random"},"defaultName":"Anonymous"},"users":[],"vid":""},"level":"info","message":"removeRoom"}
+{"guid":"2544992bbee885e8","level":"info","message":"disconnect"}
+{"guid":"31662ddb297bb0f0","agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36","ip":"83.105.253.48, 10.81.16.49, 10.48.5.125, 127.0.0.1","level":"info","message":"connect"}
+{"guid":"31662ddb297bb0f0","level":"info","message":"login"}
+{"guid":"31662ddb297bb0f0","roomSpecified":true,"level":"info","message":"roomSpecified"}
+{"rid":"default","level":"info","message":"newRoom"}
+{"guid":"31662ddb297bb0f0","success":true,"level":"info","message":"overlus"}
+{"guid":"31662ddb297bb0f0","success":false,"level":"info","message":"mod_code"}
+{"guid":"31662ddb297bb0f0","success":false,"level":"info","message":"mod_code"}
+{"room":{"rid":"default","prefs":{"char_limit":2500,"name_limit":25,"godword":"bonziworldrevivedisback","bonzitv_code":"bonztvfunnihaha","mod_code":"modvision","overlus":"overlusistheowner","runlevel":{"godmode":0,"youtube":0,"joke":0,"fact":0,"backflip":0,"color":0,"asshole":0,"triggered":0,"linux":0,"pitch":0,"speed":0,"pawn":0,"bees":0,"vaporwave":0,"unvaporwave":0,"name":0,"owo":0,"setbonzitvvid":0.5,"setbonzitvvid2":0.5,"setbonzitvvid3":0.5,"sanitize":3,"pope":3,"video":0.5,"image":0,"kick":3,"nuke":3,"bless":2,"inflate":3,"deflate":3,"stop":4,"smite":3,"bowserfight":3},"room_max":999999,"owner":"31662ddb297bb0f0","pitch":{"max":125,"min":15,"default":"random"},"speed":{"max":275,"min":125,"default":"random"},"defaultName":"Anonymous"},"users":[],"vid":""},"level":"info","message":"removeRoom"}
+{"guid":"31662ddb297bb0f0","level":"info","message":"disconnect"}
+{"guid":"10654f4a1a1cfba7","agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36","ip":"83.105.253.48, 10.81.2.143, 10.48.82.187, 127.0.0.1","level":"info","message":"connect"}
+{"guid":"7c80478158c19387","agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36","ip":"83.105.253.48, 10.81.11.134, 10.48.124.161, 127.0.0.1","level":"info","message":"connect"}
+{"guid":"7c80478158c19387","level":"info","message":"login"}
+{"guid":"7c80478158c19387","roomSpecified":true,"level":"info","message":"roomSpecified"}
+{"rid":"default","level":"info","message":"newRoom"}
+{"guid":"7c80478158c19387","success":true,"level":"info","message":"overlus"}
+{"guid":"7c80478158c19387","success":false,"level":"info","message":"mod_code"}
+{"guid":"7c80478158c19387","success":false,"level":"info","message":"mod_code"}
+{"guid":"c26713b919e92c4c","agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36 OPR/131.0.0.0 (Edition std-2)","ip":"104.28.164.117, 10.81.2.143, 10.48.124.162, 127.0.0.1","level":"info","message":"connect"}
+{"room":{"rid":"default","prefs":{"char_limit":2500,"name_limit":25,"godword":"bonziworldrevivedisback","bonzitv_code":"bonztvfunnihaha","mod_code":"modvision","overlus":"overlusistheowner","runlevel":{"godmode":0,"youtube":0,"joke":0,"fact":0,"backflip":0,"color":0,"asshole":0,"triggered":0,"linux":0,"pitch":0,"speed":0,"pawn":0,"bees":0,"vaporwave":0,"unvaporwave":0,"name":0,"owo":0,"setbonzitvvid":0.5,"setbonzitvvid2":0.5,"setbonzitvvid3":0.5,"sanitize":3,"pope":3,"video":0.5,"image":0,"kick":3,"nuke":3,"bless":2,"inflate":3,"deflate":3,"stop":4,"smite":3,"bowserfight":3},"room_max":999999,"owner":"7c80478158c19387","pitch":{"max":125,"min":15,"default":"random"},"speed":{"max":275,"min":125,"default":"random"},"defaultName":"Anonymous"},"users":[],"vid":""},"level":"info","message":"removeRoom"}
+{"guid":"7c80478158c19387","level":"info","message":"disconnect"}
+{"guid":"851df8fc2bf83f5f","agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36","ip":"94.9.169.155, 10.81.0.134, 10.48.3.10, 127.0.0.1","level":"info","message":"connect"}
+{"guid":"646e8fb86a9b1965","agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36","ip":"83.105.253.48, 10.81.14.138, 10.48.164.97, 127.0.0.1","level":"info","message":"connect"}
+{"guid":"646e8fb86a9b1965","level":"info","message":"login"}
+{"guid":"646e8fb86a9b1965","roomSpecified":true,"level":"info","message":"roomSpecified"}
+{"rid":"default","level":"info","message":"newRoom"}
+{"guid":"646e8fb86a9b1965","success":true,"level":"info","message":"overlus"}
+{"guid":"646e8fb86a9b1965","success":false,"level":"info","message":"mod_code"}
+{"guid":"646e8fb86a9b1965","success":false,"level":"info","message":"mod_code"}
+{"room":{"rid":"default","prefs":{"char_limit":2500,"name_limit":25,"godword":"bonziworldrevivedisback","bonzitv_code":"bonztvfunnihaha","mod_code":"modvision","overlus":"overlusistheowner","runlevel":{"godmode":0,"youtube":0,"joke":0,"fact":0,"backflip":0,"color":0,"asshole":0,"triggered":0,"linux":0,"pitch":0,"speed":0,"pawn":0,"bees":0,"vaporwave":0,"unvaporwave":0,"name":0,"owo":0,"setbonzitvvid":0.5,"setbonzitvvid2":0.5,"setbonzitvvid3":0.5,"sanitize":3,"pope":3,"video":0.5,"image":0,"kick":3,"nuke":3,"bless":2,"inflate":3,"deflate":3,"stop":4,"smite":3,"bowserfight":3},"room_max":999999,"owner":"646e8fb86a9b1965","pitch":{"max":125,"min":15,"default":"random"},"speed":{"max":275,"min":125,"default":"random"},"defaultName":"Anonymous"},"users":[],"vid":""},"level":"info","message":"removeRoom"}
+{"guid":"646e8fb86a9b1965","level":"info","message":"disconnect"}
+{"guid":"6c798fa0e2ac791c","agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36","ip":"83.105.253.48, 10.81.16.49, 10.48.164.97, 127.0.0.1","level":"info","message":"connect"}
+{"guid":"6c798fa0e2ac791c","level":"info","message":"login"}
+{"guid":"6c798fa0e2ac791c","roomSpecified":true,"level":"info","message":"roomSpecified"}
+{"rid":"default","level":"info","message":"newRoom"}
+{"guid":"6c798fa0e2ac791c","success":true,"level":"info","message":"overlus"}
+{"guid":"6c798fa0e2ac791c","success":false,"level":"info","message":"mod_code"}
+{"guid":"6c798fa0e2ac791c","success":false,"level":"info","message":"mod_code"}
+{"room":{"rid":"default","prefs":{"char_limit":2500,"name_limit":25,"godword":"bonziworldrevivedisback","bonzitv_code":"bonztvfunnihaha","mod_code":"modvision","overlus":"overlusistheowner","runlevel":{"godmode":0,"youtube":0,"joke":0,"fact":0,"backflip":0,"color":0,"asshole":0,"triggered":0,"linux":0,"pitch":0,"speed":0,"pawn":0,"bees":0,"vaporwave":0,"unvaporwave":0,"name":0,"owo":0,"setbonzitvvid":0.5,"setbonzitvvid2":0.5,"setbonzitvvid3":0.5,"sanitize":3,"pope":3,"video":0.5,"image":0,"kick":3,"nuke":3,"bless":2,"inflate":3,"deflate":3,"stop":4,"smite":3,"bowserfight":3},"room_max":999999,"owner":"6c798fa0e2ac791c","pitch":{"max":125,"min":15,"default":"random"},"speed":{"max":275,"min":125,"default":"random"},"defaultName":"Anonymous"},"users":[],"vid":""},"level":"info","message":"removeRoom"}
+{"guid":"6c798fa0e2ac791c","level":"info","message":"disconnect"}
+{"guid":"85b2961215a7bee5","agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36","ip":"83.105.253.48, 10.81.6.154, 10.48.164.98, 127.0.0.1","level":"info","message":"connect"}
+{"guid":"064d00aab1bfe389","agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36","ip":"83.105.253.48, 10.81.1.177, 10.48.124.162, 127.0.0.1","level":"info","message":"connect"}
+{"guid":"064d00aab1bfe389","level":"info","message":"login"}
+{"guid":"064d00aab1bfe389","roomSpecified":true,"level":"info","message":"roomSpecified"}
+{"rid":"default","level":"info","message":"newRoom"}
+{"guid":"064d00aab1bfe389","success":true,"level":"info","message":"overlus"}
+{"guid":"064d00aab1bfe389","success":false,"level":"info","message":"mod_code"}
+{"guid":"064d00aab1bfe389","success":false,"level":"info","message":"mod_code"}
+{"guid":"851df8fc2bf83f5f","level":"info","message":"login"}
+{"guid":"851df8fc2bf83f5f","roomSpecified":true,"level":"info","message":"roomSpecified"}
+{"guid":"851df8fc2bf83f5f","success":false,"level":"info","message":"overlus"}
+{"guid":"851df8fc2bf83f5f","success":false,"level":"info","message":"mod_code"}
+{"guid":"851df8fc2bf83f5f","success":false,"level":"info","message":"mod_code"}

@@ -1,0 +1,44 @@
+Welcome to BonziWORLD Revived! Time to meme!
+Server listening at 0.0.0.0:5000
+{"guid":"aea4e088c67d4b5c","agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36 OPR/131.0.0.0 (Edition std-2)","ip":"104.28.164.117, 10.81.11.134, 10.48.5.125, 127.0.0.1","level":"info","message":"connect"}
+{"error":null,"level":"info","message":"banSave"}
+{"guid":"02d19e67945a7d45","agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36","ip":"83.105.253.48, 10.81.11.134, 10.48.164.97, 127.0.0.1","level":"info","message":"connect"}
+TypeError: Cannot read properties of undefined (reading 'prefs')
+    at User.command [90m(/home/runner/workspace/[39mmeat.js:1675:57[90m)[39m
+[90m    at Socket.emit (node:events:524:28)[39m
+    at Socket.emitUntyped [90m(/home/runner/workspace/[39mnode_modules/[4msocket.io[24m/dist/typed-events.js:69:22[90m)[39m
+    at [90m/home/runner/workspace/[39mnode_modules/[4msocket.io[24m/dist/socket.js:697:39
+[90m    at process.processTicksAndRejections (node:internal/process/task_queues:77:11)[39m
+TypeError: Cannot read properties of undefined (reading 'prefs')
+    at User.command [90m(/home/runner/workspace/[39mmeat.js:1675:57[90m)[39m
+[90m    at Socket.emit (node:events:524:28)[39m
+    at Socket.emitUntyped [90m(/home/runner/workspace/[39mnode_modules/[4msocket.io[24m/dist/typed-events.js:69:22[90m)[39m
+    at [90m/home/runner/workspace/[39mnode_modules/[4msocket.io[24m/dist/socket.js:697:39
+[90m    at process.processTicksAndRejections (node:internal/process/task_queues:77:11)[39m
+{"guid":"02d19e67945a7d45","level":"info","message":"login"}
+{"guid":"02d19e67945a7d45","roomSpecified":true,"level":"info","message":"roomSpecified"}
+{"rid":"default","level":"info","message":"newRoom"}
+{"guid":"02d19e67945a7d45","success":true,"level":"info","message":"overlus"}
+{"guid":"02d19e67945a7d45","success":false,"level":"info","message":"mod_code"}
+{"guid":"02d19e67945a7d45","success":false,"level":"info","message":"mod_code"}
+{"guid":"de91e962a819f7e9","agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36 OPR/131.0.0.0 (Edition std-2)","ip":"104.28.164.117, 10.81.1.177, 10.48.82.187, 127.0.0.1","level":"info","message":"connect"}
+{"guid":"de91e962a819f7e9","level":"info","message":"login"}
+{"guid":"de91e962a819f7e9","roomSpecified":true,"level":"info","message":"roomSpecified"}
+{"guid":"de91e962a819f7e9","success":false,"level":"info","message":"overlus"}
+{"guid":"de91e962a819f7e9","success":false,"level":"info","message":"mod_code"}
+{"guid":"de91e962a819f7e9","success":false,"level":"info","message":"mod_code"}
+{"guid":"02d19e67945a7d45","text":"dude fuckass blob crashed my server","level":"info","message":"talk"}
+{"guid":"02d19e67945a7d45","text":"fuck you purple cum bitch. heres some bowser boss battle","level":"info","message":"talk"}
+{"guid":"de91e962a819f7e9","text":"i can interrupt","level":"info","message":"talk"}
+{"guid":"02d19e67945a7d45","text":"YAY","level":"info","message":"talk"}
+{"guid":"02d19e67945a7d45","text":"COINS","level":"info","message":"talk"}
+{"guid":"de91e962a819f7e9","text":".","level":"info","message":"talk"}
+{"guid":"0d3ff1a41d0bb911","agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36 OPR/131.0.0.0 (Edition std-2)","ip":"104.28.164.117, 10.81.11.134, 10.48.124.160, 127.0.0.1","level":"info","message":"connect"}
+{"error":null,"level":"info","message":"banSave"}
+TypeError: Cannot read properties of undefined (reading 'prefs')
+    at User.command [90m(/home/runner/workspace/[39mmeat.js:1675:57[90m)[39m
+[90m    at Socket.emit (node:events:524:28)[39m
+    at Socket.emitUntyped [90m(/home/runner/workspace/[39mnode_modules/[4msocket.io[24m/dist/typed-events.js:69:22[90m)[39m
+    at [90m/home/runner/workspace/[39mnode_modules/[4msocket.io[24m/dist/socket.js:697:39
+[90m    at process.processTicksAndRejections (node:internal/process/task_queues:77:11)[39m
+^C

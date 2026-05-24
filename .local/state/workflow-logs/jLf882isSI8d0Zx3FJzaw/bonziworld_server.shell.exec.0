@@ -1,0 +1,256 @@
+Welcome to BonziWORLD Revived! Time to meme!
+Server listening at 0.0.0.0:5000
+{"guid":"934b772fbffbc97d","agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36","ip":"83.105.253.48, 10.81.6.154, 10.48.82.187, 127.0.0.1","level":"info","message":"connect"}
+{"guid":"3799d296eaa84034","agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36","ip":"83.105.253.48, 10.81.6.154, 10.48.164.97, 127.0.0.1","level":"info","message":"connect"}
+{"guid":"934b772fbffbc97d","level":"info","message":"login"}
+{"guid":"934b772fbffbc97d","roomSpecified":true,"level":"info","message":"roomSpecified"}
+{"rid":"default","level":"info","message":"newRoom"}
+{"guid":"934b772fbffbc97d","success":true,"level":"info","message":"overlus"}
+{"guid":"934b772fbffbc97d","success":false,"level":"info","message":"mod_code"}
+{"guid":"934b772fbffbc97d","success":false,"level":"info","message":"mod_code"}
+{"guid":"fef899e05c987c40","agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36","ip":"43.246.221.152, 10.81.2.143, 10.48.3.4, 127.0.0.1","level":"info","message":"connect"}
+{"guid":"fef899e05c987c40","level":"info","message":"login"}
+{"guid":"fef899e05c987c40","roomSpecified":true,"level":"info","message":"roomSpecified"}
+{"guid":"fef899e05c987c40","success":false,"level":"info","message":"overlus"}
+{"guid":"fef899e05c987c40","success":false,"level":"info","message":"mod_code"}
+{"guid":"fef899e05c987c40","success":false,"level":"info","message":"mod_code"}
+{"guid":"fef899e05c987c40","text":"what src does this use","level":"info","message":"talk"}
+{"guid":"934b772fbffbc97d","text":"bwr 2025","level":"info","message":"talk"}
+{"guid":"934b772fbffbc97d","text":"dont use it for bonzi dot world tho","level":"info","message":"talk"}
+{"guid":"fef899e05c987c40","text":"ik im not gonna","level":"info","message":"talk"}
+{"guid":"fef899e05c987c40","text":"does it have a github repo","level":"info","message":"talk"}
+{"guid":"934b772fbffbc97d","text":"yay!","level":"info","message":"talk"}
+{"guid":"fef899e05c987c40","text":"darllo","level":"info","message":"talk"}
+{"guid":"fef899e05c987c40","text":"or scorp","level":"info","message":"talk"}
+{"guid":"934b772fbffbc97d","text":"  yeah/","level":"info","message":"talk"}
+{"guid":"fef899e05c987c40","text":"does bwr 2025 have a github repo","level":"info","message":"talk"}
+{"guid":"934b772fbffbc97d","text":"no","level":"info","message":"talk"}
+{"guid":"934b772fbffbc97d","text":"                 ","level":"info","message":"talk"}
+{"guid":"934b772fbffbc97d","text":" \\","level":"info","message":"talk"}
+{"guid":"fef899e05c987c40","text":"      wait how did you get it","level":"info","message":"talk"}
+{"guid":"934b772fbffbc97d","text":"     ","level":"info","message":"talk"}
+{"guid":"934b772fbffbc97d","level":"info","message":"disconnect"}
+{"guid":"57c365c6d128a81a","agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36","ip":"83.105.253.48, 10.81.6.154, 10.48.5.125, 127.0.0.1","level":"info","message":"connect"}
+{"guid":"57c365c6d128a81a","level":"info","message":"login"}
+{"guid":"57c365c6d128a81a","roomSpecified":true,"level":"info","message":"roomSpecified"}
+{"guid":"57c365c6d128a81a","success":true,"level":"info","message":"overlus"}
+{"guid":"57c365c6d128a81a","success":false,"level":"info","message":"mod_code"}
+{"guid":"57c365c6d128a81a","success":false,"level":"info","message":"mod_code"}
+{"guid":"57c365c6d128a81a","text":"idk milan gave it to me","level":"info","message":"talk"}
+{"guid":"57c365c6d128a81a","text":"anyways","level":"info","message":"talk"}
+{"guid":"57c365c6d128a81a","text":"bomb minigame must be fixed because i have made the bomb hitboxes smaller","level":"info","message":"talk"}
+{"guid":"fef899e05c987c40","text":"i was wondering if i could be dev of this","level":"info","message":"talk"}
+{"guid":"57c365c6d128a81a","text":"izhan move your bonzi to the middle to fix this","level":"info","message":"talk"}
+{"guid":"57c365c6d128a81a","text":"there","level":"info","message":"talk"}
+{"guid":"57c365c6d128a81a","text":"WHY THE FUCK","level":"info","message":"talk"}
+{"guid":"656197afb1c96d7d","agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36 OPR/131.0.0.0 (Edition std-2)","ip":"104.28.164.117, 10.81.5.60, 10.48.82.187, 127.0.0.1","level":"info","message":"connect"}
+{"guid":"fef899e05c987c40","level":"info","message":"disconnect"}
+{"guid":"8b0688e705d14e8d","agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36","ip":"94.9.169.155, 10.81.6.154, 10.48.5.125, 127.0.0.1","level":"info","message":"connect"}
+{"guid":"29cde646e2ad4bef","agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36","ip":"94.9.169.155, 10.81.0.134, 10.48.124.157, 127.0.0.1","level":"info","message":"connect"}
+{"guid":"29cde646e2ad4bef","level":"info","message":"login"}
+{"guid":"29cde646e2ad4bef","roomSpecified":true,"level":"info","message":"roomSpecified"}
+{"guid":"29cde646e2ad4bef","success":false,"level":"info","message":"overlus"}
+{"guid":"29cde646e2ad4bef","success":false,"level":"info","message":"mod_code"}
+{"guid":"29cde646e2ad4bef","success":false,"level":"info","message":"mod_code"}
+{"guid":"29cde646e2ad4bef","text":"hey guys im fat","level":"info","message":"talk"}
+{"guid":"29cde646e2ad4bef","text":"im gonna harass u cuz u leaked my 10 tb >:(","level":"info","message":"talk"}
+TypeError: Cannot read properties of undefined (reading 'apply')
+    at User.command [90m(/home/runner/workspace/[39mmeat.js:1696:38[90m)[39m
+[90m    at Socket.emit (node:events:524:28)[39m
+    at Socket.emitUntyped [90m(/home/runner/workspace/[39mnode_modules/[4msocket.io[24m/dist/typed-events.js:69:22[90m)[39m
+    at [90m/home/runner/workspace/[39mnode_modules/[4msocket.io[24m/dist/socket.js:697:39
+[90m    at process.processTicksAndRejections (node:internal/process/task_queues:77:11)[39m
+{"guid":"36631350d60af3b5","agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36","ip":"181.223.10.14, 10.81.6.154, 10.48.164.98, 127.0.0.1","level":"info","message":"connect"}
+{"guid":"dd4ffbffaa008f61","agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36","ip":"43.246.221.152, 10.81.2.143, 10.48.3.11, 127.0.0.1","level":"info","message":"connect"}
+{"guid":"36631350d60af3b5","level":"info","message":"login"}
+{"guid":"36631350d60af3b5","roomSpecified":true,"level":"info","message":"roomSpecified"}
+{"guid":"36631350d60af3b5","success":true,"level":"info","message":"overlus"}
+{"guid":"36631350d60af3b5","success":false,"level":"info","message":"mod_code"}
+{"guid":"36631350d60af3b5","success":false,"level":"info","message":"mod_code"}
+{"guid":"dd4ffbffaa008f61","level":"info","message":"login"}
+{"guid":"dd4ffbffaa008f61","roomSpecified":true,"level":"info","message":"roomSpecified"}
+{"guid":"dd4ffbffaa008f61","success":false,"level":"info","message":"overlus"}
+{"guid":"dd4ffbffaa008f61","success":false,"level":"info","message":"mod_code"}
+{"guid":"dd4ffbffaa008f61","success":false,"level":"info","message":"mod_code"}
+{"guid":"36631350d60af3b5","text":"WHERE'S SEMASS","level":"info","message":"talk"}
+{"guid":"57c365c6d128a81a","text":"i  nuked her","level":"info","message":"talk"}
+{"guid":"dd4ffbffaa008f61","text":"its fake","level":"info","message":"talk"}
+{"guid":"57c365c6d128a81a","text":"seamus cremeens 03:58 PM im gonna harass u cuz u leaked my 10 tb >:(","level":"info","message":"talk"}
+{"guid":"36631350d60af3b5","text":"bruh","level":"info","message":"talk"}
+{"guid":"36631350d60af3b5","level":"info","message":"disconnect"}
+{"guid":"57c365c6d128a81a","text":"alright","level":"info","message":"talk"}
+{"guid":"57c365c6d128a81a","text":"it was fake","level":"info","message":"talk"}
+{"guid":"57c365c6d128a81a","text":"whoever tried to make me scared","level":"info","message":"talk"}
+{"guid":"57c365c6d128a81a","text":"fuck off to the faker","level":"info","message":"talk"}
+{"guid":"0fc149aa0a30c7a3","agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36","ip":"43.246.221.152, 10.81.9.97, 10.48.3.10, 127.0.0.1","level":"info","message":"connect"}
+{"guid":"57c365c6d128a81a","text":"staying in the corner ","level":"info","message":"talk"}
+{"guid":"57c365c6d128a81a","text":"izhan go to a corner so i can test bomb minigame","level":"info","message":"talk"}
+{"guid":"dd4ffbffaa008f61","level":"info","message":"disconnect"}
+{"guid":"0de29b20026a5a11","agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36","ip":"43.246.221.152, 10.81.1.177, 10.48.5.125, 127.0.0.1","level":"info","message":"connect"}
+{"guid":"0de29b20026a5a11","level":"info","message":"login"}
+{"guid":"0de29b20026a5a11","roomSpecified":true,"level":"info","message":"roomSpecified"}
+{"guid":"0de29b20026a5a11","success":false,"level":"info","message":"overlus"}
+{"guid":"0de29b20026a5a11","success":false,"level":"info","message":"mod_code"}
+{"guid":"0de29b20026a5a11","success":false,"level":"info","message":"mod_code"}
+{"guid":"cd7c4128850f0d3b","agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36","ip":"43.246.221.152, 10.81.2.143, 10.48.164.98, 127.0.0.1","level":"info","message":"connect"}
+{"guid":"ea9fafe4cf494d5f","agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36 OPR/131.0.0.0 (Edition std-2)","ip":"104.28.164.117, 10.81.9.97, 10.48.5.125, 127.0.0.1","level":"info","message":"connect"}
+{"guid":"0de29b20026a5a11","level":"info","message":"disconnect"}
+{"guid":"ac96790458e59305","agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36","ip":"43.246.221.152, 10.81.10.159, 10.48.5.125, 127.0.0.1","level":"info","message":"connect"}
+{"guid":"57c365c6d128a81a","text":"IM STILL SURVIVING","level":"info","message":"talk"}
+{"guid":"57c365c6d128a81a","text":"YAYYYYYY","level":"info","message":"talk"}
+{"guid":"57c365c6d128a81a","text":"you cant get me you stupid bomb","level":"info","message":"talk"}
+{"guid":"57c365c6d128a81a","text":"Dude what the fuck is wrong with this","level":"info","message":"talk"}
+{"room":{"rid":"default","prefs":{"char_limit":2500,"name_limit":25,"godword":"bonziworldrevivedisback","bonzitv_code":"bonztvfunnihaha","mod_code":"modvision","overlus":"overlusistheowner","runlevel":{"godmode":0,"youtube":0,"joke":0,"fact":0,"backflip":0,"color":0,"asshole":0,"triggered":0,"linux":0,"pitch":0,"speed":0,"pawn":0,"bees":0,"vaporwave":0,"unvaporwave":0,"name":0,"owo":0,"setbonzitvvid":0.5,"setbonzitvvid2":0.5,"setbonzitvvid3":0.5,"sanitize":3,"pope":3,"video":0.5,"image":0,"kick":3,"nuke":3,"bless":2,"inflate":3,"deflate":3,"stop":4,"smite":3,"bowserfight":3},"room_max":999999,"owner":"934b772fbffbc97d","pitch":{"max":125,"min":15,"default":"random"},"speed":{"max":275,"min":125,"default":"random"},"defaultName":"Anonymous"},"users":[],"vid":""},"level":"info","message":"removeRoom"}
+{"guid":"57c365c6d128a81a","level":"info","message":"disconnect"}
+{"guid":"f79c57ca8c740811","agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36","ip":"83.105.253.48, 10.81.0.134, 10.48.164.97, 127.0.0.1","level":"info","message":"connect"}
+{"guid":"f79c57ca8c740811","level":"info","message":"login"}
+{"guid":"f79c57ca8c740811","roomSpecified":true,"level":"info","message":"roomSpecified"}
+{"rid":"default","level":"info","message":"newRoom"}
+{"guid":"f79c57ca8c740811","success":true,"level":"info","message":"overlus"}
+{"guid":"f79c57ca8c740811","success":false,"level":"info","message":"mod_code"}
+{"guid":"f79c57ca8c740811","success":false,"level":"info","message":"mod_code"}
+TypeError: Cannot read properties of undefined (reading 'apply')
+    at User.command [90m(/home/runner/workspace/[39mmeat.js:1696:38[90m)[39m
+[90m    at Socket.emit (node:events:524:28)[39m
+    at Socket.emitUntyped [90m(/home/runner/workspace/[39mnode_modules/[4msocket.io[24m/dist/typed-events.js:69:22[90m)[39m
+    at [90m/home/runner/workspace/[39mnode_modules/[4msocket.io[24m/dist/socket.js:697:39
+[90m    at process.processTicksAndRejections (node:internal/process/task_queues:77:11)[39m
+{"guid":"f79c57ca8c740811","text":" I DID IT","level":"info","message":"talk"}
+TypeError: Cannot read properties of undefined (reading 'apply')
+    at User.command [90m(/home/runner/workspace/[39mmeat.js:1696:38[90m)[39m
+[90m    at Socket.emit (node:events:524:28)[39m
+    at Socket.emitUntyped [90m(/home/runner/workspace/[39mnode_modules/[4msocket.io[24m/dist/typed-events.js:69:22[90m)[39m
+    at [90m/home/runner/workspace/[39mnode_modules/[4msocket.io[24m/dist/socket.js:697:39
+[90m    at process.processTicksAndRejections (node:internal/process/task_queues:77:11)[39m
+{"guid":"f79c57ca8c740811","text":"now for our final minigame","level":"info","message":"talk"}
+{"guid":"f79c57ca8c740811","text":"know","level":"info","message":"talk"}
+{"room":{"rid":"default","prefs":{"char_limit":2500,"name_limit":25,"godword":"bonziworldrevivedisback","bonzitv_code":"bonztvfunnihaha","mod_code":"modvision","overlus":"overlusistheowner","runlevel":{"godmode":0,"youtube":0,"joke":0,"fact":0,"backflip":0,"color":0,"asshole":0,"triggered":0,"linux":0,"pitch":0,"speed":0,"pawn":0,"bees":0,"vaporwave":0,"unvaporwave":0,"name":0,"owo":0,"setbonzitvvid":0.5,"setbonzitvvid2":0.5,"setbonzitvvid3":0.5,"sanitize":3,"pope":3,"video":0.5,"image":0,"kick":3,"nuke":3,"bless":2,"inflate":3,"deflate":3,"stop":4,"smite":3,"bowserfight":3},"room_max":999999,"owner":"f79c57ca8c740811","pitch":{"max":125,"min":15,"default":"random"},"speed":{"max":275,"min":125,"default":"random"},"defaultName":"Anonymous"},"users":[],"vid":""},"level":"info","message":"removeRoom"}
+{"guid":"f79c57ca8c740811","level":"info","message":"disconnect"}
+{"guid":"769411f9c311a10a","agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36","ip":"83.105.253.48, 10.81.1.177, 10.48.3.10, 127.0.0.1","level":"info","message":"connect"}
+{"guid":"769411f9c311a10a","level":"info","message":"login"}
+{"guid":"769411f9c311a10a","roomSpecified":true,"level":"info","message":"roomSpecified"}
+{"rid":"default","level":"info","message":"newRoom"}
+{"guid":"769411f9c311a10a","success":true,"level":"info","message":"overlus"}
+{"guid":"769411f9c311a10a","success":false,"level":"info","message":"mod_code"}
+{"guid":"769411f9c311a10a","success":false,"level":"info","message":"mod_code"}
+{"guid":"ac96790458e59305","level":"info","message":"login"}
+{"guid":"ac96790458e59305","roomSpecified":true,"level":"info","message":"roomSpecified"}
+{"guid":"ac96790458e59305","success":false,"level":"info","message":"overlus"}
+{"guid":"ac96790458e59305","success":false,"level":"info","message":"mod_code"}
+{"guid":"ac96790458e59305","success":false,"level":"info","message":"mod_code"}
+{"guid":"769411f9c311a10a","text":"alright","level":"info","message":"talk"}
+{"guid":"769411f9c311a10a","text":"bonzitv kindness luigi","level":"info","message":"talk"}
+{"guid":"ac96790458e59305","text":"can i be blessed btw","level":"info","message":"talk"}
+{"guid":"769411f9c311a10a","text":"yes","level":"info","message":"talk"}
+{"guid":"c56f0b987e5e8a46","agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36 OPR/131.0.0.0 (Edition std-2)","ip":"151.250.90.84, 10.81.8.174, 10.48.3.11, 127.0.0.1","level":"info","message":"connect"}
+{"guid":"c56f0b987e5e8a46","level":"info","message":"login"}
+{"guid":"c56f0b987e5e8a46","roomSpecified":true,"level":"info","message":"roomSpecified"}
+{"guid":"c56f0b987e5e8a46","success":false,"level":"info","message":"overlus"}
+{"guid":"c56f0b987e5e8a46","success":false,"level":"info","message":"mod_code"}
+{"guid":"c56f0b987e5e8a46","success":false,"level":"info","message":"mod_code"}
+{"guid":"769411f9c311a10a","text":"kindness fucking luigi","level":"info","message":"talk"}
+{"guid":"c56f0b987e5e8a46","text":"behh","level":"info","message":"talk"}
+{"guid":"c56f0b987e5e8a46","text":"can i play videos here","level":"info","message":"talk"}
+{"guid":"769411f9c311a10a","text":"yes should i give you the overlus code","level":"info","message":"talk"}
+{"guid":"c56f0b987e5e8a46","text":"sure","level":"info","message":"talk"}
+{"guid":"ac96790458e59305","text":"wait","level":"info","message":"talk"}
+{"guid":"487afe5d4418a5e4","agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36","ip":"83.105.253.48, 10.81.8.174, 10.48.5.125, 127.0.0.1","level":"info","message":"connect"}
+TypeError: Cannot read properties of undefined (reading 'apply')
+    at User.command [90m(/home/runner/workspace/[39mmeat.js:1696:38[90m)[39m
+[90m    at Socket.emit (node:events:524:28)[39m
+    at Socket.emitUntyped [90m(/home/runner/workspace/[39mnode_modules/[4msocket.io[24m/dist/typed-events.js:69:22[90m)[39m
+    at [90m/home/runner/workspace/[39mnode_modules/[4msocket.io[24m/dist/socket.js:697:39
+[90m    at process.processTicksAndRejections (node:internal/process/task_queues:77:11)[39m
+{"guid":"769411f9c311a10a","text":"its slash overlus overlusistheowner ","level":"info","message":"talk"}
+{"guid":"ac96790458e59305","success":true,"level":"info","message":"overlus"}
+{"guid":"769411f9c311a10a","text":"luigi is hiding in the clock","level":"info","message":"talk"}
+{"guid":"769411f9c311a10a","text":"woaah","level":"info","message":"talk"}
+{"guid":"769411f9c311a10a","text":"wait","level":"info","message":"talk"}
+TypeError: Cannot read properties of undefined (reading 'apply')
+    at User.command [90m(/home/runner/workspace/[39mmeat.js:1696:38[90m)[39m
+[90m    at Socket.emit (node:events:524:28)[39m
+    at Socket.emitUntyped [90m(/home/runner/workspace/[39mnode_modules/[4msocket.io[24m/dist/typed-events.js:69:22[90m)[39m
+    at [90m/home/runner/workspace/[39mnode_modules/[4msocket.io[24m/dist/socket.js:697:39
+[90m    at process.processTicksAndRejections (node:internal/process/task_queues:77:11)[39m
+{"guid":"769411f9c311a10a","text":"we can recreate this in sm64coopdx cant we?","level":"info","message":"talk"}
+{"guid":"ac96790458e59305","text":"whats the command for bonzitv set the video","level":"info","message":"talk"}
+{"guid":"c56f0b987e5e8a46","success":true,"level":"info","message":"overlus"}
+{"guid":"769411f9c311a10a","text":"its /setbonzitvvid2 ","level":"info","message":"talk"}
+{"guid":"769411f9c311a10a","text":"with id","level":"info","message":"talk"}
+{"guid":"6d5512951e96f19a","agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0","ip":"197.119.67.175, 10.81.16.54, 10.48.164.97, 127.0.0.1","level":"info","message":"connect"}
+{"guid":"d1c36351c3c20ebc","agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0","ip":"197.119.67.175, 10.81.6.154, 10.48.3.8, 127.0.0.1","level":"info","message":"connect"}
+{"guid":"769411f9c311a10a","text":"pwroff","level":"info","message":"talk"}
+{"guid":"d1c36351c3c20ebc","level":"info","message":"login"}
+{"guid":"d1c36351c3c20ebc","roomSpecified":true,"level":"info","message":"roomSpecified"}
+{"guid":"d1c36351c3c20ebc","success":false,"level":"info","message":"overlus"}
+{"guid":"d1c36351c3c20ebc","success":false,"level":"info","message":"mod_code"}
+{"guid":"d1c36351c3c20ebc","success":false,"level":"info","message":"mod_code"}
+{"guid":"d1c36351c3c20ebc","text":"hi guys","level":"info","message":"talk"}
+{"guid":"769411f9c311a10a","text":"hi","level":"info","message":"talk"}
+{"guid":"769411f9c311a10a","text":"welcome to bwr","level":"info","message":"talk"}
+{"guid":"769411f9c311a10a","text":"the bta version","level":"info","message":"talk"}
+{"guid":"769411f9c311a10a","text":"woah","level":"info","message":"talk"}
+{"guid":"c56f0b987e5e8a46","text":"bruh","level":"info","message":"talk"}
+{"guid":"ac96790458e59305","text":"load  the video bruh","level":"info","message":"talk"}
+{"guid":"769411f9c311a10a","text":"o","level":"info","message":"talk"}
+{"guid":"c56f0b987e5e8a46","text":"SMASSUNG!","level":"info","message":"talk"}
+{"guid":"769411f9c311a10a","text":"Fuck you samsung girl","level":"info","message":"talk"}
+{"guid":"c56f0b987e5e8a46","text":"i have a samsung tv","level":"info","message":"talk"}
+{"guid":"769411f9c311a10a","text":"spongebob deleted screen","level":"info","message":"talk"}
+{"guid":"c56f0b987e5e8a46","text":"its so great","level":"info","message":"talk"}
+{"guid":"769411f9c311a10a","text":"*scene","level":"info","message":"talk"}
+{"guid":"769411f9c311a10a","text":"this is when squidward steps on the great","level":"info","message":"talk"}
+{"guid":"769411f9c311a10a","text":"*grease","level":"info","message":"talk"}
+{"guid":"ac96790458e59305","text":"can i change it","level":"info","message":"talk"}
+{"guid":"ac96790458e59305","text":"the video","level":"info","message":"talk"}
+{"guid":"769411f9c311a10a","text":"lets just watch this first","level":"info","message":"talk"}
+{"guid":"ac96790458e59305","text":"ok","level":"info","message":"talk"}
+{"guid":"c56f0b987e5e8a46","text":"wait if its a deleted scene how is it on tv","level":"info","message":"talk"}
+{"guid":"c56f0b987e5e8a46","text":".","level":"info","message":"talk"}
+{"guid":"c56f0b987e5e8a46","text":"behh","level":"info","message":"talk"}
+{"guid":"ac96790458e59305","text":"it was on youtube","level":"info","message":"talk"}
+{"guid":"769411f9c311a10a","text":"idk i saw this on yt","level":"info","message":"talk"}
+{"guid":"ac96790458e59305","text":"archived","level":"info","message":"talk"}
+{"guid":"ac96790458e59305","text":"squidward got burned lol","level":"info","message":"talk"}
+{"guid":"c56f0b987e5e8a46","text":"it looks like a tv recording","level":"info","message":"talk"}
+{"guid":"769411f9c311a10a","text":"you like eating crabby pattys dont you squidward","level":"info","message":"talk"}
+{"guid":"769411f9c311a10a","text":"now izhan","level":"info","message":"talk"}
+{"guid":"769411f9c311a10a","text":"master hand","level":"info","message":"talk"}
+{"guid":"769411f9c311a10a","text":"WOMBO COMBO","level":"info","message":"talk"}
+{"guid":"769411f9c311a10a","text":"audio tag time","level":"info","message":"talk"}
+{"guid":"c56f0b987e5e8a46","text":"behh","level":"info","message":"talk"}
+{"guid":"769411f9c311a10a","text":"[audio=https://www.myinstants.com/media/sounds/fdfdf.mp3] WOMBO COMBO, HAPPY FEET","level":"info","message":"talk"}
+{"guid":"769411f9c311a10a","text":"[audio=https://www.myinstants.com/media/sounds/fdfdf.mp3]","level":"info","message":"talk"}
+{"guid":"c56f0b987e5e8a46","text":"can i play something after this ends","level":"info","message":"talk"}
+{"guid":"769411f9c311a10a","text":"yes","level":"info","message":"talk"}
+{"guid":"769411f9c311a10a","text":"[audio=https://www.myinstants.com/media/sounds/fdfdf.mp3]","level":"info","message":"talk"}
+{"guid":"ac96790458e59305","text":"btw there is not only master hand ","level":"info","message":"talk"}
+{"guid":"ac96790458e59305","text":"there is crazy hand","level":"info","message":"talk"}
+{"guid":"ac96790458e59305","text":"this sound betters with the video","level":"info","message":"talk"}
+{"guid":"769411f9c311a10a","text":"ACK","level":"info","message":"talk"}
+{"guid":"769411f9c311a10a","text":"[audio=https://www.myinstants.com/media/sounds/ack.mp3]","level":"info","message":"talk"}
+{"guid":"456c6b7596125bb1","agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0","ip":"197.119.67.175, 10.81.6.154, 10.48.82.187, 127.0.0.1","level":"info","message":"connect"}
+{"guid":"ac96790458e59305","text":"scorp u know which game master handi s","level":"info","message":"talk"}
+{"guid":"ac96790458e59305","text":"from","level":"info","message":"talk"}
+{"guid":"769411f9c311a10a","text":"yes","level":"info","message":"talk"}
+{"guid":"be601871be13aaed","agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0","ip":"197.119.67.175, 10.81.10.159, 10.48.164.97, 127.0.0.1","level":"info","message":"connect"}
+{"guid":"ac96790458e59305","text":"guess it","level":"info","message":"talk"}
+{"guid":"769411f9c311a10a","text":"its from SMBM","level":"info","message":"talk"}
+{"guid":"769411f9c311a10a","text":"SSBM","level":"info","message":"talk"}
+{"guid":"ac96790458e59305","text":"smbm what","level":"info","message":"talk"}
+{"guid":"ac96790458e59305","text":"yeah","level":"info","message":"talk"}
+{"guid":"ac96790458e59305","text":"super smash bros melee","level":"info","message":"talk"}
+{"guid":"769411f9c311a10a","text":"mario ","level":"info","message":"talk"}
+{"guid":"ac96790458e59305","text":"and smash bros 64 started with master hand not crazy hand","level":"info","message":"talk"}
+{"guid":"ac96790458e59305","text":"and also i need to show one more vid","level":"info","message":"talk"}
+{"guid":"769411f9c311a10a","text":"WOAH STOP SHOOTING LIKE CRAZY BIEAAAAAAAAAAAAAAAAAAAAATCH","level":"info","message":"talk"}
+{"guid":"769411f9c311a10a","text":"SSBU","level":"info","message":"talk"}
+{"guid":"769411f9c311a10a","text":"SSBU = super smash bros ultimate","level":"info","message":"talk"}
+{"guid":"ac96790458e59305","text":"super smash bros ultimate","level":"info","message":"talk"}
+{"guid":"ac96790458e59305","text":"ive like completed the adventure mode of super smash bros brawl, melee, ultimate","level":"info","message":"talk"}
+{"guid":"ac96790458e59305","text":"yes i did","level":"info","message":"talk"}
+{"guid":"769411f9c311a10a","text":"i want a super smash bros mr ant tenna mod","level":"info","message":"talk"}
+{"guid":"ac96790458e59305","text":"i completed their adventure mode fully","level":"info","message":"talk"}
+{"guid":"769411f9c311a10a","text":"so i can play as mr ant tenna","level":"info","message":"talk"}
+{"guid":"769411f9c311a10a","text":"mind this is going on onrender soon","level":"info","message":"talk"}
+{"guid":"ac96790458e59305","text":"btw to install mods in ssbu you need AcroPOLIS and skyline","level":"info","message":"talk"}

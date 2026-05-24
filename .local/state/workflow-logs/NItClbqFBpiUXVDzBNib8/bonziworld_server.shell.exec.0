@@ -1,0 +1,62 @@
+Welcome to BonziWORLD Revived! Time to meme!
+Server listening at 0.0.0.0:5000
+{"guid":"44c8301ef1d4d5c2","agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36","ip":"83.105.253.48, 10.81.6.154, 10.48.82.187, 127.0.0.1","level":"info","message":"connect"}
+{"guid":"9dd2598346de1883","agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36","ip":"83.105.253.48, 10.81.14.138, 10.48.3.8, 127.0.0.1","level":"info","message":"connect"}
+{"error":null,"level":"info","message":"banSave"}
+{"guid":"e24a23746df81408","agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36 OPR/131.0.0.0 (Edition std-2)","ip":"104.28.164.117, 10.81.14.138, 10.48.124.162, 127.0.0.1","level":"info","message":"connect"}
+{"error":null,"level":"info","message":"banSave"}
+{"guid":"e24a23746df81408","level":"info","message":"login"}
+{"guid":"e24a23746df81408","roomSpecified":true,"level":"info","message":"roomSpecified"}
+{"rid":"default","level":"info","message":"newRoom"}
+{"guid":"e24a23746df81408","success":false,"level":"info","message":"overlus"}
+{"guid":"e24a23746df81408","success":false,"level":"info","message":"mod_code"}
+{"guid":"e24a23746df81408","success":false,"level":"info","message":"mod_code"}
+{"guid":"9dd2598346de1883","level":"info","message":"login"}
+{"guid":"9dd2598346de1883","roomSpecified":true,"level":"info","message":"roomSpecified"}
+{"guid":"9dd2598346de1883","success":true,"level":"info","message":"overlus"}
+{"guid":"9dd2598346de1883","success":false,"level":"info","message":"mod_code"}
+{"guid":"9dd2598346de1883","success":false,"level":"info","message":"mod_code"}
+{"guid":"e9864f3614080cc8","agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36","ip":"83.105.253.48, 10.81.2.143, 10.48.5.125, 127.0.0.1","level":"info","message":"connect"}
+{"error":null,"level":"info","message":"banSave"}
+{"guid":"e9864f3614080cc8","level":"info","message":"login"}
+{"guid":"e9864f3614080cc8","roomSpecified":true,"level":"info","message":"roomSpecified"}
+{"guid":"e9864f3614080cc8","success":true,"level":"info","message":"overlus"}
+{"guid":"e9864f3614080cc8","success":false,"level":"info","message":"mod_code"}
+{"guid":"e9864f3614080cc8","success":false,"level":"info","message":"mod_code"}
+TypeError: Cannot read properties of undefined (reading 'apply')
+    at User.command [90m(/home/runner/workspace/[39mmeat.js:1681:38[90m)[39m
+[90m    at Socket.emit (node:events:524:28)[39m
+    at Socket.emitUntyped [90m(/home/runner/workspace/[39mnode_modules/[4msocket.io[24m/dist/typed-events.js:69:22[90m)[39m
+    at [90m/home/runner/workspace/[39mnode_modules/[4msocket.io[24m/dist/socket.js:697:39
+[90m    at process.processTicksAndRejections (node:internal/process/task_queues:77:11)[39m
+{"guid":"9dd2598346de1883","text":"its so smooth like a flash animation","level":"info","message":"talk"}
+{"guid":"9dd2598346de1883","text":"let me write your therapy thingys darlloguy 2","level":"info","message":"talk"}
+TypeError: Cannot read properties of undefined (reading 'apply')
+    at User.command [90m(/home/runner/workspace/[39mmeat.js:1681:38[90m)[39m
+[90m    at Socket.emit (node:events:524:28)[39m
+    at Socket.emitUntyped [90m(/home/runner/workspace/[39mnode_modules/[4msocket.io[24m/dist/typed-events.js:69:22[90m)[39m
+    at [90m/home/runner/workspace/[39mnode_modules/[4msocket.io[24m/dist/socket.js:697:39
+[90m    at process.processTicksAndRejections (node:internal/process/task_queues:77:11)[39m
+{"guid":"e9864f3614080cc8","text":"tlallalblatllatlaltlb","level":"info","message":"talk"}
+{"guid":"e9864f3614080cc8","text":"altblatlablalbtla","level":"info","message":"talk"}
+{"guid":"e9864f3614080cc8","text":"abtlabltalbt","level":"info","message":"talk"}
+{"guid":"e9864f3614080cc8","text":"ablabbalalbablablablablalb","level":"info","message":"talk"}
+{"guid":"e9864f3614080cc8","text":"i am done?","level":"info","message":"talk"}
+{"guid":"e9864f3614080cc8","text":"yay!","level":"info","message":"talk"}
+{"guid":"fbfe1fe9d8235cb0","agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36 OPR/131.0.0.0 (Edition std-2)","ip":"104.28.164.117, 10.81.0.134, 10.48.5.125, 127.0.0.1","level":"info","message":"connect"}
+{"error":null,"level":"info","message":"banSave"}
+{"guid":"fbfe1fe9d8235cb0","level":"info","message":"login"}
+{"guid":"fbfe1fe9d8235cb0","roomSpecified":true,"level":"info","message":"roomSpecified"}
+{"guid":"fbfe1fe9d8235cb0","success":false,"level":"info","message":"overlus"}
+{"guid":"fbfe1fe9d8235cb0","success":false,"level":"info","message":"mod_code"}
+{"guid":"fbfe1fe9d8235cb0","success":false,"level":"info","message":"mod_code"}
+{"guid":"e9864f3614080cc8","level":"info","message":"disconnect"}
+{"guid":"fbfe1fe9d8235cb0","level":"info","message":"disconnect"}
+{"guid":"e24a23746df81408","text":"script requests are serversidal","level":"info","message":"talk"}
+{"guid":"e24a23746df81408","text":"using scripts i can move in circles","level":"info","message":"talk"}
+TypeError: Cannot read properties of undefined (reading 'prefs')
+    at User.command [90m(/home/runner/workspace/[39mmeat.js:1675:57[90m)[39m
+[90m    at Socket.emit (node:events:524:28)[39m
+    at Socket.emitUntyped [90m(/home/runner/workspace/[39mnode_modules/[4msocket.io[24m/dist/typed-events.js:69:22[90m)[39m
+    at [90m/home/runner/workspace/[39mnode_modules/[4msocket.io[24m/dist/socket.js:697:39
+[90m    at process.processTicksAndRejections (node:internal/process/task_queues:77:11)[39m

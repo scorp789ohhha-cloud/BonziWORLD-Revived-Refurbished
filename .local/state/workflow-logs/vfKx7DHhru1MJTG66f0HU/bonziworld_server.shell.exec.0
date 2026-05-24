@@ -1,0 +1,37 @@
+Welcome to BonziWORLD Revived! Time to meme!
+Server listening at 0.0.0.0:5000
+{"guid":"cca829a4906ff31a","agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36","ip":"83.105.253.48, 10.81.10.155, 10.48.3.10, 127.0.0.1","level":"info","message":"connect"}
+{"error":null,"level":"info","message":"banSave"}
+{"guid":"fa394df905d92236","agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36","ip":"83.105.253.48, 10.81.11.134, 10.48.5.125, 127.0.0.1","level":"info","message":"connect"}
+{"error":null,"level":"info","message":"banSave"}
+{"guid":"434a129e6c18759b","agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36 OPR/131.0.0.0 (Edition std-2)","ip":"104.28.164.117, 10.81.2.143, 10.48.124.160, 127.0.0.1","level":"info","message":"connect"}
+{"error":null,"level":"info","message":"banSave"}
+{"guid":"434a129e6c18759b","level":"info","message":"login"}
+{"guid":"434a129e6c18759b","roomSpecified":true,"level":"info","message":"roomSpecified"}
+{"rid":"default","level":"info","message":"newRoom"}
+{"guid":"434a129e6c18759b","success":false,"level":"info","message":"overlus"}
+{"guid":"434a129e6c18759b","success":false,"level":"info","message":"mod_code"}
+{"guid":"434a129e6c18759b","success":false,"level":"info","message":"mod_code"}
+{"guid":"fa394df905d92236","level":"info","message":"login"}
+{"guid":"fa394df905d92236","roomSpecified":true,"level":"info","message":"roomSpecified"}
+{"guid":"fa394df905d92236","success":true,"level":"info","message":"overlus"}
+{"guid":"fa394df905d92236","success":false,"level":"info","message":"mod_code"}
+{"guid":"fa394df905d92236","success":false,"level":"info","message":"mod_code"}
+{"guid":"fa394df905d92236","text":"ivory try serverside move","level":"info","message":"talk"}
+{"guid":"fa394df905d92236","text":"it works","level":"info","message":"talk"}
+{"guid":"434a129e6c18759b","level":"info","message":"disconnect"}
+{"guid":"3ebcfe7fd5d39fad","agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36 OPR/131.0.0.0 (Edition std-2)","ip":"104.28.164.117, 10.81.1.177, 10.48.164.95, 127.0.0.1","level":"info","message":"connect"}
+{"error":null,"level":"info","message":"banSave"}
+{"guid":"3ebcfe7fd5d39fad","level":"info","message":"login"}
+{"guid":"3ebcfe7fd5d39fad","roomSpecified":true,"level":"info","message":"roomSpecified"}
+{"guid":"3ebcfe7fd5d39fad","success":false,"level":"info","message":"overlus"}
+{"guid":"3ebcfe7fd5d39fad","success":false,"level":"info","message":"mod_code"}
+{"guid":"3ebcfe7fd5d39fad","success":false,"level":"info","message":"mod_code"}
+{"guid":"3ebcfe7fd5d39fad","text":"i used a script for that one","level":"info","message":"talk"}
+{"guid":"fa394df905d92236","text":"dude the serverside moving is laggig","level":"info","message":"talk"}
+{"guid":"3ebcfe7fd5d39fad","text":"every animation bonzi has","level":"info","message":"talk"}
+{"guid":"fa394df905d92236","text":"yep","level":"info","message":"talk"}
+{"guid":"fa394df905d92236","text":"i love hehehe","level":"info","message":"talk"}
+{"guid":"3ebcfe7fd5d39fad","level":"info","message":"disconnect"}
+{"guid":"fa394df905d92236","level":"info","message":"disconnect"}
+{"room":{"rid":"default","prefs":{"char_limit":2500,"name_limit":25,"godword":"bonziworldrevivedisback","bonzitv_code":"bonztvfunnihaha","mod_code":"modvision","overlus":"overlusistheowner","runlevel":{"godmode":0,"youtube":0,"joke":0,"fact":0,"backflip":0,"color":0,"asshole":0,"triggered":0,"linux":0,"pitch":0,"speed":0,"pawn":0,"bees":0,"vaporwave":0,"unvaporwave":0,"name":0,"owo":0,"setbonzitvvid":0.5,"setbonzitvvid2":0.5,"setbonzitvvid3":0.5,"sanitize":3,"pope":3,"video":0.5,"image":0,"kick":3,"nuke":3,"bless":2,"inflate":3,"deflate":3,"stop":4,"smite":3,"bowserfight":3},"room_max":999999,"owner":"434a129e6c18759b","pitch":{"max":125,"min":15,"default":"random"},"speed":{"max":275,"min":125,"default":"random"},"defaultName":"Anonymous"},"users":[],"vid":""},"level":"info","message":"removeRoom"}

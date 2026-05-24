@@ -1,0 +1,19 @@
+Welcome to BonziWORLD Revived! Time to meme!
+Server listening at 0.0.0.0:5000
+{"guid":"5fdfbb64c2ad4288","agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36","ip":"83.105.253.48, 10.81.0.134, 10.48.82.187, 127.0.0.1","level":"info","message":"connect"}
+{"error":null,"level":"info","message":"banSave"}
+{"guid":"a57fbdc0c7ab5f32","agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36","ip":"83.105.253.48, 10.81.10.155, 10.48.124.157, 127.0.0.1","level":"info","message":"connect"}
+{"error":null,"level":"info","message":"banSave"}
+{"guid":"a57fbdc0c7ab5f32","level":"info","message":"login"}
+{"guid":"a57fbdc0c7ab5f32","roomSpecified":true,"level":"info","message":"roomSpecified"}
+{"rid":"default","level":"info","message":"newRoom"}
+{"guid":"a57fbdc0c7ab5f32","success":true,"level":"info","message":"overlus"}
+{"guid":"a57fbdc0c7ab5f32","success":false,"level":"info","message":"mod_code"}
+{"guid":"a57fbdc0c7ab5f32","success":false,"level":"info","message":"mod_code"}
+{"guid":"8edca91c3b225682","agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36 OPR/131.0.0.0 (Edition std-2)","ip":"104.28.164.117, 10.81.1.177, 10.48.82.187, 127.0.0.1","level":"info","message":"connect"}
+{"error":null,"level":"info","message":"banSave"}
+{"guid":"8edca91c3b225682","level":"info","message":"login"}
+{"guid":"8edca91c3b225682","roomSpecified":true,"level":"info","message":"roomSpecified"}
+{"guid":"8edca91c3b225682","success":false,"level":"info","message":"overlus"}
+{"guid":"8edca91c3b225682","success":false,"level":"info","message":"mod_code"}
+{"guid":"8edca91c3b225682","success":false,"level":"info","message":"mod_code"}

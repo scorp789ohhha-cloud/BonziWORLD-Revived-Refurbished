@@ -9,7 +9,6 @@ let dev_code = "";
 let typingTimeout;
 let typing = false;
 let espeaktts = false;
-
 const { entries, values } = Object;
 const { isArray } = Array;
 const { seedrandom, random, floor } = Math;
@@ -20,14 +19,12 @@ $(function () {
     $("body").on("DOMNodeInserted", adElement, updateAds);
     $("body").on("DOMNodeRemoved", adElement, updateAds);
 });
-
 function initSettings() {
     localStorage.imageBlacklist = localStorage.imageBlacklist || "false";
     localStorage.classicBg = localStorage.classicBg || "false";
     localStorage.wordBlacklist = localStorage.wordBlacklist || "[]";
 }
 function evilBonziSpeak(string) {
-    
                             let url = `./voiceforge?text=${encodeURIComponent(string)}&voice=Damien`;
                             this.audio = new Audio(url);
                             this.audio.playbackRate = 1;
@@ -35,7 +32,6 @@ function evilBonziSpeak(string) {
                             this.audio.agents = true;
                             this.audio.play();
 }
-
 function xpath(el, expr) {
     let result = el.getRootNode().evaluate(expr, el);
     switch (result.resultType) {
@@ -54,7 +50,6 @@ function xpath(el, expr) {
             return list;
     }
 }
-
 function exportSettings() {
     let xml = `<?xml version="1.0"?>
 <settings>
@@ -72,7 +67,6 @@ function exportSettings() {
     xml += "</settings>";
     return xml;
 }
-
 function importSettings(xml) {
     let parser = new DOMParser();
     let settingsXML = parser.parseFromString(xml, "application/xml");
@@ -90,12 +84,9 @@ function importSettings(xml) {
         wordBlacklist.push(word.textContent);
     }
     localStorage.wordBlacklist = JSON.stringify(wordBlacklist);
-
     document.body.classList.toggle("classic", localStorage.classicBg === "true");
 }
-
 let settingsDialog;
-
 function openSettings() {
     if (settingsDialog) {
         settingsDialog.element.remove();
@@ -161,7 +152,6 @@ function openSettings() {
         importWindow();
     };
 }
-
 function exportWindow() {
     let dialog = new Dialog({
         title: "Export Settings",
@@ -179,7 +169,6 @@ function exportWindow() {
     exportText.value = exportSettings();
     exportText.focus();
 }
-
 function importWindow() {
     let dialog = new Dialog({
         title: "Import Settings",
@@ -222,17 +211,12 @@ function importWindow() {
         }
     };
 }
-
-// utopia. c:
 let wordBlacklist = [];
-
 function theme(a) {
     document.getElementById("theme").innerHTML = a;
 }
-
 let quote = null;
 let lastUser = "";
-
 function time() {
     let date = new Date();
     let hours = date.getHours();
@@ -242,18 +226,16 @@ function time() {
     let ampm = hours >= 12 ? "PM" : "AM";
     return `${hourString}:${minuteString} ${ampm}`;
 }
-
 let rules = {
     "**": "b",
     "~~": "i",
     "--": "s",
     __: "u",
     "``": "code",
-    "^^": "gay-big", // these are fine
+    "^^": "gay-big", 
     $r$: "gay-rainbow",
     "||": "gay-spoiler",
 };
-
 function markup(text) {
     text = text.replace(/(^|\\n)(&gt;.*?)($|\\n)/g, '$1<span class="greentext">$2</span>$3').replaceAll("\\n", "<br>");
     for (let [token, tag] of entries(rules)) {
@@ -268,17 +250,13 @@ function markup(text) {
     }
     return text;
 }
-
 function nmarkup(text) {
     while (text.includes("^^") || text.includes("||") || text.includes("\\n")) {
         text = text.replaceAll("^^", "").replaceAll("||", "").replaceAll("\\n", "");
     }
     return markup(text);
 }
-
 function bonzilog(id, name, html, color, text, single) {
-    // hacky
-    // remind me to rewrite this as this is the biggest peice of dogshit
     let icon = "";
     let scrolled = chat_log_content.scrollHeight - chat_log_content.clientHeight - chat_log_content.scrollTop <= 20;
     if (color) {
@@ -337,7 +315,6 @@ let lastZ = 1;
 let dragged = null;
 let dragX = 0;
 let dragY = 0;
-
 function sanitize(text) {
     return text.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;").replaceAll("'", "&apos;");
 }
@@ -374,7 +351,6 @@ class Dialog {
         this.element.querySelector(".window_body").innerHTML = opt.html;
         content.appendChild(this.element);
     }
-
     move(x, y) {
         this.x = x;
         this.y = y;
@@ -382,7 +358,6 @@ class Dialog {
         this.element.style.top = `${y}px`;
     }
 }
-
 function helpPopup() {
     new Dialog({
         title: "Help Menu",
@@ -394,7 +369,6 @@ function helpPopup() {
         height: 400,
     });
 }
-
 function updateAds() {
     var height = $(window).height() - $(adElement).height();
     var hideAd = height <= 250;
@@ -406,38 +380,22 @@ function parseAudioTag(line) {
     const audioTagMatch = line.match(/\[audio=(.+?)\]$/);
     const audioUrl = audioTagMatch ? audioTagMatch[1] : null;
     const cleanText = audioTagMatch ? line.replace(audioTagMatch[0], "").trim() : line.trim();
-
     return { cleanText, audioUrl };
 }
 function removeBackslashEnclosedText(text) {
-    // The regular expression:
-    // \\: Matches a literal backslash. We need to escape it because \ is a special character in regex.
-    // (.*?): This is the capturing group.
-    //    . : Matches any character (except newline).
-    //    *?: Matches the preceding character zero or more times, non-greedily (as few as possible).
-    //         This is crucial to ensure it matches only up to the *next* backslash, not the last one in the string.
-    // \\: Matches the literal closing backslash.
     const regex = /\\(.*?)\\/g;
-
-    // Replace all occurrences (due to 'g' flag) of the pattern with an empty string
     return text.replace(regex, "");
 }
-
 function isValidColor(value) {
     const validColors = [
         "black", "blue", "brown", "green", "purple",
         "red", "pink", "yellow", "white", "cyan",
         "pope", "ban", "blessed"
     ];
-
     return validColors.includes(value);
 }
-
 class Agent {
     constructor(id, userPublic) {
-        // ========================================================================
-        // VARIABLES/CONSTANTS
-        // ========================================================================
         this.userPublic = userPublic || {
             name: "Clippit",
             color: "clippit",
@@ -455,16 +413,13 @@ class Agent {
         this.overlayOffset = { left: 0, top: 0 };
         this.drag = false;
         this.dragged = false;
-
+        this.targetX = null;
+        this.targetY = null;
         this.eventQueue = [];
-
         this.eventRun = true;
         this.event = null;
-
         this.willCancel = false;
-
         this.run = true;
-
         this.mute = false;
         this.playbackRate = 1;
         this.eventTypeToFunc = {
@@ -474,25 +429,13 @@ class Agent {
             idle: "updateIdle",
             add_random: "updateRandom",
         };
-
-        // ========================================================================
-        // ASSIGN ID
-        // http://stackoverflow.com/a/105074
-        // ========================================================================
-
         if (typeof id == "undefined") {
             this.id = s4() + s4();
         } else this.id = id;
-
         this.rng = new Math.seedrandom(this.seed || this.id || Math.random());
         this.abortController = new AbortController();
-
-        // ========================================================================
-        // HTML POPULATION
-        // ========================================================================
         this.selContainer = "#content";
         this.$container = $(this.selContainer);
-
         this.$container.append(`
                         <div id='agent_${this.id}' class='agent'>
                                 <pre class='agent_tag'></pre>
@@ -503,18 +446,15 @@ class Agent {
                                 </div>
                         </div>
                 `);
-
         this.selElement = "#agent_" + this.id;
         this.selDialog = this.selElement + " > .bubble";
         this.selDialogCont = this.selElement + " > .bubble > p";
         this.selNametag = this.selElement + " > .agent_name";
         this.selTag = this.selElement + " > .agent_tag";
-
         this.selCanvas = this.selElement + " > .agent_placeholder";
         this.selOldCanvas = this.selElement + " > .agent_placeholder";
                 this.selCross = this.selElement + " > .cross";
         $(this.selCanvas).width(this.data.size.x).height(this.data.size.y);
-
         this.$element = $(this.selElement);
         this.$canvas = $(this.selCanvas);
         this.$cross = $(this.selCross);
@@ -524,48 +464,29 @@ class Agent {
         this.$tag = $(this.selTag);
         this.$canvas.attr("draggable", "false");
         this.$oldCanvas = $(this.selOldCanvas);
-        // backwards compatibility
         this.element = document.getElementById("agent_" + this.id);
-
         this.updateName();
         this.updateTag();
-
         $.data(this.$element[0], "parent", this);
-
         this.updateSprite(true);
-
-        // ========================================================================
-        // EVENTS
-        // ========================================================================
         this.generate_event = function (a, b, c) {
-            // Selector, event, function
             a[b]((e) => {
                 this[c](e);
             });
         };
-
         this.generate_event(this.$canvas, "mousedown", "mousedown");
         this.generate_event(this.$cross, "mousedown", "mousedown");
-
         this.generate_event($(window), "mousemove", "mousemove");
-
         this.generate_event($(window), "mouseup", "mouseup");
-
         var coords = this.maxCoords();
         this.x = coords.x * this.rng();
         this.y = coords.y * this.rng();
         this.move();
-
-        // ========================================================================
-        // MENU
-        // ========================================================================
-
         $.contextMenu({
             selector: this.selCanvas,
             build: ($trigger, e) => {
                 let extra = {};
-                if (authlevel == 4 && window.location.hostname != "localhost") { // not for the cute and chubby catgirl. I'm saving myself from mistakes.
-                    // coded like a true React programmer
+                if (authlevel == 4 && window.location.hostname != "localhost") { 
                     extra = {
                         bless: {
                             name: "Bless",
@@ -593,8 +514,7 @@ class Agent {
                         },
                     };
                 }
-                if (authlevel == 2 && window.location.hostname != "localhost") { // not for the cute and chubby catgirl. I'm saving myself from mistakes.
-                    // coded like a true React programmer
+                if (authlevel == 2 && window.location.hostname != "localhost") { 
                     extra = {
                         bless: {
                             name: "Bless",
@@ -606,8 +526,7 @@ class Agent {
                         }
                     };
                 }
-                if (authlevel == 3 && window.location.hostname != "localhost") { // not for the cute and chubby catgirl. I'm saving myself from mistakes.
-                    // coded like a true React programmer
+                if (authlevel == 3 && window.location.hostname != "localhost") { 
                     extra = {
                         bless: {
                             name: "Bless",
@@ -676,7 +595,6 @@ class Agent {
                                 socket.emit("talk", { text: "Hey, " + this.userPublic.name + "!" });
                             },
                         },
-
                         ...extra,
                     },
                 };
@@ -687,15 +605,8 @@ class Agent {
                 hide: "fadeOut",
             },
         });
-        // ========================================================================
-        // UPDATE LOOP
-        // ========================================================================
-
         this.needsUpdate = false;
-
         this.sprite.gotoAndPlay("surf_intro");
-
-        // animate while idle
         var _this = this;
         setInterval(
             function () {
@@ -718,7 +629,6 @@ class Agent {
             180 * 1000
         );
     }
-
     eventMake(list) {
         return {
             list: list,
@@ -729,7 +639,6 @@ class Agent {
             },
         };
     }
-
     mousedown(e) {
         if (e.which == 1) {
             this.drag = true;
@@ -740,7 +649,6 @@ class Agent {
             };
         }
     }
-
     mousemove(e) {
         if (this.drag) {
             if (this.id == window.bonzi_guid) {
@@ -763,7 +671,6 @@ class Agent {
             }
         }
     }
-
     move(x, y) {
         if (arguments.length !== 0) {
             this.x = x;
@@ -776,48 +683,39 @@ class Agent {
             marginLeft: this.x,
             marginTop: this.y,
         });
-
         this.sprite.x = this.x + this.overlayOffset.left;
         this.sprite.y = this.y + this.overlayOffset.top;
         AgentHandler.needsUpdate = true;
         this.updateDialog();
     }
-
     mouseup(e) {
         if (!this.dragged && this.drag) this.cancel();
-
         this.drag = false;
         this.dragged = false;
     }
-
     runSingleEvent(list) {
         if (!this.mute) this.eventQueue.push(this.eventMake(list));
     }
-
     clearDialog() {
         this.goingToSpeak = false;
         this.$dialog.hide();
     }
-
     cancel() {
         this.stopSpeaking();
         this.$dialog.hide();
         this.$dialogCont.html("");
         this.eventQueue = [this.eventMake([{ type: "idle" }])];
     }
-
     retry() {
         this.clearDialog();
         this.event.timer = 0;
     }
-
     stopSpeaking() {
         if (this.audio) {
             this.audio.pause();
         }
         if (this.voiceSource) {
             this.voiceSource.stop();
-            // This is most fragile part of the code and all bugs will happen here
             if (this.voiceSource.onended) this.voiceSource.onended();
             this.voiceSource.onended = () => {};
             if (this.voiceSource.endTimeout) {
@@ -826,38 +724,31 @@ class Agent {
             }
         }
     }
-
     cancelQueue() {
         this.willCancel = true;
     }
-
     updateAnim() {
         if (this.event.timer === 0) this.sprite.gotoAndPlay(this.event.cur().anim);
         this.event.timer++;
         AgentHandler.needsUpdate = true;
         if (this.event.timer >= this.event.cur().ticks) this.eventNext();
     }
-
     updateText() {
         if (this.event.timer === 0) {
             this.$dialog.show();
             this.event.timer = 1;
             this.talk(this.event.cur().text, this.event.cur().say, false);
         }
-
         if (this.$dialog.css("display") == "none") this.eventNext();
     }
-
     updateHTML() {
         if (this.event.timer === 0) {
             this.$dialog.show();
             this.event.timer = 1;
             this.talk(this.event.cur().text, this.event.cur().say, true);
         }
-
         if (this.$dialog.css("display") == "none") this.eventNext();
     }
-
     updateIdle() {
         var goNext =
             (this.sprite.currentAnimation == "idle" ||
@@ -874,9 +765,7 @@ class Agent {
                 this.sprite.currentAnimation == "look_down" ||
                 this.sprite.currentAnimation == "look_up") &&
             this.event.timer === 0;
-
         goNext = goNext || this.data.pass_idle.indexOf(this.sprite.currentAnimation) != -1;
-
         if (goNext) this.eventNext();
         else {
             if (this.event.timer === 0) {
@@ -884,7 +773,6 @@ class Agent {
                 this.sprite.gotoAndPlay(this.tmp_idle_start);
                 this.event.timer = 1;
             }
-
             if (this.tmp_idle_start != this.sprite.currentAnimation)
                 if (
                     this.sprite.currentAnimation == "idle" ||
@@ -902,30 +790,32 @@ class Agent {
                     this.sprite.currentAnimation == "look_up"
                 )
                     this.eventNext();
-
             AgentHandler.needsUpdate = true;
         }
     }
-
     updateRandom() {
         var add = this.event.cur().add;
         var index = Math.floor(add.length * this.rng());
-
         var e = this.eventMake(add[index]);
         this.eventNext();
         this.eventQueue.unshift(e);
     }
-
     update() {
         if (!this.run) return;
-        // ========================================================================
-        // EVENTS
-        // "the fun part"
-        // ========================================================================
-
+        // Interpolate toward remote target position
+        if (this.targetX !== null && this.targetY !== null && !this.drag) {
+            var lerpFactor = 0.3; // Increased from 0.2 for snappier, smoother tracking
+            var dx = this.targetX - this.x;
+            var dy = this.targetY - this.y;
+            if (Math.abs(dx) < 0.5 && Math.abs(dy) < 0.5) {
+                this.move(this.targetX, this.targetY);
+                this.targetX = null;
+                this.targetY = null;
+            } else {
+                this.move(this.x + dx * lerpFactor, this.y + dy * lerpFactor);
+            }
+        }
         if (this.eventQueue.length !== 0 && this.eventQueue[0].index >= this.eventQueue[0].list.length) this.eventQueue.splice(0, 1);
-
-
             if (this.userPublic.color.startsWith("http")) {
                 this.$cross.css("opacity", '1');
                 this.$cross.attr("src",`${this.userPublic.color}`);
@@ -934,7 +824,6 @@ class Agent {
                 this.$cross.attr("src",``);
             }
         this.event = this.eventQueue[0];
-
         if (this.eventQueue.length !== 0 && this.eventRun) {
             var eventType = this.event.cur().type;
             try {
@@ -943,12 +832,10 @@ class Agent {
                 this.event.index++;
             }
         }
-
         if (this.willCancel) {
             this.cancel();
             this.willCancel = false;
         }
-
             if (this.userPublic.color.startsWith("http")) {
                 this.$canvas.css("opacity", '1');
                 this.$canvas.css("background-image",`url(${this.userPublic.color})`);
@@ -965,7 +852,6 @@ class Agent {
                 this.$canvas.css("background-position-y", `-${Math.floor(this.sprite.currentFrame / 12) * this.data.size.y}px`);
                 this.$canvas.css("filter", `drop-shadow(20px -5px 4px rgba(0,0,0,0.2))`);
             }
-        // animation sfx
         if (this.sprite.currentFrame != this.lastFrame) {
             if (this.color == "blob") {
                 if (this.sprite.currentFrame == 184 && this.sprite.currentAnimation == "surf_intro") {
@@ -1409,19 +1295,16 @@ class Agent {
                         }
                 }
     }
-
     eventNext() {
         this.event.timer = 0;
         this.event.index += 1;
     }
-
     talk(text, say, allowHtml) {
         if (typeof allowHtml != "boolean") {
             allowHtml = true;
         }
         text = replaceAll(text, "{NAME}", this.userPublic.name);
         text = replaceAll(text, "{COLOR}", this.color);
-        //text = linkify(text);
         if (typeof say != "string") {
             say = text;
         }
@@ -1438,9 +1321,7 @@ class Agent {
         say = replaceAll(say, "-w-", "[[nj'A:]] ");
         say = replaceAll(say, "TwT", "[[nj'A:]] ");
         say = replaceAll(say, "s's's's'", "Nope ");
-        // temporary disable until we find a fix
         var greentext = text.substring(0, 4) == "&gt;" || text[0] == ">";
-
         this.stopSpeaking();
         let html = `${text === "{TOPJEJ}" ? "<img src='./img/misc/topjej.png'>" : markup(text)}`;
         for (let word of wordBlacklist) {
@@ -1465,21 +1346,16 @@ class Agent {
             var _this = this;
             html = parseAudioTag(text).cleanText;
             let behh = parseAudioTag(text);
-
             if (this.userPublic.name == "Squidward") {
                 let url = `http://localhost:4000/squidward?text=${encodeURIComponent(removeBackslashEnclosedText(say))}&voice=Wiseguy`;
-
                 const context = new (window.AudioContext || window.webkitAudioContext)();
                 const gainNode = context.createGain();
-                gainNode.gain.value = 5.0; // Double the volume
-
+                gainNode.gain.value = 5.0; 
                 this.audio = new Audio(behh.audioUrl);
                 this.audio.playbackRate = this.playbackRate || 1;
                 this.audio.preservesPitch = false;
-
                 const source = context.createMediaElementSource(this.audio);
                 source.connect(gainNode).connect(context.destination);
-
                 this.audio.play();
                 this.audio.onended = function () {
                     _this.clearDialog();
@@ -1497,17 +1373,8 @@ class Agent {
             }
         } else {
             var _this = this;
-
-            /*
-                        this.speakID = AgentHandler.speakLang(say, this.userPublic.speed, this.userPublic.pitch, "english-us", this.userPublic.voice, (success) => {
-                                    if (success) _this.clearDialog();
-                                });
-                        */
             if (espeaktts) {
-
-                                
                                 if (this.color == "peedy") {
-
                                         let url = `https://www.tetyys.com/SAPI4//SAPI4?voice=Adult%20Male%20%232%2C%20American%20English%20(TruVoice)&pitch=120&speed=157&text=${encodeURIComponent(say.toLowerCase())}`;
                                         var audio = new Audio(url);
                                 audio.playbackRate = this.playbackRate || 1;
@@ -1524,7 +1391,6 @@ class Agent {
                                                 _this.clearDialog();
                                         }
                                 } else if (this.color == "logo") {
-
                                         let url = `https://www.tetyys.com/SAPI4//SAPI4?voice=Sam&pitch=100&speed=150&text=${encodeURIComponent(say.toLowerCase())}`;
                                         var audio = new Audio(url);
                                 audio.playbackRate = this.playbackRate || 1;
@@ -1541,7 +1407,6 @@ class Agent {
                                                 _this.clearDialog();
                                         }
                                 } else if (this.color == "maxalert") {
-
                                         let url = `https://www.tetyys.com/SAPI4//SAPI4?voice=Adult%20Male%20%232%2C%20American%20English%20(TruVoice)&pitch=160&speed=150&text=${encodeURIComponent(say.toLowerCase())}`;
                                         var audio = new Audio(url);
                                 audio.playbackRate = this.playbackRate || 1;
@@ -1558,7 +1423,6 @@ class Agent {
                                                 _this.clearDialog();
                                         }
                                 } else if (this.color == "genius") {
-
                                         let url = `https://www.tetyys.com/SAPI4//SAPI4?voice=Adult%20Male%20%234%2C%20American%20English%20(TruVoice)&pitch=50&speed=130&text=${encodeURIComponent(say.toLowerCase())}`;
                                         var audio = new Audio(url);
                                 audio.playbackRate = this.playbackRate || 1;
@@ -1575,7 +1439,6 @@ class Agent {
                                                 _this.clearDialog();
                                         }
                                 } else if (this.color == "clippit") {
-
                                         let url = `https://www.tetyys.com/SAPI4//SAPI4?voice=Adult%20Male%20%233%2C%20American%20English%20(TruVoice)&pitch=220&speed=190&text=${encodeURIComponent(say.toLowerCase())}`;
                                         var audio = new Audio(url);
                                 audio.playbackRate = this.playbackRate || 1;
@@ -1592,7 +1455,6 @@ class Agent {
                                                 _this.clearDialog();
                                         }
                                 } else if (this.color == "offcat") {
-
                                         let url = `https://www.tetyys.com/SAPI4//SAPI4?voice=Adult%20Female%20%232%2C%20American%20English%20(TruVoice)&pitch=160&speed=157&text=${encodeURIComponent(say.toLowerCase())}`;
                                         var audio = new Audio(url);
                                 audio.playbackRate = this.playbackRate || 1;
@@ -1609,7 +1471,6 @@ class Agent {
                                                 _this.clearDialog();
                                         }
                                 } else if (this.color == "robby") {
-
                                         let url = `https://www.tetyys.com/SAPI4//SAPI4?voice=Adult%20Male%20%237%2C%20American%20English%20(TruVoice)&pitch=50&speed=150&text=${encodeURIComponent(say.toLowerCase())}`;
                                         var audio = new Audio(url);
                                 audio.playbackRate = this.playbackRate || 1;
@@ -1626,7 +1487,6 @@ class Agent {
                                                 _this.clearDialog();
                                         }
                                 } else if (this.color == "merlin") {
-
                                         let url = `https://www.tetyys.com/SAPI4//SAPI4?voice=Adult%20Male%20%233%2C%20American%20English%20(TruVoice)&pitch=50&speed=150&text=${encodeURIComponent(say.toLowerCase())}`;
                                         var audio = new Audio(url);
                                 audio.playbackRate = this.playbackRate || 1;
@@ -1643,7 +1503,6 @@ class Agent {
                                                 _this.clearDialog();
                                         }
                                 } else if (this.color == "kinito") {
-
                                         let url = `https://www.tetyys.com/SAPI4//SAPI4?voice=Adult%20Male%20%233%2C%20American%20English%20(TruVoice)&pitch=150&speed=150&text=${encodeURIComponent(say.toLowerCase())}`;
                                         var audio = new Audio(url);
                                 audio.playbackRate = this.playbackRate || 1;
@@ -1660,7 +1519,6 @@ class Agent {
                                                 _this.clearDialog();
                                         }
                                 } else if (this.color == "genie") {
-
                                         let url = `https://www.tetyys.com/SAPI4//SAPI4?voice=Adult%20Male%20%231%2C%20American%20English%20(TruVoice)&pitch=50&speed=150&text=${encodeURIComponent(say.toLowerCase())}`;
                                         var audio = new Audio(url);
                                 audio.playbackRate = this.playbackRate || 1;
@@ -1677,7 +1535,6 @@ class Agent {
                                                 _this.clearDialog();
                                         }
                                 } else if (this.color == "blob") {
-
                                         let url = `https://www.tetyys.com/SAPI4//SAPI4?voice=Adult%20Male%20%231%2C%20American%20English%20(TruVoice)&pitch=50&speed=150&text=${encodeURIComponent(say.toLowerCase())}`;
                                         var audio = new Audio(url);
                                 audio.playbackRate = this.playbackRate || 1;
@@ -1694,7 +1551,6 @@ class Agent {
                                                 _this.clearDialog();
                                         }
                                 } else if (this.color == "rover") {
-
                                         let url = `https://www.tetyys.com/SAPI4//SAPI4?voice=Adult%20Male%20%231%2C%20American%20English%20(TruVoice)&pitch=50&speed=150&text=${encodeURIComponent(say.toLowerCase())}`;
                                         var audio = new Audio(url);
                                 audio.playbackRate = this.playbackRate || 1;
@@ -1711,7 +1567,6 @@ class Agent {
                                                 _this.clearDialog();
                                         }
                                 } else if (this.color == "james") {
-
                                         let url = `https://www.tetyys.com/SAPI4//SAPI4?voice=Adult%20Male%20%231%2C%20American%20English%20(TruVoice)&pitch=50&speed=150&text=${encodeURIComponent(say.toLowerCase())}`;
                                         var audio = new Audio(url);
                                 audio.playbackRate = this.playbackRate || 1;
@@ -1728,7 +1583,6 @@ class Agent {
                                                 _this.clearDialog();
                                         }
                                 } else if (this.color == "mnature") {
-
                                         let url = `https://www.tetyys.com/SAPI4//SAPI4?voice=Mary%20in%20Space&pitch=169&speed=150&text=${encodeURIComponent(say.toLowerCase())}`;
                                         var audio = new Audio(url);
                                 audio.playbackRate = this.playbackRate || 1;
@@ -1745,7 +1599,6 @@ class Agent {
                                                 _this.clearDialog();
                                         }
                                 } else if (this.color == "misoneme") {
-
                                         let url = `https://www.tetyys.com/SAPI4//SAPI4?voice=Mike%20in%20Space&pitch=56&speed=150&text=${encodeURIComponent(removeBackslashEnclosedText(say.toLowerCase()))}`;
                                         var audio = new Audio(url);
                                 audio.playbackRate = this.playbackRate || 1;
@@ -1762,7 +1615,6 @@ class Agent {
                                                 _this.clearDialog();
                                         }
                                 } else if (this.color == "marisa") {
-
                                         let url = `https://www.tetyys.com/SAPI4/SAPI4?voice=Mary&pitch=169&speed=150&text=${encodeURIComponent(say.toLowerCase())}`;
                                         var audio = new Audio(url);
                                 audio.playbackRate = this.playbackRate || 1;
@@ -1779,7 +1631,6 @@ class Agent {
                                                 _this.clearDialog();
                                         }
                                 } else if (this.color == "reimu") {
-
                                         let url = `https://www.tetyys.com/SAPI4/SAPI4?voice=Mary&pitch=169&speed=150&text=${encodeURIComponent(say.toLowerCase())}`;
                                         var audio = new Audio(url);
                                 audio.playbackRate = this.playbackRate || 1;
@@ -1796,7 +1647,6 @@ class Agent {
                                                 _this.clearDialog();
                                         }
                                 } else {
-
                                         let url = `https://www.tetyys.com/SAPI4//SAPI4?voice=Adult%20Male%20%232%2C%20American%20English%20(TruVoice)&pitch=140&speed=157&text=${encodeURIComponent(say.toLowerCase())}`;
                                         var audio = new Audio(url);
                                 audio.playbackRate = this.playbackRate || 1;
@@ -1812,10 +1662,8 @@ class Agent {
                                         {
                                                 _this.clearDialog();
                                         }
-
                                 }
             } else {
-
                 this.$dialogCont["text"](html)[greentext ? "addClass" : "removeClass"]("bubble_greentext").css("display", "block");
                 bonzilog(this.id, this.userPublic.name, html, this.color, html, false);
                 if (text.includes("[audio=") && localStorage.customTTS == "true") {
@@ -1848,7 +1696,6 @@ class Agent {
                                 _this.clearDialog();
                             }
                         } else if (this.userPublic.voice == "sam") {
-
                             let url = `https://www.tetyys.com/SAPI4//SAPI4?voice=Sam&pitch=100&speed=150&text=${encodeURIComponent(say.toLowerCase())}`;
                             var audio = new Audio(url);
                         audio.playbackRate = this.playbackRate || 1;
@@ -1865,7 +1712,6 @@ class Agent {
                                 _this.clearDialog();
                             }
                         } else if (this.userPublic.voice == "mike") {
-
                             let url = `https://www.tetyys.com/SAPI4//SAPI4?voice=Mike&pitch=100&speed=150&text=${encodeURIComponent(say.toLowerCase())}`;
                             var audio = new Audio(url);
                         audio.playbackRate = this.playbackRate || 1;
@@ -1882,7 +1728,6 @@ class Agent {
                                 _this.clearDialog();
                             }
                         } else if (this.userPublic.voice == "mary") {
-
                             let url = `https://www.tetyys.com/SAPI4//SAPI4?voice=Mary&pitch=100&speed=150&text=${encodeURIComponent(say.toLowerCase())}`;
                             var audio = new Audio(url);
                         audio.playbackRate = this.playbackRate || 1;
@@ -1899,7 +1744,6 @@ class Agent {
                                 _this.clearDialog();
                             }
                         } else if (this.userPublic.voice == "oddcast:mike") {
-
                             let url = `./oddcast-mike?text=${say}`;
                             this.audio = new Audio(url);
                             this.audio.playbackRate = this.playbackRate || 1;
@@ -1916,7 +1760,6 @@ class Agent {
                                 _this.clearDialog();
                             }
                         } else if (this.userPublic.voice == "oddcast:paul") {
-
                             let url = `./oddcast-paul?text=${say}`;
                             this.audio = new Audio(url);
                             this.audio.playbackRate = this.playbackRate || 1;
@@ -1933,7 +1776,6 @@ class Agent {
                                 _this.clearDialog();
                             }
                         } else if (this.userPublic.voice == "oddcast:julie") {
-
                             let url = `./oddcast-julie?text=${say}`;
                             this.audio = new Audio(url);
                             this.audio.playbackRate = this.playbackRate || 1;
@@ -1983,7 +1825,6 @@ class Agent {
                                 _this.clearDialog();
                             }
                         } else {
-
                             speak.play(
                                 say,
                                 {
@@ -1999,7 +1840,6 @@ class Agent {
                                 },
                                 this.abortController.signal
                             );
-                            
                         }
                     }
                 } else {
@@ -2029,7 +1869,6 @@ class Agent {
                                 _this.clearDialog();
                             }
                         } else if (this.userPublic.voice == "sam") {
-
                             let url = `https://www.tetyys.com/SAPI4//SAPI4?voice=Sam&pitch=100&speed=150&text=${encodeURIComponent(say.toLowerCase())}`;
                             var audio = new Audio(url);
                         audio.playbackRate = this.playbackRate || 1;
@@ -2046,7 +1885,6 @@ class Agent {
                                 _this.clearDialog();
                             }
                         } else if (this.userPublic.voice == "mike") {
-
                             let url = `https://www.tetyys.com/SAPI4//SAPI4?voice=Mike&pitch=100&speed=150&text=${encodeURIComponent(say.toLowerCase())}`;
                             var audio = new Audio(url);
                         audio.playbackRate = this.playbackRate || 1;
@@ -2063,7 +1901,6 @@ class Agent {
                                 _this.clearDialog();
                             }
                         } else if (this.userPublic.voice == "mary") {
-
                             let url = `https://www.tetyys.com/SAPI4//SAPI4?voice=Mary&pitch=100&speed=150&text=${encodeURIComponent(say.toLowerCase())}`;
                             var audio = new Audio(url);
                         audio.playbackRate = this.playbackRate || 1;
@@ -2080,7 +1917,6 @@ class Agent {
                                 _this.clearDialog();
                             }
                         } else if (this.userPublic.voice == "oddcast:mike") {
-
                             let url = `./oddcast-mike?text=${say}`;
                             this.audio = new Audio(url);
                             this.audio.playbackRate = this.playbackRate || 1;
@@ -2097,7 +1933,6 @@ class Agent {
                                 _this.clearDialog();
                             }
                         } else if (this.userPublic.voice == "oddcast:paul") {
-
                             let url = `./oddcast-paul?text=${say}`;
                             this.audio = new Audio(url);
                             this.audio.playbackRate = this.playbackRate || 1;
@@ -2114,7 +1949,6 @@ class Agent {
                                 _this.clearDialog();
                             }
                         } else if (this.userPublic.voice == "oddcast:julie") {
-
                             let url = `./oddcast-julie?text=${say}`;
                             this.audio = new Audio(url);
                             this.audio.playbackRate = this.playbackRate || 1;
@@ -2165,7 +1999,6 @@ class Agent {
                                 _this.clearDialog();
                             }
                         } else if (this.userPublic.voice == "sam") {
-
                             let url = `https://www.tetyys.com/SAPI4//SAPI4?voice=Sam&pitch=100&speed=150&text=${encodeURIComponent(say.toLowerCase())}`;
                             var audio = new Audio(url);
                         audio.playbackRate = this.playbackRate || 1;
@@ -2182,7 +2015,6 @@ class Agent {
                                 _this.clearDialog();
                             }
                         } else if (this.userPublic.voice == "mike") {
-
                             let url = `https://www.tetyys.com/SAPI4//SAPI4?voice=Mike&pitch=100&speed=150&text=${encodeURIComponent(say.toLowerCase())}`;
                             var audio = new Audio(url);
                         audio.playbackRate = this.playbackRate || 1;
@@ -2199,7 +2031,6 @@ class Agent {
                                 _this.clearDialog();
                             }
                         } else if (this.userPublic.voice == "mary") {
-
                             let url = `https://www.tetyys.com/SAPI4//SAPI4?voice=Mary&pitch=100&speed=150&text=${encodeURIComponent(say.toLowerCase())}`;
                             var audio = new Audio(url);
                         audio.playbackRate = this.playbackRate || 1;
@@ -2216,7 +2047,6 @@ class Agent {
                                 _this.clearDialog();
                             }
                         } else {
-
                             speak.play(
                                 say,
                                 {
@@ -2232,45 +2062,36 @@ class Agent {
                                 },
                                 this.abortController.signal
                             );
-                            
                         }
                     }
                 }
-                
             }
         }
     }
-
     joke() {
         this.runSingleEvent(this.data.event_list_joke);
     }
-
     fact() {
         this.runSingleEvent(this.data.event_list_fact);
     }
-
     exit(callback) {
         this.cancel();
         setInterval(callback, 1);
     }
-
     deconstruct() {
         this.stopSpeaking();
         AgentHandler.stage.removeChild(this.sprite);
         this.run = false;
         this.$element.remove();
     }
-
     updateName() {
         if (this.mute) return;
         this.$nametag.html(markup(this.userPublic.name) + " <i class='typing' hidden>(typing)</i>");
     }
-
     updateTag() {
         if (this.mute) return;
         this.$tag.html(markup(this.userPublic.tag));
     }
-
     youtube(vid) {
         if (!this.mute) {
             var tag = "iframe";
@@ -2289,7 +2110,6 @@ class Agent {
             this.$dialog.fadeIn(150);
         }
     }
-
     video(vid) {
         if (!this.mute) {
             var tag = "video";
@@ -2302,7 +2122,6 @@ class Agent {
             bonzilog(this.id, this.userPublic.name, html, this.color, html, false);
         }
     }
-
     video_flash(vid) {
         if (!this.mute) {
             this.$dialogCont.html(
@@ -2313,7 +2132,6 @@ class Agent {
                 this.$dialog.fadeIn(150);
         }
     }
-
     img(vid) {
         if (!this.mute) {
             var tag = "img";
@@ -2326,7 +2144,6 @@ class Agent {
             bonzilog(this.id, this.userPublic.name, html, this.color, html, false);1
         }
     }
-
     typing(typing) {
                 this.$element[0].querySelector(".typing").hidden = !typing;
         }
@@ -2354,8 +2171,6 @@ class Agent {
             }
         }
     }
-
-
     backflip(swag) {
         var event = [
             {
@@ -2376,7 +2191,6 @@ class Agent {
         }
         this.runSingleEvent(event);
     }
-
     updateDialog() {
         var max = this.maxCoords();
         this.data.size.x + this.$dialog.width() > max.x
@@ -2387,14 +2201,12 @@ class Agent {
             ? this.$dialog.removeClass("bubble-left").removeClass("bubble-top").removeClass("bubble-bottom").addClass("bubble-right")
             : this.$dialog.removeClass("bubble-right").removeClass("bubble-top").removeClass("bubble-bottom").addClass("bubble-left");
     }
-
     maxCoords() {
         return {
             x: this.$container.width() - this.data.size.x,
             y: this.$container.height() - this.data.size.y - $("#chat_bar").height(),
         };
     }
-
     owo(target) {
         this.runSingleEvent([
             {
@@ -2409,7 +2221,6 @@ class Agent {
             },
         ]);
     }
-
     updateSprite(hide) {
         if (this.mute) return;
         var stage = AgentHandler.stage;
@@ -2417,204 +2228,6 @@ class Agent {
         stage.removeChild(this.sprite);
         if (this.colorPrev != this.color) {
             delete this.sprite;
-            /*
-            if (this.color.startsWith("http")) {
-                var d = { images: ["./img/agents/blank.png"], frames: AgentData.sprite.frames, animations: AgentData.sprite.bonzi_animations }
-                var shjeet = new createjs.SpriteSheet(d);
-                this.sprite = new createjs.Sprite(shjeet, hide ? "gone" : "idle")
-            } else {
-                                var spriteData;
-                                if (this.color == "peedy") {
-                                        spriteData = {
-                                                images: ["./img/agents/" + this.color + ".png"],
-                                                frames: AgentData.sprite.peedy_frames,
-                                                animations: AgentData.sprite.peedy_animations
-                                        };
-                                        this.overlayOffset.left = parseInt(((this.data.size.x - AgentData.sprite.peedy_frames.width) / 2).toFixed(2), 10)
-                                        this.overlayOffset.top = parseInt(((this.data.size.y - AgentData.sprite.peedy_frames.height) / 2).toFixed(2), 10)
-                                } else if (this.color == "james") {
-                                        
-                                        spriteData = {
-                                                images: ["./img/agents/" + this.color + ".png"],
-                                                frames: AgentData.sprite.james_frames,
-                                                animations: AgentData.sprite.james_animations
-                                        };
-                                        this.overlayOffset.left = 0;
-                                        this.overlayOffset.top = 0;
-                                } else if (this.color == "squidward") {
-                                        
-                                        spriteData = {
-                                                images: ["./img/agents/" + this.color + ".png"],
-                                                frames: AgentData.sprite.frames,
-                                                animations: AgentData.sprite.template_animations
-                                        };
-                                        this.overlayOffset.left = 0;
-                                        this.overlayOffset.top = 0;
-                                } else if (this.color == "plankton") {
-                                        
-                                        spriteData = {
-                                                images: ["./img/agents/" + this.color + ".png"],
-                                                frames: AgentData.sprite.frames,
-                                                animations: AgentData.sprite.template_animations
-                                        };
-                                        this.overlayOffset.left = 0;
-                                        this.overlayOffset.top = 0;
-                                } else if (this.color == "nono" || this.color == "siobhan" || this.color == "kern3l" || this.color == "peetzuh" || this.color == "commo" || this.color == "misoneme") {
-                                        
-                                        spriteData = {
-                                                images: ["./img/agents/" + this.color + ".png"],
-                                                frames: AgentData.sprite.frames,
-                                                animations: AgentData.sprite.template_animations
-                                        };
-                                        this.overlayOffset.left = 0;
-                                        this.overlayOffset.top = 0;
-                                } else if (this.color == "reimu") {
-                                        
-                                        spriteData = {
-                                                images: ["./img/agents/" + this.color + ".png"],
-                                                frames: AgentData.sprite.reimu_frames,
-                                                animations: AgentData.sprite.reimu_animations
-                                        };
-                                        this.overlayOffset.left = parseInt(((this.data.size.x - AgentData.sprite.reimu_frames.width) / 2).toFixed(2), 10)
-                                        this.overlayOffset.top = parseInt(((this.data.size.y - AgentData.sprite.reimu_frames.height) / 2).toFixed(2), 10)
-                                } else if (this.color == "marisa") {
-                                        
-                                        spriteData = {
-                                                images: ["./img/agents/" + this.color + ".png"],
-                                                frames: AgentData.sprite.marisa_frames,
-                                                animations: AgentData.sprite.marisa_animations
-                                        };
-                                        this.overlayOffset.left = parseInt(((this.data.size.x - AgentData.sprite.marisa_frames.width) / 2).toFixed(2), 10)
-                                        this.overlayOffset.top = parseInt(((this.data.size.y - AgentData.sprite.marisa_frames.height) / 2).toFixed(2), 10)
-                                } else if (this.color == "clippit") {
-                                        
-                                        spriteData = {
-                                                images: ["./img/agents/" + this.color + ".png"],
-                                                frames: AgentData.sprite.clippit_frames,
-                                                animations: AgentData.sprite.clippit_animations
-                                        };
-                                        this.overlayOffset.left = parseInt(((this.data.size.x - AgentData.sprite.clippit_frames.width) / 2).toFixed(2), 10)
-                                        this.overlayOffset.top = parseInt(((this.data.size.y - AgentData.sprite.clippit_frames.height) / 2).toFixed(2), 10)
-                                        
-                                        
-                                } else if (this.color == "rover") {
-                                        
-                                        spriteData = {
-                                                images: ["./img/agents/" + this.color + ".png"],
-                                                frames: AgentData.sprite.rover_frames,
-                                                animations: AgentData.sprite.rover_animations
-                                        };
-                                        this.overlayOffset.left = parseInt(((this.data.size.x - AgentData.sprite.rover_frames.width) / 2).toFixed(2), 10)
-                                        this.overlayOffset.top = parseInt(((this.data.size.y - AgentData.sprite.rover_frames.height) / 2).toFixed(2), 10)
-                                        
-                                } else if (this.color == "genius") {
-                                        
-                                        spriteData = {
-                                                images: ["./img/agents/" + this.color + ".png"],
-                                                frames: AgentData.sprite.clippit_frames,
-                                                animations: AgentData.sprite.genius_animations
-                                        };
-                                        this.overlayOffset.left = parseInt(((this.data.size.x - AgentData.sprite.clippit_frames.width) / 2).toFixed(2), 10)
-                                        this.overlayOffset.top = parseInt(((this.data.size.y - AgentData.sprite.clippit_frames.height) / 2).toFixed(2), 10)
-                                } else if (this.color == "logo") {
-                                        
-                                        spriteData = {
-                                                images: ["./img/agents/" + this.color + ".png"],
-                                                frames: AgentData.sprite.clippit_frames,
-                                                animations: AgentData.sprite.logo_animations
-                                        };
-                                        this.overlayOffset.left = parseInt(((this.data.size.x - AgentData.sprite.clippit_frames.width) / 2).toFixed(2), 10)
-                                        this.overlayOffset.top = parseInt(((this.data.size.y - AgentData.sprite.clippit_frames.height) / 2).toFixed(2), 10)
-                                } else if (this.color == "mnature") {
-                                        
-                                        spriteData = {
-                                                images: ["./img/agents/" + this.color + ".png"],
-                                                frames: AgentData.sprite.clippit_frames,
-                                                animations: AgentData.sprite.mnature_animations
-                                        };
-                                        this.overlayOffset.left = parseInt(((this.data.size.x - AgentData.sprite.clippit_frames.width) / 2).toFixed(2), 10)
-                                        this.overlayOffset.top = parseInt(((this.data.size.y - AgentData.sprite.clippit_frames.height) / 2).toFixed(2), 10)
-                                } else if (this.color == "offcat") {
-                                        
-                                        spriteData = {
-                                                images: ["./img/agents/" + this.color + ".png"],
-                                                frames: AgentData.sprite.clippit_frames,
-                                                animations: AgentData.sprite.offcat_animations
-                                        };
-                                        this.overlayOffset.left = parseInt(((this.data.size.x - AgentData.sprite.clippit_frames.width) / 2).toFixed(2), 10)
-                                        this.overlayOffset.top = parseInt(((this.data.size.y - AgentData.sprite.clippit_frames.height) / 2).toFixed(2), 10)
-                                } else if (this.color == "f1") {
-                                        
-                                        spriteData = {
-                                                images: ["./img/agents/" + this.color + ".png"],
-                                                frames: AgentData.sprite.clippit_frames,
-                                                animations: AgentData.sprite.f1_animations
-                                        };
-                                        this.overlayOffset.left = parseInt(((this.data.size.x - AgentData.sprite.clippit_frames.width) / 2).toFixed(2), 10)
-                                        this.overlayOffset.top = parseInt(((this.data.size.y - AgentData.sprite.clippit_frames.height) / 2).toFixed(2), 10)
-                                } else if (this.color == "rocky") {
-                                        
-                                        spriteData = {
-                                                images: ["./img/agents/" + this.color + ".png"],
-                                                frames: AgentData.sprite.clippit_frames,
-                                                animations: AgentData.sprite.rocky_animations
-                                        };
-                                        this.overlayOffset.left = parseInt(((this.data.size.x - AgentData.sprite.clippit_frames.width) / 2).toFixed(2), 10)
-                                        this.overlayOffset.top = parseInt(((this.data.size.y - AgentData.sprite.clippit_frames.height) / 2).toFixed(2), 10)
-                                } else if (this.color == "genie") { 
-                                        
-                                        spriteData = { 
-                                                images: ["./img/agents/" + this.color + ".png"],
-                                                frames: AgentData.sprite.blob_frames, 
-                                                animations: AgentData.sprite.genie_animations
-                                        };
-                                        this.overlayOffset.left = parseInt(((this.data.size.x - AgentData.sprite.blob_frames.width) / 2).toFixed(2), 10)
-                                        this.overlayOffset.top = parseInt(((this.data.size.y - AgentData.sprite.blob_frames.height) / 2).toFixed(2), 10)
-                                } else if (this.color == "merlin") {
-                                        
-                                        spriteData = {
-                                                images: ["./img/agents/" + this.color + ".png"],
-                                                frames: AgentData.sprite.merlin_frames,
-                                                animations: AgentData.sprite.merlin_animations
-                                        };
-                                        this.overlayOffset.left = parseInt(((this.data.size.x - AgentData.sprite.merlin_frames.width) / 2).toFixed(2), 10)
-                                        this.overlayOffset.top = parseInt(((this.data.size.y - AgentData.sprite.merlin_frames.height) / 2).toFixed(2), 10)
-                                } else if (this.color == "robby") {
-                                        
-                                        spriteData = {
-                                                images: ["./img/agents/" + this.color + ".png"],
-                                                frames: AgentData.sprite.merlin_frames,
-                                                animations: AgentData.sprite.robby_animations
-                                        };
-                                        this.overlayOffset.left = parseInt(((this.data.size.x - AgentData.sprite.merlin_frames.width) / 2).toFixed(2), 10)
-                                        this.overlayOffset.top = parseInt(((this.data.size.y - AgentData.sprite.merlin_frames.height) / 2).toFixed(2), 10)
-                                        
-                                } else if (this.color == "blob") {
-                                        
-                                        spriteData = {
-                                                images: ["./img/agents/" + this.color + ".png"],
-                                                frames: AgentData.sprite.blob_frames,
-                                                animations: AgentData.sprite.blob_animations
-                                        };
-                                        this.overlayOffset.left = parseInt(((this.data.size.x - AgentData.sprite.blob_frames.width) / 2).toFixed(2), 10)
-                                        this.overlayOffset.top = parseInt(((this.data.size.y - AgentData.sprite.blob_frames.height) / 2).toFixed(2), 10)
-                                } else if (this.color == "maxalert") {
-                                        
-                                        spriteData = {
-                                                images: ["./img/agents/" + this.color + ".png"],
-                                                frames: AgentData.sprite.maxalert_frames,
-                                                animations: AgentData.sprite.maxalert_animations
-                                        };
-                                        this.overlayOffset.left = parseInt(((this.data.size.x - AgentData.sprite.maxalert_frames.width) / 2).toFixed(2), 10)
-                                        this.overlayOffset.top = parseInt(((this.data.size.y - AgentData.sprite.maxalert_frames.height) / 2).toFixed(2), 10)
-                                } else {
-                                        this.overlayOffset.left = 0;
-                                        this.overlayOffset.top = 0;
-                                }
-                this.sprite = new createjs.Sprite(new createjs.SpriteSheet(spriteData), hide ? "gone" : "idle");
-            }
-                                */
-                
                 var spriteData = {
                     images: ["./img/agents/" + this.color + ".png"],
                     frames:
@@ -2752,7 +2365,6 @@ class Agent {
                 this.overlayOffset.left = 0;
                 this.overlayOffset.top = 0;
             }
-            
         }
                 if (isValidColor(this.color)) {
                 this.$oldCanvas.css("background-image",`url(./img/agents/${this.color}.png)`);
@@ -2762,7 +2374,6 @@ class Agent {
         stage.addChild(this.sprite);
         this.move();
     }
-
     explode() {
         this.cancel();
         this.runSingleEvent([
@@ -2777,7 +2388,6 @@ class Agent {
         explosion.style.left = this.x + "px";
         explosion.style.top = this.y + "px";
         document.body.appendChild(explosion);
-        //this.element.style.zIndex = "999999"; // show above chat log
         var _this = this;
         let rot = 0;
         let posX = this.x;
@@ -2881,14 +2491,11 @@ var AgentData = {
         james_frames: { width: 150, height: 187 },
         reimu_frames: { width: 128, height: 128 },
         marisa_frames: { width: 61, height: 109 },
-                
                 animations: {
                         idle: [0],
             gone: 142,
-
             surf_intro: [1, 26, "idle", 1.0],
             surf_away: [27, 50, "gone", 1.0],
-
                         shrug_fwd: {
                                 frames: range(51, 61), 
                                 next: "shrug_still",
@@ -2900,7 +2507,6 @@ var AgentData = {
                                 next: "idle",
                                 speed: 1.0
                         },
-
                         earth_fwd: {
                                 frames: range(63, 69), 
                                 next: "earth_still",
@@ -2916,7 +2522,6 @@ var AgentData = {
                                 next: "idle",
                                 speed: 1.0
                         },
-
                         cool_fwd: {
                                 frames: range(98, 114), 
                                 next: "cool_still",
@@ -2928,7 +2533,6 @@ var AgentData = {
                                 next: "idle",
                                 speed: 1.0
                         },
-
                         praise_fwd: {
                                 frames: range(116, 119), 
                                 next: "praise_still",
@@ -2940,8 +2544,6 @@ var AgentData = {
                                 next: "idle",
                                 speed: 1.0
                         },
-
-
                         grin_fwd: {
                                 frames: range(121, 127), 
                                 next: "grin_still",
@@ -2953,14 +2555,11 @@ var AgentData = {
                                 next: "idle",
                                 speed: 1.0
                         },
-
                         backflip: [129, 141, "idle", 1.0]
                 },
-        // essentially the same as regular bonzi
                 ban_animations: {
                         idle: [0],
             gone: 142,
-
             surf_intro: [1, 26, "surf_intro2", 1],
             surf_intro2: [98, 109, "idle", 1],
             surf_away2: [27, 50, "gone", 1],
@@ -2969,7 +2568,6 @@ var AgentData = {
                                 next: "surf_away2",
                                 speed: 1
                         },
-
                         shrug_fwd: {
                                 frames: range(51, 61), 
                                 next: "shrug_still",
@@ -2981,7 +2579,6 @@ var AgentData = {
                                 next: "idle",
                                 speed: 1.0
                         },
-
                         earth_fwd: {
                                 frames: range(63, 69), 
                                 next: "earth_still",
@@ -2997,7 +2594,6 @@ var AgentData = {
                                 next: "idle",
                                 speed: 1.0
                         },
-
                         cool_fwd: {
                                 frames: range(98, 114), 
                                 next: "cool_still",
@@ -3009,7 +2605,6 @@ var AgentData = {
                                 next: "idle",
                                 speed: 1.0
                         },
-
                         praise_fwd: {
                                 frames: range(116, 119), 
                                 next: "praise_still",
@@ -3021,8 +2616,6 @@ var AgentData = {
                                 next: "idle",
                                 speed: 1.0
                         },
-
-
                         grin_fwd: {
                                 frames: range(121, 127), 
                                 next: "grin_still",
@@ -3034,7 +2627,6 @@ var AgentData = {
                                 next: "idle",
                                 speed: 1.0
                         },
-
                         backflip: [129, 141, "idle", 1.0]
                 },
         bonzi_animations: {
@@ -3042,7 +2634,6 @@ var AgentData = {
             surf_intro: [1139, 1164, "idle", 1.0],
             surf_away: [1165, 1188, "gone", 1.0],
             gone: 1139,
-
             laugh: {
                 frames: [0, 1019, 1020, 1021, 1022, 1023, 1021, 1022, 1021, 1023, 1022, 1021, 1023, 1022, 1023, 1021, 1022, 1023, 1021, 1020, 0],
                 next: "idle",
@@ -3082,7 +2673,6 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             clap_fwd: {
                 frames: [0, 74, 75, 76, 77, 78, 77, 78, 77, 78, 77, 79],
                 next: "clap_still",
@@ -3094,7 +2684,6 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             fact_fwd: {
                 frames: [779, 778, 777, 776, 775, 775, 775, 774, 773, 772, 780, 781, 782, 783, 784, 785, 758, 758, 758, 758, 758, 758, 758, 758, 758, 758, 761, 762, 763, 764],
                 next: "fact_still",
@@ -3915,7 +3504,6 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             look_left: {
                 frames: [
                     0,
@@ -3975,7 +3563,6 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             look_right: {
                 frames: [
                     0,
@@ -4027,7 +3614,6 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             look_down: {
                 frames: [
                     413,
@@ -4091,7 +3677,6 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             look_up: {
                 frames: [
                     0,
@@ -4160,19 +3745,16 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             breathe: {
                 frames: [0, 41, 42, 43, 44, 45, 46, 46, 46, 46, 45, 44, 43, 42, 41, 0],
                 next: "idle",
                 speed: 1.0,
             },
-
             taptaptap: {
                 frames: [0, 999, 1000, 1001, 1002, 1002, 1002, 1002, 1002, 1002, 1002, 1001, 1000, 999, 1003, 1004, 1005, 1006, 1006, 1006, 1006, 1006, 1006, 1006, 1006, 1006, 1005, 1004, 1003, 0],
                 next: "idle",
                 speed: 1.0,
             },
-
             yawn: {
                 frames: [0, 192, 193, 194, 195, 196, 197, 199, 200, 199, 197, 199, 200, 199, 197, 199, 200, 199, 197, 199, 200, 199, 197, 199, 200, 195, 194, 193, 192, 0],
                 next: "idle",
@@ -4185,7 +3767,6 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             grin_fwd: [1083, 1087, "grin_still", 1.0],
             grin_still: 1087,
             grin_back: {
@@ -4193,7 +3774,6 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             praise_fwd: [151, 155, "praise_still", 1.0],
             praise_still: 155,
             praise_back: {
@@ -4202,7 +3782,6 @@ var AgentData = {
                 speed: 1.0,
             },
             backflip: [163, 175, "idle", 1.0],
-
             beat_fwd: {
                 frames: [0, 431, 432, 433, 434, 435, 436, 437, 434, 435, 436, 437],
                 next: "beat_back",
@@ -4259,7 +3838,6 @@ var AgentData = {
         },
         peedy_animations: {
             idle: 0,
-
             surf_across_fwd: [1, 8, "surf_across_still", 1.0],
             surf_across_still: 9,
             surf_across_back: {
@@ -4267,7 +3845,6 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             clap_fwd: [10, 12, "clap_still", 1.0],
             clap_still: [13, 15, "clap_still", 1.0],
             clap_back: {
@@ -4275,12 +3852,9 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             surf_intro: [6, 28, "idle", 1.0],
             surf_away: [377, 400, "gone", 1.0],
-
             gone: 400,
-
             shrug_fwd: [253, 260, "shrug_still", 1.0],
             shrug_still: 260,
             shrug_back: {
@@ -4288,7 +3862,6 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             earth_fwd: [575, 581, "earth_still", 1.0],
             earth_still: [584, 616, "earth_still", 1.0],
             earth_back: {
@@ -4296,8 +3869,6 @@ var AgentData = {
                 speed: 1.0,
                 next: "idle",
             },
-
-            // TODO: ADD BLINK
             look_down_fwd: [218, 222, "look_down_still", 1.0],
             look_down_still: 222,
             look_down_back: {
@@ -4305,8 +3876,6 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
-            // TODO: ADD BLINK
             lean_left_fwd: [94, 97, "lean_left_still", 1.0],
             lean_left_still: 98,
             lean_left_back: {
@@ -4314,7 +3883,6 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             surprised_fwd: {
                 frames: [0, 294, 295, 296, 296, 297, 298, 299, 300, 300, 300, 300, 303, 304],
                 next: "surprised_still",
@@ -4604,7 +4172,6 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             cool_fwd: [108, 126, "cool_still", 1.0],
             cool_still: 126,
             cool_back: {
@@ -4612,7 +4179,6 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             cool_right_fwd: [126, 128, "cool_right_still", 1.0],
             cool_right_still: 129,
             cool_right_back: {
@@ -4620,7 +4186,6 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             cool_left_fwd: [131, 133, "cool_left_still", 1.0],
             cool_left_still: 134,
             cool_left_back: {
@@ -4628,13 +4193,11 @@ var AgentData = {
                 next: "cool_still",
                 speed: 1.0,
             },
-
             cool_adjust: {
                 frames: [124, 123, 122, 121, 120, 135, 136, 135, 120, 121, 122, 123, 124],
                 next: "cool_still",
                 speed: 1.0,
             },
-
             present_fwd: [137, 141, "present_still", 1.0],
             present_still: 142,
             present_back: {
@@ -4642,7 +4205,6 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             look_left_fwd: [143, 145, "look_left_still", 1.0],
             look_left_still: 146,
             look_left_back: {
@@ -4650,25 +4212,21 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             look_left: {
                 frames: [0, 225, 226, 227, 228, 228, 228, 228, 228, 228, 228, 228, 228, 228, 228, 228, 228, 228, 228, 228, 228, 228, 228, 228, 228, 228, 228, 228, 228, 228, 228, 228, 228, 228, 228, 228, 228, 227, 226, 225, 0],
                 next: "idle",
                 speed: 1.0,
             },
-
             look_right: {
                 frames: [0, 950, 951, 952, 953, 953, 953, 953, 953, 953, 953, 953, 953, 953, 953, 953, 953, 953, 953, 953, 953, 953, 953, 953, 953, 953, 953, 953, 953, 953, 953, 953, 953, 953, 953, 953, 953, 952, 951, 950, 0],
                 next: "idle",
                 speed: 1.0,
             },
-
             look_down: {
                 frames: [0, 218, 219, 220, 221, 222, 222, 222, 222, 222, 222, 222, 222, 222, 222, 222, 222, 222, 222, 222, 222, 222, 222, 222, 222, 222, 222, 222, 222, 222, 222, 222, 222, 222, 222, 222, 222, 221, 220, 219, 218, 0],
                 next: "idle",
                 speed: 1.0,
             },
-
             look_right_fwd: [149, 151, "look_right_still", 1.0],
             look_right_still: 152,
             look_right_back: {
@@ -4676,7 +4234,6 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             lean_right_fwd: {
                 frames: range(158, 156),
                 next: "lean_right_still",
@@ -4684,7 +4241,6 @@ var AgentData = {
             },
             lean_right_still: 155,
             lean_right_back: [156, 158, "idle", 1.0],
-
             praise_fwd: [91, 95, "praise_still", 1.0],
             praise_still: 95,
             praise_back: {
@@ -4692,7 +4248,6 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             grin_fwd: [743, 753, "grin_still", 1.0],
             grin_still: 747,
             grin_back: {
@@ -4700,19 +4255,16 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             taptaptap: {
                 frames: [177, 178, 179, 180, 181],
                 next: "idle",
                 speed: 1.0,
             },
-
             breathe: {
                 frames: [342, 343, 344, 345, 346, 347, 348, 348, 348, 348, 348, 348, 347, 346, 345, 344, 343, 342],
                 next: "idle",
                 speed: 1.0,
             },
-
             backflip: {
                 frames: [0, 412, 413, 414, 415, 416, 416, 417, 418, 419, 420, 419, 418, 417, 416, 415, 414, 413, 412, 0],
                 next: "idle",
@@ -4783,7 +4335,6 @@ var AgentData = {
         },
         genie_animations: {
             idle: 0,
-
             surf_across_fwd: [1, 8, "surf_across_still", 1.0],
             surf_across_still: 9,
             surf_across_back: {
@@ -4791,7 +4342,6 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             clap_fwd: [577, 581, "clap_still", 1.0],
             clap_still: [579, 581, "clap_still", 1.0],
             clap_back: {
@@ -4799,12 +4349,9 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             surf_intro: [86, 95, "idle", 1.0],
             surf_away: [96, 106, "gone", 1.0],
-
             gone: 590,
-
             shrug_fwd: [271, 275, "shrug_still", 1.0],
             shrug_still: 275,
             shrug_back: {
@@ -4812,11 +4359,9 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             earth_fwd: [385, 391, "earth_still", 0.6],
             earth_still: [391, 396, "earth_still", 0.6],
             earth_back: [397, 402, "idle", 0.6],
-
             cool: {
                 frames: [0],
                 next: "idle",
@@ -4827,7 +4372,6 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             present_fwd: [107, 111, "present_still", 1.0],
             present_still: 111,
             present_back: {
@@ -4835,25 +4379,21 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             look_left: {
                 frames: [0],
                 next: "idle",
                 speed: 1.0,
             },
-
             look_right: {
                 frames: [0],
                 next: "idle",
                 speed: 1.0,
             },
-
             look_down: {
                 frames: [0],
                 next: "idle",
                 speed: 1.0,
             },
-
             praise_fwd: [361, 365, "praise_still", 1.0],
             praise_still: 365,
             praise_back: {
@@ -4861,7 +4401,6 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             grin_fwd: [161, 165, "grin_still", 1.0],
             grin_still: 165,
             grin_back: {
@@ -4869,13 +4408,11 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             taptaptap: {
                 frames: [0],
                 next: "idle",
                 speed: 1.0,
             },
-
             breathe: {
                 frames: [0],
                 next: "idle",
@@ -4884,7 +4421,6 @@ var AgentData = {
         },
         merlin_animations: {
             idle: 0,
-
             surf_across_fwd: [1, 8, "surf_across_still", 1.0],
             surf_across_still: 9,
             surf_across_back: {
@@ -4892,7 +4428,6 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             clap_fwd: [445, 457, "clap_still", 1.0],
             clap_still: [349, 350, "clap_still", 1.0],
             clap_back: {
@@ -4900,12 +4435,9 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             surf_intro: [128, 136, "idle", 1.0],
             surf_away: [137, 149, "gone", 1.0],
-
             gone: 613,
-
             shrug_fwd: [174, 178, "shrug_still", 1.0],
             shrug_still: 178,
             shrug_back: {
@@ -4913,7 +4445,6 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             earth_fwd: [186, 190, "earth_still", 0.6],
             earth_still: [190, 199, "earth_still", 0.6],
             earth_back: {
@@ -4921,7 +4452,6 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             cool: {
                 frames: [0],
                 next: "idle",
@@ -4932,7 +4462,6 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             present_fwd: [117, 120, "present_still", 1.0],
             present_still: 120,
             present_back: {
@@ -4940,25 +4469,21 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             look_left: {
                 frames: [0],
                 next: "idle",
                 speed: 1.0,
             },
-
             look_right: {
                 frames: [0],
                 next: "idle",
                 speed: 1.0,
             },
-
             look_down: {
                 frames: [0],
                 next: "idle",
                 speed: 1.0,
             },
-
             praise_fwd: [82, 86, "praise_still", 1.0],
             praise_still: 86,
             praise_back: {
@@ -4966,7 +4491,6 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             grin_fwd: [345, 350, "grin_still", 1.0],
             grin_still: 350,
             grin_back: {
@@ -4974,13 +4498,11 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             taptaptap: {
                 frames: [0],
                 next: "idle",
                 speed: 1.0,
             },
-
             breathe: {
                 frames: [0],
                 next: "idle",
@@ -4989,7 +4511,6 @@ var AgentData = {
         },
         robby_animations: {
             idle: 0,
-
             surf_across_fwd: [1, 8, "surf_across_still", 1.0],
             surf_across_still: 9,
             surf_across_back: {
@@ -4997,7 +4518,6 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             clap_fwd: [121, 128, "shrug_still", 1.0],
             clap_still: 128,
             clap_back: {
@@ -5005,12 +4525,9 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             surf_intro: [53, 70, "idle", 1.0],
             surf_away: [369, 389, "gone", 1.0],
-
             gone: 593,
-
             shrug_fwd: [175, 177, "shrug_still", 1.0],
             shrug_still: 177,
             shrug_back: {
@@ -5018,7 +4535,6 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             earth_fwd: [290, 298, "earth_still", 1.0],
             earth_still: [300, 306, "earth_still", 1.0],
             earth_back: {
@@ -5026,7 +4542,6 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             cool: {
                 frames: [0],
                 next: "idle",
@@ -5037,7 +4552,6 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             present_fwd: [207, 211, "present_still", 1.0],
             present_still: 211,
             present_back: {
@@ -5045,25 +4559,21 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             look_left: {
                 frames: [0],
                 next: "idle",
                 speed: 1.0,
             },
-
             look_right: {
                 frames: [0],
                 next: "idle",
                 speed: 1.0,
             },
-
             look_down: {
                 frames: [0],
                 next: "idle",
                 speed: 1.0,
             },
-
             praise_fwd: [219, 221, "praise_still", 1.0],
             praise_still: 221,
             praise_back: {
@@ -5071,7 +4581,6 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             grin_fwd: [345, 350, "grin_still", 1.0],
             grin_still: 350,
             grin_back: {
@@ -5079,13 +4588,11 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             taptaptap: {
                 frames: [0],
                 next: "idle",
                 speed: 1.0,
             },
-
             breathe: {
                 frames: [0],
                 next: "idle",
@@ -5094,7 +4601,6 @@ var AgentData = {
         },
         clippit_animations: {
             idle: 0,
-
             surf_across_fwd: [1, 8, "surf_across_still", 1.0],
             surf_across_still: 9,
             surf_across_back: {
@@ -5102,7 +4608,6 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             clap_fwd: [10, 12, "clap_still", 1.0],
             clap_still: [13, 15, "clap_still", 1.0],
             clap_back: {
@@ -5110,7 +4615,6 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             clicked: {
                 frames: [210, 211, 212, 213, 214, 215, 216, 216, 216, 216, 216, 216, 216, 216, 216, 216, 217, 216, 216, 216, 216, 216, 216, 216, 216, 218, 211, 0],
                 next: "idle",
@@ -5131,9 +4635,7 @@ var AgentData = {
                 next: "gone",
                 speed: 1.0,
             },
-
             gone: 902,
-
             shrug_fwd: [89, 91, "shrug_still", 1.0],
             shrug_still: 91,
             shrug_back: {
@@ -5141,7 +4643,6 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             earth_fwd: [777, 797, "earth_still", 1.0],
             earth_still: [797, 808, "earth_still", 1.0],
             earth_back: {
@@ -5149,7 +4650,6 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             sleep_fwd: {
                 frames: [0, 565, 566, 567, 568, 569, 570, 571, 572, 573, 574, 575, 576, 577, 578, 579, 580, 581, 582, 583, 584, 585, 586, 587, 588, 589, 590, 591],
                 next: "sleep_still",
@@ -5165,8 +4665,6 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
-            // TODO: ADD BLINK
             look_down_fwd: [218, 222, "look_down_still", 1.0],
             look_down_still: 222,
             look_down_back: {
@@ -5174,8 +4672,6 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
-            // TODO: ADD BLINK
             lean_left_fwd: [94, 97, "lean_left_still", 1.0],
             lean_left_still: 98,
             lean_left_back: {
@@ -5183,7 +4679,6 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             beat_fwd: [101, 103, "beat_still", 1.0],
             beat_still: [104, 107, "beat_still", 1.0],
             beat_back: {
@@ -5191,7 +4686,6 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             cool: {
                 frames: [
                     0,
@@ -5369,7 +4863,6 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             cool_fwd: [108, 126, "cool_still", 1.0],
             cool_still: 126,
             cool_back: {
@@ -5377,7 +4870,6 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             cool_right_fwd: [126, 128, "cool_right_still", 1.0],
             cool_right_still: 129,
             cool_right_back: {
@@ -5385,7 +4877,6 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             cool_left_fwd: [131, 133, "cool_left_still", 1.0],
             cool_left_still: 134,
             cool_left_back: {
@@ -5393,13 +4884,11 @@ var AgentData = {
                 next: "cool_still",
                 speed: 1.0,
             },
-
             cool_adjust: {
                 frames: [124, 123, 122, 121, 120, 135, 136, 135, 120, 121, 122, 123, 124],
                 next: "cool_still",
                 speed: 1.0,
             },
-
             present_fwd: [25, 34, "present_still", 1.0],
             present_still: 34,
             present_back: {
@@ -5407,7 +4896,6 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             look_left_fwd: [143, 145, "look_left_still", 1.0],
             look_left_still: 146,
             look_left_back: {
@@ -5415,25 +4903,21 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             look_left: {
                 frames: [0, 125, 126, 127, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 127, 126, 125, 0],
                 next: "idle",
                 speed: 1.0,
             },
-
             look_right: {
                 frames: [0, 120, 121, 122, 123, 123, 123, 123, 123, 123, 123, 123, 123, 123, 123, 123, 123, 123, 123, 123, 123, 123, 122, 121, 120, 0],
                 next: "idle",
                 speed: 1.0,
             },
-
             look_down: {
                 frames: [0, 110, 111, 112, 112, 112, 112, 112, 112, 112, 112, 112, 112, 112, 112, 112, 112, 113, 112, 112, 112, 113, 114, 0],
                 next: "idle",
                 speed: 1.0,
             },
-
             look_right_fwd: [149, 151, "look_right_still", 1.0],
             look_right_still: 152,
             look_right_back: {
@@ -5441,7 +4925,6 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             lean_right_fwd: {
                 frames: range(158, 156),
                 next: "lean_right_still",
@@ -5449,7 +4932,6 @@ var AgentData = {
             },
             lean_right_still: 155,
             lean_right_back: [156, 158, "idle", 1.0],
-
             praise_fwd: {
                 frames: [35, 36, 37, 38, 39, 40, 41, 39, 40, 41, 39, 40, 41, 42, 43, 44],
                 next: "praise_still",
@@ -5461,7 +4943,6 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             grin_fwd: [743, 753, "grin_still", 1.0],
             grin_still: 747,
             grin_back: {
@@ -5469,29 +4950,24 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             taptaptap: {
                 frames: [0],
                 next: "idle",
                 speed: 1.0,
             },
-
             breathe: {
                 frames: [0],
                 next: "idle",
                 speed: 1.0,
             },
-
             backflip: {
                 frames: [0, 412, 413, 414, 415, 416, 416, 417, 418, 419, 420, 419, 418, 417, 416, 415, 414, 413, 412, 0],
                 next: "idle",
                 speed: 1.0,
             },
         },
-
         genius_animations: {
             idle: 0,
-
             surf_across_fwd: [1, 8, "surf_across_still", 1.0],
             surf_across_still: 9,
             surf_across_back: {
@@ -5499,7 +4975,6 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             clap_fwd: [339, 360, "clap_still", 0.6],
             clap_still: 360,
             clap_back: {
@@ -5507,7 +4982,6 @@ var AgentData = {
                 next: "idle",
                 speed: 0.6,
             },
-
             earth_fwd: [626, 636, "earth_still", 1.0],
             earth_still: [636, 653, "earth_still", 1.0],
             earth_back: {
@@ -5515,7 +4989,6 @@ var AgentData = {
                 speed: 1.0,
                 next: "idle",
             },
-
             surf_intro: {
                 frames: [297, 298, 299, 300, 301, 302, 303, 304, 305, 306, 307, 308, 309, 310, 311, 312, 313, 314, 315, 316, 317, 318, 319, 320, 321, 322, 323, 324, 9, 2, 1, 0],
                 next: "idle",
@@ -5526,9 +4999,7 @@ var AgentData = {
                 next: "gone",
                 speed: 1,
             },
-
             gone: 692,
-
             shrug_fwd: [89, 91, "shrug_still", 1.0],
             shrug_still: 91,
             shrug_back: {
@@ -5536,7 +5007,6 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             earth_fwd: [626, 636, "earth_still", 1.0],
             earth_still: [636, 653, "earth_still", 1.0],
             earth_back: {
@@ -5544,8 +5014,6 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
-            // TODO: ADD BLINK
             look_down_fwd: [218, 222, "look_down_still", 1.0],
             look_down_still: 222,
             look_down_back: {
@@ -5553,8 +5021,6 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
-            // TODO: ADD BLINK
             lean_left_fwd: [94, 97, "lean_left_still", 1.0],
             lean_left_still: 98,
             lean_left_back: {
@@ -5562,7 +5028,6 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             beat_fwd: [101, 103, "beat_still", 1.0],
             beat_still: [104, 107, "beat_still", 1.0],
             beat_back: {
@@ -5570,7 +5035,6 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             cool: {
                 frames: [0],
                 next: "idle",
@@ -5581,7 +5045,6 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             cool_fwd: [108, 126, "cool_still", 1.0],
             cool_still: 126,
             cool_back: {
@@ -5589,7 +5052,6 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             cool_right_fwd: [126, 128, "cool_right_still", 1.0],
             cool_right_still: 129,
             cool_right_back: {
@@ -5597,7 +5059,6 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             cool_left_fwd: [131, 133, "cool_left_still", 1.0],
             cool_left_still: 134,
             cool_left_back: {
@@ -5605,13 +5066,11 @@ var AgentData = {
                 next: "cool_still",
                 speed: 1.0,
             },
-
             cool_adjust: {
                 frames: [124, 123, 122, 121, 120, 135, 136, 135, 120, 121, 122, 123, 124],
                 next: "cool_still",
                 speed: 1.0,
             },
-
             present_fwd: [25, 34, "present_still", 1.0],
             present_still: 34,
             present_back: {
@@ -5619,7 +5078,6 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             look_left_fwd: [143, 145, "look_left_still", 1.0],
             look_left_still: 146,
             look_left_back: {
@@ -5627,25 +5085,21 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             look_left: {
                 frames: [0, 125, 126, 127, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 127, 126, 125, 0],
                 next: "idle",
                 speed: 1.0,
             },
-
             look_right: {
                 frames: [0, 120, 121, 122, 123, 123, 123, 123, 123, 123, 123, 123, 123, 123, 123, 123, 123, 123, 123, 123, 123, 123, 122, 121, 120, 0],
                 next: "idle",
                 speed: 1.0,
             },
-
             look_down: {
                 frames: [0, 110, 111, 112, 112, 112, 112, 112, 112, 112, 112, 112, 112, 112, 112, 112, 112, 113, 112, 112, 112, 113, 114, 0],
                 next: "idle",
                 speed: 1.0,
             },
-
             look_right_fwd: [149, 151, "look_right_still", 1.0],
             look_right_still: 152,
             look_right_back: {
@@ -5653,7 +5107,6 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             lean_right_fwd: {
                 frames: range(158, 156),
                 next: "lean_right_still",
@@ -5661,7 +5114,6 @@ var AgentData = {
             },
             lean_right_still: 155,
             lean_right_back: [156, 158, "idle", 1.0],
-
             praise_fwd: [35, 44, "praise_still", 1.0],
             praise_still: 44,
             praise_back: {
@@ -5669,7 +5121,6 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             grin_fwd: [743, 753, "grin_still", 1.0],
             grin_still: 747,
             grin_back: {
@@ -5677,29 +5128,24 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             taptaptap: {
                 frames: [0],
                 next: "idle",
                 speed: 1.0,
             },
-
             breathe: {
                 frames: [0],
                 next: "idle",
                 speed: 1.0,
             },
-
             backflip: {
                 frames: [0],
                 next: "idle",
                 speed: 1.0,
             },
         },
-
         logo_animations: {
             idle: 12,
-
             surf_across_fwd: [1, 8, "surf_across_still", 1.0],
             surf_across_still: 9,
             surf_across_back: {
@@ -5707,7 +5153,6 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             clap_fwd: [10, 12, "clap_still", 1.0],
             clap_still: [13, 15, "clap_still", 1.0],
             clap_back: {
@@ -5715,7 +5160,6 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             surf_intro: {
                 frames: range(0, 71),
                 next: "idle",
@@ -5726,9 +5170,7 @@ var AgentData = {
                 next: "gone",
                 speed: 1.5,
             },
-
             gone: 259,
-
             shrug_fwd: [89, 91, "shrug_still", 1.0],
             shrug_still: 91,
             shrug_back: {
@@ -5736,7 +5178,6 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             earth_fwd: [180, 210, "earth_still", 1.0],
             earth_still: [195, 210, "earth_still", 1.0],
             earth_back: {
@@ -5744,7 +5185,6 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             cool: {
                 frames: [0],
                 next: "idle",
@@ -5760,23 +5200,19 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             breathe: {
                 frames: [0],
                 next: "idle",
                 speed: 1.0,
             },
-
             backflip: {
                 frames: [0],
                 next: "idle",
                 speed: 1.0,
             },
         },
-
         james_animations: {
             idle: 6,
-
             surf_across_fwd: [1, 8, "surf_across_still", 1.0],
             surf_across_still: 9,
             surf_across_back: {
@@ -5784,7 +5220,6 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             clap_fwd: [65, 81, "clap_still", 0.6],
             clap_still: [70, 81, "clap_still", 0.6],
             clap_back: {
@@ -5792,7 +5227,6 @@ var AgentData = {
                 next: "idle",
                 speed: 0.6,
             },
-
             surf_intro: {
                 frames: [851, 851, 514, 515, 516, 517, 518, 519, 520, 521, 522],
                 next: "idle",
@@ -5803,9 +5237,7 @@ var AgentData = {
                 next: "gone",
                 speed: 0.6,
             },
-
             gone: 851,
-
             shrug_fwd: [89, 91, "shrug_still", 1.0],
             shrug_still: 91,
             shrug_back: {
@@ -5813,7 +5245,6 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             earth_fwd: [180, 210, "earth_still", 1.0],
             earth_still: [195, 210, "earth_still", 1.0],
             earth_back: {
@@ -5821,7 +5252,6 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             cool: {
                 frames: [0],
                 next: "idle",
@@ -5837,23 +5267,19 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             breathe: {
                 frames: [0],
                 next: "idle",
                 speed: 1.0,
             },
-
             backflip: {
                 frames: [0],
                 next: "idle",
                 speed: 1.0,
             },
         },
-
         mnature_animations: {
             idle: 0,
-
             surf_across_fwd: [1, 8, "surf_across_still", 1.0],
             surf_across_still: 9,
             surf_across_back: {
@@ -5861,7 +5287,6 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             clap_fwd: [10, 12, "clap_still", 1.0],
             clap_still: [13, 15, "clap_still", 1.0],
             clap_back: {
@@ -5869,7 +5294,6 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             surf_intro: {
                 frames: [190, 189, 188, 16, 17, 18, 19, 18, 17, 18, 17, 18, 17, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 0],
                 next: "idle",
@@ -5880,9 +5304,7 @@ var AgentData = {
                 next: "gone",
                 speed: 1.0,
             },
-
             gone: 259,
-
             shrug_fwd: [89, 91, "shrug_still", 1.0],
             shrug_still: 91,
             shrug_back: {
@@ -5890,7 +5312,6 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             earth_fwd: [180, 210, "earth_still", 1.0],
             earth_still: [195, 210, "earth_still", 1.0],
             earth_back: {
@@ -5898,7 +5319,6 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             cool: {
                 frames: [0],
                 next: "idle",
@@ -5914,23 +5334,19 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             breathe: {
                 frames: [0],
                 next: "idle",
                 speed: 1.0,
             },
-
             backflip: {
                 frames: [0],
                 next: "idle",
                 speed: 1.0,
             },
         },
-
         offcat_animations: {
             idle: 0,
-
             surf_across_fwd: [1, 8, "surf_across_still", 1.0],
             surf_across_still: 9,
             surf_across_back: {
@@ -5938,7 +5354,6 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             clap_fwd: [10, 12, "clap_still", 1.0],
             clap_still: [13, 15, "clap_still", 1.0],
             clap_back: {
@@ -5946,7 +5361,6 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             surf_intro: {
                 frames: [72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 83, 85, 86, 87, 88, 89, 90, 91, 92, 0],
                 next: "idle",
@@ -5957,9 +5371,7 @@ var AgentData = {
                 next: "gone",
                 speed: 1.0,
             },
-
             gone: 727,
-
             cool: {
                 frames: [0],
                 next: "idle",
@@ -5975,25 +5387,20 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             breathe: {
                 frames: [0],
                 next: "idle",
                 speed: 1.0,
             },
-
             backflip: {
                 frames: [0],
                 next: "idle",
                 speed: 1.0,
             },
         },
-
         f1_animations: {
             idle: 0,
-
             clap_fwd: [199, 218, "idle", 1.0],
-
             earth_fwd: [762, 786, "earth_still", 1.0],
             earth_still: [763, 786, "earth_still", 1.0],
             earth_back: {
@@ -6001,7 +5408,6 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             surf_intro: {
                 frames: [4, 6, 7, 8, 9, 10, 112, 0],
                 next: "idle",
@@ -6012,9 +5418,7 @@ var AgentData = {
                 next: "gone",
                 speed: 1.0,
             },
-
             gone: 897,
-
             cool: {
                 frames: [0],
                 next: "idle",
@@ -6030,13 +5434,11 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             breathe: {
                 frames: [0],
                 next: "idle",
                 speed: 1.0,
             },
-
             backflip: {
                 frames: [0],
                 next: "idle",
@@ -6045,7 +5447,6 @@ var AgentData = {
         },
         rocky_animations: {
             idle: 0,
-
             surf_across_fwd: [1, 8, "surf_across_still", 1.0],
             surf_across_still: 9,
             surf_across_back: {
@@ -6053,7 +5454,6 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             clap_fwd: [10, 12, "clap_still", 1.0],
             clap_still: [13, 15, "clap_still", 1.0],
             clap_back: {
@@ -6061,7 +5461,6 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             surf_intro: {
                 frames: [984, 984, 984, 984, 984, 984, 984, 984, 107, 108, 109, 110, 111, 112, 113, 114, 115],
                 next: "idle",
@@ -6072,9 +5471,7 @@ var AgentData = {
                 next: "gone",
                 speed: 1.0,
             },
-
             gone: 984,
-
             cool: {
                 frames: [0],
                 next: "idle",
@@ -6090,13 +5487,11 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             breathe: {
                 frames: [0],
                 next: "idle",
                 speed: 1.0,
             },
-
             backflip: {
                 frames: [0],
                 next: "idle",
@@ -6105,7 +5500,6 @@ var AgentData = {
         },
         rover_animations: {
             idle: 0,
-
             surf_across_fwd: [1, 8, "surf_across_still", 1.0],
             surf_across_still: 9,
             surf_across_back: {
@@ -6113,14 +5507,12 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             clap_fwd: [291, 302, "clap_back", 1.0],
             clap_back: {
                 frames: [292, 291, 0],
                 next: "idle",
                 speed: 1.0,
             },
-
             clicked: [230, 239, "idle", 1.0],
             sleep_fwd: {
                 frames: [499, 500, 501, 502, 503, 504, 505, 506, 507, 508, 509, 515, 569, 570, 571, 572, 573, 574, 575, 576, 577],
@@ -6147,9 +5539,7 @@ var AgentData = {
                 next: "gone",
                 speed: 1.0,
             },
-
             gone: 333,
-
             cool: {
                 frames: [0],
                 next: "idle",
@@ -6165,13 +5555,11 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             breathe: {
                 frames: [0],
                 next: "idle",
                 speed: 1.0,
             },
-
             backflip: {
                 frames: [0],
                 next: "idle",
@@ -6180,7 +5568,6 @@ var AgentData = {
         },
         blob_animations: {
             idle: 0,
-
             surf_across_fwd: [1, 8, "surf_across_still", 1.0],
             surf_across_still: 9,
             surf_across_back: {
@@ -6188,7 +5575,6 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             clap_fwd: [38, 44, "clap_still", 1.0],
             clap_still: [45, 46, "clap_still", 1.0],
             clap_back: {
@@ -6196,7 +5582,6 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             surf_intro: {
                 frames: range(184, 167),
                 next: "idle",
@@ -6207,9 +5592,7 @@ var AgentData = {
                 next: "gone",
                 speed: 1.0,
             },
-
             gone: 461,
-
             hehehe: {
                 frames: range(84, 102),
                 next: "idle",
@@ -6239,7 +5622,6 @@ var AgentData = {
         },
         maxalert_animations: {
             idle: 0,
-
             shrug_fwd: [10, 17, "shrug_still", 1.0],
             shrug_still: 17,
             shrug_back: {
@@ -6254,7 +5636,6 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             clap_fwd: [38, 44, "clap_still", 1.0],
             clap_still: [45, 46, "clap_still", 1.0],
             clap_back: {
@@ -6262,7 +5643,6 @@ var AgentData = {
                 next: "idle",
                 speed: 1.0,
             },
-
             surf_intro: {
                 frames: range(203, 225),
                 next: "idle",
@@ -6273,15 +5653,12 @@ var AgentData = {
                 next: "gone",
                 speed: 1.0,
             },
-
             gone: 125,
-
             grin_fwd: {
                 frames: [285, 286, 288, 290, 292],
                 next: "gone",
                 speed: 1.0,
             },
-
             grin_still: 292,
             grin_back: {
                 frames: [292, 290, 288, 286, 285],
@@ -6291,8 +5668,6 @@ var AgentData = {
         },
     },
     to_idle: {
-        //actually skips the animation upon joining. rlly bad
-        //surf_intro: "idle",
         surf_away: "surf_intro",
         gone: "surf_intro",
         surf_across_fwd: "surf_across_back",
@@ -6301,70 +5676,49 @@ var AgentData = {
         surprised_still: "surprised_back",
         unbelievable_fwd: "unbelievable_back",
         unbelievable_still: "unbelievable_back",
-
         clap_fwd: "clap_back",
         clap_still: "clap_back",
-
         fact_fwd: "fact_back",
         fact_still: "fact_back",
-
         muted_fwd: "muted_back",
         muted_still: "muted_back",
-
         shrug_fwd: "shrug_back",
         shrug_still: "shrug_back",
-
         earth_fwd: "earth_back",
         earth_still: "earth_back",
-
         look_down_fwd: "look_down_back",
         look_down_still: "look_down_back",
-
         lean_left_fwd: "lean_left_back",
         lean_left_still: "lean_left_back",
-
         beat_fwd: "beat_back",
         beat_still: "beat_back",
-
         cool_fwd: "cool_back",
         cool_still: "cool_back",
         cool_adjust: "cool_back",
-
         cool_left_fwd: "cool_left_back",
         cool_left_still: "cool_left_back",
-
         present_fwd: "present_back",
         present_still: "present_back",
-
         sleep_fwd: "sleep_back",
         sleep_still: "sleep_back",
-
         look_left_fwd: "look_left_back",
         look_left_still: "look_left_back",
-
         look_right_fwd: "look_right_back",
         look_right_still: "look_right_back",
-
         lean_right_fwd: "lean_right_back",
         lean_right_still: "lean_right_back",
-
         praise_fwd: "praise_back",
         praise_still: "praise_back",
-
         grin_fwd: "grin_back",
         grin_still: "grin_back",
-
         backflip: "idle",
-
         breathe: "idle",
         taptaptap: "idle",
-
         look_left: "look_left_back",
         look_right: "look_right_back",
         look_down: "lean_right_back",
         cool: "cool_back",
         cool_peedy: "cool_back",
-
         idle: "idle",
     },
     pass_idle: ["gone"],
@@ -6560,9 +5914,6 @@ var AgentData = {
             },
         ],
     ],
-
-    // ============================================================================
-
     event_list_fact_open: [
         [
             {
@@ -6577,7 +5928,6 @@ var AgentData = {
             },
         ],
     ],
-
     event_list_fact_mid: [
         [
             {
@@ -6654,7 +6004,6 @@ var AgentData = {
             },
         ],
     ],
-
     event_list_fact_end: [
         [
             {
@@ -6669,7 +6018,6 @@ var AgentData = {
         ],
     ],
 };
-
 AgentData.event_list_joke = [
     {
         type: "add_random",
@@ -6698,7 +6046,6 @@ AgentData.event_list_joke = [
         type: "idle",
     },
 ];
-
 AgentData.event_list_fact = [
     {
         type: "add_random",
@@ -6722,7 +6069,6 @@ AgentData.event_list_fact = [
         type: "idle",
     },
 ];
-
 AgentData.event_list_triggered = [
     {
         type: "anim",
@@ -6733,7 +6079,6 @@ AgentData.event_list_triggered = [
         type: "idle",
     },
 ];
-
 AgentData.event_list_linux = [
     {
         type: "text",
@@ -6755,7 +6100,6 @@ AgentData.event_list_linux = [
             "There really is a Linux, and these people are using it, but it is just a part of the system they use. Linux is the kernel: the program in the system that allocates the machine's resources to the other programs that you run. The kernel is an essential part of an operating system, but useless by itself; it can only function in the context of a complete operating system. Linux is normally used in combination with the GNU operating system: the whole system is basically GNU with Linux added, or GNU/Linux. All the so-called Linux distributions are really distributions of GNU/Linux.",
     },
 ];
-
 AgentData.event_list_pawn = [
     {
         type: "text",
@@ -6785,8 +6129,6 @@ AgentData.event_list_bees = [
         text: "Nah, I'm not doing the whole thing.",
     },
 ];
-
-
 $(document).ready(function () {
     window.onbeforeunload = function(event)
     {
@@ -6794,7 +6136,6 @@ $(document).ready(function () {
     };
     window.AgentHandler = new (function () {
         this.framerate = 1.0 / 15.0;
-
         this.spriteSheets = {};
         this.prepSprites = function () {
             var spriteColors = [
@@ -6814,41 +6155,7 @@ $(document).ready(function () {
                 "king",
                 "marisa",
                 "reimu"
-                /*
-                "bonzi",
-                "blessed",
-                "bluestickman",
-                "clippit",
-                "genius",
-                "blob",
-                "genie",
-                "robby",
-                "f1",
-                "james",
-                "mnature",
-                "merlin",
-                "maxalert",
-                "offcat",
-                "rocky",
-                "rover",
-                "squidward",
-                "undead",
-                "peedy",
-                "logo",
-                "blank",
-                "marisa",
-                "reimu",
-                "kern3l",
-                "siobhan",
-                "nono",
-                "commo",
-                "peetzuh",
-                "squidward",
-                "plankton",
-                                "kinito"
-                */
             ];
-
             for (var i = 0; i < spriteColors.length; i++) {
                 var color = spriteColors[i];
                 var spriteData = {
@@ -6919,13 +6226,10 @@ $(document).ready(function () {
                 this.spriteSheets[color] = new createjs.SpriteSheet(spriteData);
             }
         };
-
         this.$canvas = $("#agent_canvas");
         this.$canvas.css("filter", `drop-shadow(20px -5px 4px rgba(0,0,0,0.2))`);
-
         this.stage = new createjs.StageGL(this.$canvas[0], { transparent: true });
         this.stage.tickOnUpdate = false;
-
         this.resizeCanvas = function () {
             var width = this.$canvas.width();
             var height = this.$canvas.height();
@@ -6940,44 +6244,39 @@ $(document).ready(function () {
                 agents[key].move();
             }
         };
-
         this.resizeCanvas();
-
         this.resize = function () {
             setTimeout(this.resizeCanvas.bind(this), 1);
         };
-
         this.needsUpdate = true;
-
         this.intervalHelper = setInterval(
             function () {
                 this.needsUpdate = true;
             }.bind(this),
             1000
         );
-
-        this.intervalTick = setInterval(
-            function () {
-                for (var i = 0; i < usersAmt; i++) {
-                    var key = usersKeys[i];
-                    agents[key].update();
-                }
-                this.stage.tick();
-            }.bind(this),
-            this.framerate * 1000
-        );
-
-        this.intervalMain = setInterval(
-            function () {
-                if (this.needsUpdate) {
-                    this.stage.update();
-                }
-            }.bind(this),
-            66
-        );
-
+        // rAF loop: lerp positions at 60fps, but only tick sprites at original 15fps
+        var _agentHandler = this;
+        var _lastSpriteTick = 0;
+        var _spriteTickInterval = this.framerate * 1000; // ~66ms = 15fps
+        function _rAFTick(timestamp) {
+            // Always update lerp positions every frame (smooth movement)
+            for (var i = 0; i < usersAmt; i++) {
+                var key = usersKeys[i];
+                agents[key].update();
+            }
+            // Only advance sprite animations at the original 15fps rate
+            if (timestamp - _lastSpriteTick >= _spriteTickInterval) {
+                _agentHandler.stage.tick();
+                _lastSpriteTick = timestamp;
+            }
+            // Render every frame
+            _agentHandler.stage.update();
+            requestAnimationFrame(_rAFTick);
+        }
+        requestAnimationFrame(_rAFTick);
+        // intervalMain removed — rAF loop above handles needsUpdate + stage updates at 60fps
         $(window).resize(this.resize.bind(this));
-
         this.agentsCheck = function () {
             $("#userListContent").html("");
             for (var i = 0; i < usersAmt; i++) {
@@ -7015,7 +6314,6 @@ $(document).ready(function () {
                 }
             }
         };
-
         window.onpointermove = (e) => {
             if (dragged) {
                 dragged.move(e.pageX - dragX, e.pageY - dragY);
@@ -7025,7 +6323,6 @@ $(document).ready(function () {
                 chat_log.style.width = `${e.pageX - dragX}px`;
             }
         };
-
         window.onpointerup = () => {
             dragged = null;
             chatLogDragged = false;
@@ -7040,7 +6337,6 @@ $(document).ready(function () {
             for (var i = 0; i < usersAmt; i++) {
                 var key = usersKeys[i];
                 agents[key].move(x, y);
-
                 x += 200;
                 if (x + 100 > winWidth) {
                     x = 0;
@@ -7056,32 +6352,25 @@ $(document).ready(function () {
         return this;
     })();
 });
-
 function range(begin, end) {
     var array = [];
     for (var i = begin; i <= end; i++) array.push(i);
     for (var i = begin; i >= end; i--) array.push(i);
     return array;
 }
-
 function replaceAll(t, s, r) {
     return t.replace(new RegExp(s, "g"), r);
 }
-
 function s4() {
     return Math.floor((1 + Math.random()) * 0x10000)
         .toString(16)
         .substring(1);
 }
-
-// http://stackoverflow.com/a/8260383/2605226
 function youtubeParser(url) {
     var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
     var match = url.match(regExp);
     return match && match[7].length == 11 ? match[7] : false;
 }
-
-// http://codereview.stackexchange.com/q/47889
 function rtimeOut(callback, delay) {
     var dateNow = Date.now,
         requestAnimation = window.requestAnimationFrame,
@@ -7097,7 +6386,6 @@ function rtimeOut(callback, delay) {
         },
     };
 }
-
 function rInterval(callback, delay) {
     var dateNow = Date.now,
         requestAnimation = window.requestAnimationFrame,
@@ -7114,40 +6402,24 @@ function rInterval(callback, delay) {
         },
     };
 }
-
-// http://stackoverflow.com/a/14853974/2605226
-// Warn if overriding existing method
 if (Array.prototype.equals) console.warn("Overriding existing Array.prototype.equals. Possible causes: New API defines the method, there's a framework conflict or you've got double inclusions in your code.");
-// attach the .equals method to Array's prototype to call it on any array
 Array.prototype.equals = function (array) {
-    // if the other array is a falsy value, return
     if (!array) return false;
-
-    // compare lengths - can save a lot of time
     if (this.length != array.length) return false;
-
     for (var i = 0, l = this.length; i < l; i++) {
-        // Check if we have nested arrays
         if (this[i] instanceof Array && array[i] instanceof Array) {
-            // recurse into the nested arrays
             if (!this[i].equals(array[i])) return false;
         } else if (this[i] != array[i]) {
-            // Warning - two different object instances will never be equal: {x:20} != {x:20}
             return false;
         }
     }
     return true;
 };
-
-// Hide method from for-in loops
 Object.defineProperty(Array.prototype, "equals", { enumerable: false });
-
-// http://stackoverflow.com/a/14333691/2605226
 function linkify(text) {
     var regex = /(https?:\/\/([-\w\.]+)+(:\d+)?(\/([\w\/_\.]*(\?\S+)?)?)?)/gi;
     return text.replace(regex, "I'M TRYING TO BE A HOG FOR MEMBERS BUT I'M ACTUALLY DESPERATE FOR ATTENTION LMAO");
 }
-
 var loadQueue = new createjs.LoadQueue();
 var loadDone = [];
 var loadNeeded = [
@@ -7161,7 +6433,6 @@ var loadNeeded = [
     "agentCyan",
     "agentYellow",
     "agentUndead",
-
     "clippit",
     "f1",
     "genius",
@@ -7179,16 +6450,13 @@ var loadNeeded = [
     "blob",
     "maxalert",
     "james",
-
     "topjej",
 ];
 $(window).load(function () {
     $("#login_load").hide();
     $("#login_card").fadeIn(150);
-
     loadAgents();
 });
-
 function loadAgents(callback) {
     loadQueue.loadManifest([
         { id: "agentBlack", src: "./img/agents/black.png" },
@@ -7225,27 +6493,21 @@ function loadAgents(callback) {
     );
     if (callback) loadQueue.on("complete", callback, this);
 }
-// http://stackoverflow.com/a/26118970
 var undefined;
 var hostname = isApp ? "bonkey.world" : window.location.hostname;
-
 var socket = io("//" + window.location.hostname + ":" + window.location.port,{
     transports: ["websocket"],
 });
 var authlevel = 0;
 var usersPublic = {};
 var agents = {};
-
 var debug = true;
-
 function loadTest() {
     $("#login_card").hide();
     $("#login_error").hide();
     $("#login_load").show();
-
     login();
 }
-
 function login() {
     socket.emit("login", {
         name: $("#login_name").val(),
@@ -7265,31 +6527,24 @@ function login() {
     $("#page_login").fadeOut(150);
     setup();
 }
-
 $(function () {
     $("#login_go").click(loadTest);
-
     $("#login_room").val(window.location.hash.slice(1));
-
     $("#login_name, #login_room").keypress(function (e) {
         if (e.which == 13) login();
     });
-
     socket.on("ban", function (data) {
         $("#page_ban").show();
         $("#ban_reason").html(data.reason);
         $("#ban_end").html(new Date(data.end).toString());
     });
-
     socket.on("disconnect", function (data) {
         errorFatal()
     });
-
     socket.on("kick", function (data) {
         $("#page_kick").show();
         $("#kick_reason").html(data.reason);
     });
-
     socket.on("loginFail", function (data) {
         var errorText = {
             nameLength: "Name too long.",
@@ -7304,7 +6559,6 @@ $(function () {
             .text("Error: " + errorText[data.reason] + " (" + data.reason + ")");
     });
 });
-
 function errorFatal() {
     if ($("#page_ban").css("display") == "none" || $("#page_kick").css("display") == "none") {
         $("#page_error").show();
@@ -7312,7 +6566,6 @@ function errorFatal() {
         audio.play();
     }
 }
-
 const sfx = {
     shoot: new Audio("../sfx/shoot.wav"),
     explode: new Audio("../sfx/explode.wav"),
@@ -7321,7 +6574,6 @@ const sfx = {
     banThrow: new Audio("../sfx/banhammer_throw.wav"),
     bounce: new Audio("../sfx/boing.wav")
 };
-
 function startBanhammerMode() {
     let bossHP = 200;
     let spellCardActive = false;
@@ -7339,21 +6591,16 @@ function startBanhammerMode() {
     `;
     document.body.appendChild(canvas);
     const ctx = canvas.getContext("2d");
-
     const evilImg = new Image();
     evilImg.src = "../img/evil.png";
-
     const hammerImg = new Image();
     hammerImg.src = "../img/banhammer.png";
-
     const explosionImg = new Image();
-    explosionImg.src = "../img/explosion.png"; // Make sure this exists
-
+    explosionImg.src = "../img/explosion.png"; 
     const hammers = [];
     let evilX = canvas.width / 2 - 128;
     let evilY = 0;
     let evilDir = 3;
-
     evilBonziSpeak("i'm going to ban you all! hahahahahahaha!")
     function spawnHammers() {
         for (let i = 0; i < 3; i++) {
@@ -7370,30 +6617,20 @@ function startBanhammerMode() {
             sfx.banThrow.play();
         }
     }
-
     const spawnInterval = setInterval(spawnHammers, 500);
-
     function update() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-        // Move evil bonzi
         evilX += evilDir;
         if (evilX < 0 || evilX > canvas.width - 256) evilDir *= -1;
         ctx.drawImage(evilImg, evilX, evilY, 256, 256);
-        
-
         const agent = agents?.[bonzi_guid];
         if (!agent) return requestAnimationFrame(update);
-
-            // Collision
             const ax = agent.x;
             const ay = agent.y;
             const aw = 200;
             const ah = 160;
-
             const hit = evilX + 256 > ax && evilX < ax + aw && evilY + 256 > ay && evilY < ay + ah;
             if (hit) {
-                // 💥 Explosion
                 if (!agent._hasExploded) {
                     agent._hasExploded = true;
                     sfx.explode.play();
@@ -7403,27 +6640,21 @@ function startBanhammerMode() {
                     },5000)
                 }
             }
-
         for (let i = hammers.length - 1; i >= 0; i--) {
             const h = hammers[i];
             h.y += h.speed;
             h.angle += h.spin;
-
             ctx.save();
             ctx.translate(h.x + h.size / 2, h.y + h.size / 2);
             ctx.rotate(h.angle);
             ctx.drawImage(hammerImg, -h.size / 2, -h.size / 2, h.size, h.size);
             ctx.restore();
-
-            // Collision
             const ax = agent.x;
             const ay = agent.y;
             const aw = 200;
             const ah = 160;
-
             const hit = h.x + h.size > ax && h.x < ax + aw && h.y + h.size > ay && h.y < ay + ah;
             if (hit) {
-                // 💥 Explosion
                 if (!agent._hasExploded) {
                     agent._hasExploded = true;
                     sfx.explode.play();
@@ -7433,22 +6664,15 @@ function startBanhammerMode() {
                     },5000)
                 }
             }
-
             if (h.y > canvas.height + 100) hammers.splice(i, 1);
         }
-
-        // Bullet update + boss collision
         for (let i = bullets.length - 1; i >= 0; i--) {
             const b = bullets[i];
             b.y -= b.speed;
-
-            // Draw bullet
             ctx.fillStyle = "cyan";
             ctx.beginPath();
             ctx.arc(b.x, b.y, b.size / 2, 0, Math.PI * 2);
             ctx.fill();
-
-            // Boss collision
             if (
                 b.x > evilX && b.x < evilX + 256 &&
                 b.y > evilY && b.y < evilY + 256 &&
@@ -7456,16 +6680,12 @@ function startBanhammerMode() {
             ) {
                 bullets.splice(i, 1);
                 bossHP--;
-
                 if (bossHP <= 0 && !spellCardActive) {
                     spellCardActive = true;
                     startSpellCard();
                 }
-
                 continue;
             }
-
-            // Out of bounds
             if (b.y < -20) bullets.splice(i, 1);
         }
         requestAnimationFrame(update);
@@ -7484,7 +6704,6 @@ function startBanhammerMode() {
             if (loaded === 3) update();
         };
     });
-
     document.addEventListener("keydown", (e) => {
         if (e.code === "Space") {
             const agent = agents?.[bonzi_guid];
@@ -7498,7 +6717,6 @@ function startBanhammerMode() {
     socket.on("agent_bullet", (data) => {
         const agent = agents[data.id];
         if (!agent) return;
-
         bullets.push({
             x: agent.x + 100,
             y: agent.y,
@@ -7510,8 +6728,6 @@ function startBanhammerMode() {
             sfx.shoot.play();
     });
 }
-
-
 function startBowserFight() {
     let bossHP = 200;
     let spellCardActive = false;
@@ -7530,8 +6746,6 @@ function startBowserFight() {
     `;
     document.body.appendChild(canvas);
     const ctx = canvas.getContext("2d");
-
-    // Animated GIF boss as an <img> so it plays natively
     const bossEl = document.createElement("img");
     bossEl.id = "bowser-boss";
     bossEl.src = "../img/default.gif";
@@ -7543,16 +6757,13 @@ function startBowserFight() {
         pointer-events: none;
     `;
     document.body.appendChild(bossEl);
-
     const hammerImg = new Image();
     hammerImg.src = "../img/banhammer.png";
-
     const hammers = [];
     let bowserX = canvas.width / 2 - 128;
     let bowserY = 0;
     let bowserDir = 3;
     let bowserShootingEnabled = true;
-
     const bossAudio = new Audio("sfx/musix.mp3");
     const zoomoutAudio = new Audio("bowserzoomout.mp3");
     const completionAudio = new Audio("sfx/completionthemeyay.mp3");
@@ -7560,10 +6771,8 @@ function startBowserFight() {
     let defeatFrame = 0;
     let defeatStartX = 0;
     let defeatStartY = 0;
-
     bossAudio.volume = 0.5;
     bossAudio.play();
-
     function spawnHammers() {
         if (defeated) return;
         const count = 1 + Math.floor(Math.random() * 2);
@@ -7581,17 +6790,14 @@ function startBowserFight() {
             sfx.banThrow.play();
         }
     }
-
     const spawnInterval = setInterval(spawnHammers, 700);
-
     function animateCoinCount(target) {
         const el = document.querySelector(".coin_count");
         if (!el) return;
         const start = parseInt(el.textContent) || 0;
-        const dur = 6000; // 6 seconds
+        const dur = 6000; 
         const startTime = performance.now();
         const stepSize = Math.max(1, Math.floor(target / (dur / 200)));
-
         const timer = setInterval(() => {
             const elapsed = performance.now() - startTime;
             const progress = Math.min(elapsed / dur, 1);
@@ -7606,10 +6812,8 @@ function startBowserFight() {
             }
         }, 10);
     }
-
     function update() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-
         if (!defeated) {
             bowserX += bowserDir;
             if (bowserX <= 0 || bowserX >= canvas.width - 256) bowserDir *= -1;
@@ -7623,24 +6827,18 @@ function startBowserFight() {
             const newX = defeatStartX * (1 - progress);
             const newY = defeatStartY * (1 - progress);
             const rot = defeatFrame * 8;
-
             bossEl.style.left = newX + "px";
             bossEl.style.top = newY + "px";
             bossEl.style.width = newS + "px";
             bossEl.style.height = newS + "px";
             bossEl.style.transform = "rotate(" + rot + "deg)";
-
             if (progress >= 1) {
                 bossEl.remove();
             }
         }
-
         const agent = agents?.[bonzi_guid];
         if (!agent) return requestAnimationFrame(update);
-
         const ax = agent.x, ay = agent.y, aw = 200, ah = 160;
-
-        // Collision with bowser body
         if (!defeated && bowserX + 256 > ax && bowserX < ax + aw && bowserY + 256 > ay && bowserY < ay + ah) {
             if (!agent._hasExploded) {
                 agent._hasExploded = true;
@@ -7651,18 +6849,15 @@ function startBowserFight() {
                 }, 5000);
             }
         }
-
         for (let i = hammers.length - 1; i >= 0; i--) {
             const h = hammers[i];
             h.y += h.speed;
             h.angle += h.spin;
-
             ctx.save();
             ctx.translate(h.x + h.size / 2, h.y + h.size / 2);
             ctx.rotate(h.angle);
             ctx.drawImage(hammerImg, -h.size / 2, -h.size / 2, h.size, h.size);
             ctx.restore();
-
             if (!defeated && h.x + h.size > ax && h.x < ax + aw && h.y + h.size > ay && h.y < ay + ah) {
                 if (!agent._hasExploded) {
                     agent._hasExploded = true;
@@ -7673,20 +6868,15 @@ function startBowserFight() {
                     }, 5000);
                 }
             }
-
             if (h.y > canvas.height + 100) hammers.splice(i, 1);
         }
-
-        // Bullets
         for (let i = bullets.length - 1; i >= 0; i--) {
             const b = bullets[i];
             b.y -= b.speed;
-
             ctx.fillStyle = "yellow";
             ctx.beginPath();
             ctx.arc(b.x, b.y, b.size / 2, 0, Math.PI * 2);
             ctx.fill();
-
             if (
                 !defeated &&
                 !spellCardActive &&
@@ -7716,11 +6906,9 @@ function startBowserFight() {
         }
         requestAnimationFrame(update);
     }
-
     hammerImg.onload = () => {
         update();
     };
-
     document.addEventListener("keydown", (e) => {
         if (e.code === "Space" && bowserShootingEnabled) {
             const agent = agents?.[bonzi_guid];
@@ -7731,7 +6919,6 @@ function startBowserFight() {
             }
         }
     });
-
     socket.on("agent_bullet", (data) => {
         const agent = agents[data.id];
         if (!agent) return;
@@ -7739,8 +6926,154 @@ function startBowserFight() {
         sfx.shoot.currentTime = 0;
         sfx.shoot.play();
     });
-
 }
+function startBombMinigame() {
+    const BOMB_COUNT = 10;
+    const BOMB_SIZE = 120;
+    const BOMB_SPEED = 4;
+    const CORNER_THRESHOLD = 100;
+    const EXPLOSION_SIZE = 160;
+    const EXPLOSION_FRAMES = 20;
+
+    const bombMusic = new Audio("./sfx/bombmusic.mp3");
+    bombMusic.loop = true;
+    bombMusic.volume = 0.5;
+    bombMusic.play();
+
+    const canvas = document.createElement("canvas");
+    canvas.id = "bomb-canvas";
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    canvas.style.cssText = "position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9997;";
+    document.body.appendChild(canvas);
+    const ctx = canvas.getContext("2d");
+
+    const bombImg = new Image();
+    bombImg.src = "./img/bomb.png";
+
+    const explosionImg = new Image();
+    explosionImg.src = "./img/explosion.png";
+
+    let bombsRemaining = BOMB_COUNT;
+    let gameOver = false;
+    const explosions = []; // {x, y, timer}
+
+    const bombs = [];
+    for (let i = 0; i < BOMB_COUNT; i++) {
+        const angle = Math.random() * Math.PI * 2;
+        bombs.push({
+            x: canvas.width / 2 + (Math.random() - 0.5) * 300,
+            y: canvas.height / 3 + (Math.random() - 0.5) * 200,
+            vx: Math.cos(angle) * (BOMB_SPEED + Math.random() * 2),
+            vy: Math.sin(angle) * (BOMB_SPEED + Math.random() * 2),
+            rot: Math.random() * Math.PI * 2,
+            spin: (Math.random() - 0.5) * 0.15,
+            alive: true,
+        });
+    }
+
+    function spawnExplosion(x, y) {
+        explosions.push({ x: x, y: y, timer: 0 });
+        sfx.explode.currentTime = 0;
+        sfx.explode.play();
+    }
+
+    function checkCorner(bomb) {
+        const W = canvas.width, H = canvas.height;
+        const bx = bomb.x + BOMB_SIZE / 2, by = bomb.y + BOMB_SIZE / 2;
+        return (bx < CORNER_THRESHOLD && by < CORNER_THRESHOLD) ||
+               (bx > W - CORNER_THRESHOLD && by < CORNER_THRESHOLD) ||
+               (bx < CORNER_THRESHOLD && by > H - CORNER_THRESHOLD) ||
+               (bx > W - CORNER_THRESHOLD && by > H - CORNER_THRESHOLD);
+    }
+
+    function checkBonziHit(bomb) {
+        for (const id in agents) {
+            const agent = agents[id];
+            if (!agent) continue;
+            const ax = agent.x, ay = agent.y, aw = 200, ah = 160;
+            if (bomb.x + BOMB_SIZE > ax && bomb.x < ax + aw && bomb.y + BOMB_SIZE > ay && bomb.y < ay + ah) {
+                return id;
+            }
+        }
+        return null;
+    }
+
+    function endGame() {
+        if (gameOver) return;
+        gameOver = true;
+        bombMusic.pause();
+        setTimeout(() => { canvas.remove(); }, 800);
+    }
+
+    function update() {
+        if (gameOver) return;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Draw and age explosions
+        for (let i = explosions.length - 1; i >= 0; i--) {
+            const e = explosions[i];
+            const alpha = 1 - (e.timer / EXPLOSION_FRAMES);
+            ctx.globalAlpha = alpha;
+            try { ctx.drawImage(explosionImg, e.x - EXPLOSION_SIZE / 2, e.y - EXPLOSION_SIZE / 2, EXPLOSION_SIZE, EXPLOSION_SIZE); } catch(ex) {}
+            ctx.globalAlpha = 1;
+            e.timer++;
+            if (e.timer >= EXPLOSION_FRAMES) explosions.splice(i, 1);
+        }
+
+        let anyAlive = false;
+        const W = canvas.width, H = canvas.height;
+
+        for (let i = 0; i < bombs.length; i++) {
+            const bomb = bombs[i];
+            if (!bomb.alive) continue;
+            anyAlive = true;
+
+            bomb.x += bomb.vx;
+            bomb.y += bomb.vy;
+            bomb.rot += bomb.spin;
+
+            // Bounce off walls
+            if (bomb.x < 0) bomb.vx = Math.abs(bomb.vx);
+            if (bomb.x > W - BOMB_SIZE) bomb.vx = -Math.abs(bomb.vx);
+            if (bomb.y < 0) bomb.vy = Math.abs(bomb.vy);
+            if (bomb.y > H - BOMB_SIZE) bomb.vy = -Math.abs(bomb.vy);
+
+            // Corner check — explode and disappear
+            if (checkCorner(bomb)) {
+                bomb.alive = false;
+                bombsRemaining--;
+                spawnExplosion(bomb.x + BOMB_SIZE / 2, bomb.y + BOMB_SIZE / 2);
+                if (bombsRemaining <= 0) { endGame(); return; }
+                continue;
+            }
+
+            // Bonzi collision — explode, nuke that bonzi, disappear
+            const hitId = checkBonziHit(bomb);
+            if (hitId) {
+                bomb.alive = false;
+                bombsRemaining--;
+                spawnExplosion(bomb.x + BOMB_SIZE / 2, bomb.y + BOMB_SIZE / 2);
+                socket.emit("bomb_hit", hitId);
+                if (bombsRemaining <= 0) { endGame(); return; }
+                continue;
+            }
+
+            // Draw bomb.png spinning
+            ctx.save();
+            ctx.translate(bomb.x + BOMB_SIZE / 2, bomb.y + BOMB_SIZE / 2);
+            ctx.rotate(bomb.rot);
+            try { ctx.drawImage(bombImg, -BOMB_SIZE / 2, -BOMB_SIZE / 2, BOMB_SIZE, BOMB_SIZE); } catch(e) {}
+            ctx.restore();
+        }
+
+        if (!anyAlive && explosions.length === 0) { endGame(); return; }
+        requestAnimationFrame(update);
+    }
+
+    requestAnimationFrame(update);
+}
+
 
 var localAgent = null;
 function hideUI() {
@@ -7773,7 +7106,6 @@ function setup() {
             }
         }, 500);
     });
-        
     socket.on("explode", (data) => {
         const agent = agents[data]
         if (!agent) return;
@@ -7785,15 +7117,11 @@ function setup() {
     socket.on("balanceUpdate", balance => {
       $(".coin_count").text(balance)
     });
-
     socket.on("earned", amount => {
-        // coin amount already animated in the corner counter
     });
-
     socket.on("errorMessage", msg => {
       alert(msg);
     });
-
                 socket.on("typing", function (data) {
                         var b = agents[data.guid];
                         b.typing(true)
@@ -7822,11 +7150,9 @@ function setup() {
                 .then((stream) => {
                     var madiaRecorder = new MediaRecorder(stream);
                     var audioChunks = [];
-
                     madiaRecorder.addEventListener("dataavailable", function (event) {
                         audioChunks.push(event.data);
                     });
-
                     madiaRecorder.addEventListener("stop", function () {
                         var audioBlob = new Blob(audioChunks);
                         audioChunks = [];
@@ -7840,13 +7166,11 @@ function setup() {
                                 });
                             }
                         };
-
                         madiaRecorder.start();
                         setTimeout(function () {
                             madiaRecorder.stop();
                         }, 2500);
                     });
-
                     madiaRecorder.start();
                     setTimeout(function () {
                         madiaRecorder.stop();
@@ -7860,7 +7184,6 @@ function setup() {
     $("#chat_message").keypress(function (e) {
         if (e.which == 13) sendInput();
     });
-
         $("#chat_message").keydown(function (key) {
                 if (key.which == 13) {
                         typing = false;
@@ -7884,13 +7207,11 @@ function setup() {
             var newData = data.audio.split(";");
             newData[0] = "data:audio/ogg;";
             newData = newData[0] + newData[1];
-
             var audio = new Audio(newData);
             if (!audio || document.hidden) {
                 return;
             }
             audio.play();
-
             const indicator = document.getElementById(`mic-${data.id}`);
             if (indicator) {
                 indicator.className = `mic-indicator active`;
@@ -7901,7 +7222,6 @@ function setup() {
             };
         }
     });
-
     socket.on("joke", function (data) {
         var b = agents[data.guid];
         if (b.mute) return;
@@ -7909,14 +7229,12 @@ function setup() {
         b.cancel();
         b.joke();
     });
-
     socket.on("youtube", function (data) {
         var b = agents[data.guid];
         if (b.mute) return;
         b.cancel();
         b.youtube(data.vid);
     });
-
     socket.on("fact", function (data) {
         var b = agents[data.guid];
         if (b.mute) return;
@@ -7924,21 +7242,27 @@ function setup() {
         b.cancel();
         b.fact();
     });
-
     socket.on("backflip", function (data) {
         var b = agents[data.guid];
         if (b.mute) return;
         b.cancel();
         b.backflip(data.swag);
     });
-
     socket.on("asshole", function (a) {
         var b = agents[a.guid];
         b.cancel(), b.asshole(a.target.replaceAll("{NAME}","(NAME)").replaceAll("{COLOR}","(COLOR)"));
     });
     socket.on("move", function (a) {
         var b = agents[a.guid];
-        b.move(a.posX,a.posY);
+        if (!b) return;
+        if (a.guid === window.bonzi_guid) {
+            // Own agent: snap directly (already moved locally)
+            b.move(a.posX, a.posY);
+        } else {
+            // Remote agent: interpolate smoothly
+            b.targetX = a.posX;
+            b.targetY = a.posY;
+        }
     });
     socket.on("look", function (a) {
         var b = agents[a.guid];
@@ -7958,21 +7282,18 @@ function setup() {
         b.cancel();
         b.runSingleEvent(b.data.event_list_triggered);
     });
-
     socket.on("linux", function (data) {
         var b = agents[data.guid];
         if (b.mute) return;
         b.cancel();
         b.runSingleEvent(b.data.event_list_linux);
     });
-
     socket.on("pawn", function (data) {
         var b = agents[data.guid];
         if (b.mute) return;
         b.cancel();
         b.runSingleEvent(b.data.event_list_pawn);
     });
-
     socket.on("anim", function (data) {
         var b = agents[data.guid];
         b.stopSpeaking();
@@ -7984,10 +7305,8 @@ function setup() {
             },
         ]);
     });
-
     socket.on("replaceTVWithURL", function (a) {
         $("#bonzi_tv").html("<div id='bonzi_tv_player' style='position: absolute; overflow: hidden; width: 100%; height: 100%; pointer-events: none;'></div>");
-
         function onPlayerReady(event) {
             event.target.setVolume(100);
             event.target.playVideo();
@@ -8006,22 +7325,10 @@ function setup() {
                 events: {
                     onReady: onPlayerReady,
                     onStateChange: function (event) {
-                        // -1 - unstarted
-                        // 0 - ended
-                        // 1 - playing
-                        // 2 - paused
-                        // 3 - buffering
-                        // 5 - video cued
                         switch (event.data) {
                             case 0:
-                                // Ended
-                                                            
-                                // Check if this is a direct video file URL
                                 const isVideoFile = typeof a.id === "string" && a.id.match(/\.(mp4|webm|ogg)(\?.*)?$/i);
-
-                                // Clear any existing interval
                                 if (typeof updateCurrentTime !== "undefined") clearInterval(updateCurrentTime);
-
                                 if (isVideoFile) {
                                     $("#bonzi_tv").html("<div id='bonzi_tv_player' style='position: absolute; overflow: hidden; width: 100%; height: 100%; pointer-events: none;'></div>");
                                     $("#bonzi_tv_player").html(`
@@ -8030,21 +7337,15 @@ function setup() {
                                             Your browser does not support the video tag.
                                         </video>
                                     `);
-
                                     const video = document.getElementById("html5_tv_video");
-
-                                    // Emit current time every 5 seconds
                                     updateCurrentTime = setInterval(() => {
                                         socket.emit("setbonzitvtime", { curtime: video.currentTime });
                                         console.log(video.currentTime);
                                     }, 5000);
-
-                                    // When video ends
                                     video.onended = () => {
                                         socket.emit("updatebonzitv");
                                     };
                                 } else {
-
                                     $("#bonzi_tv").html("<div id='bonzi_tv_player' style='position: absolute; overflow: hidden; width: 100%; height: 100%; pointer-events: none;'></div>");
                                     var youtube = new YT.Player("bonzi_tv_player", {
                                         height: "100%",
@@ -8060,15 +7361,8 @@ function setup() {
                                         events: {
                                             onReady: onPlayerReady,
                                             onStateChange: function (event) {
-                                                // -1 - unstarted
-                                                // 0 - ended
-                                                // 1 - playing
-                                                // 2 - paused
-                                                // 3 - buffering
-                                                // 5 - video cued
                                                 switch (event.data) {
                                                     case 0:
-                                                        // Ended
                                                         socket.emit("updatebonzitv");
                                                         break;
                                                     case 1: {
@@ -8083,7 +7377,6 @@ function setup() {
                                             },
                                         },
                                     });
-                                    
                                 }
                                 break;
                         }
@@ -8099,55 +7392,39 @@ function setup() {
             $("#room_private")[!data.isPublic ? "show" : "hide"]();
             $(".room_id").text(data.room);
             $(".room-name").text(data.room);
-
             if (data.vid != "") {
-                // Reset TV container
                 $("#bonzi_tv").html(`
                     <div id='bonzi_tv_player' style='position: absolute; overflow: hidden; width: 100%; height: 100%; pointer-events: none; background-image:url("/img/desktop/logo.tv.png"), url("/img/desktop/bg.png");'></div>
                 `);
-
                 theme(`
                     #bonzi_tv {background-image:url("/img/desktop/logo.tv.png"); background-repeat: no-repeat; background-position: top-left}
                     #bonzi_canvas {background-image:url("/img/desktop/logo.tv.png"); background-repeat: no-repeat; background-position: top-left}
                 `);
-
-                // Clear previous update timer
                 if (typeof updateCurrentTime !== "undefined") clearInterval(updateCurrentTime);
-
-                // Check if it's a video file URL
                 const isVideoFile = typeof data.vid === "string" && data.vid.match(/\.(mp4|webm|ogg)(\?.*)?$/i);
-
                 if (isVideoFile) {
-                    // HTML5 video playback
                     $("#bonzi_tv_player").html(`
                         <video id="html5_tv_video" width="100%" height="100%" style="object-fit: cover;" autoplay>
                             <source src="${data.vid}" type="video/${data.vid.split('.').pop().split('?')[0]}">
                             Your browser does not support the video tag.
                         </video>
                     `);
-
                     const video = document.getElementById("html5_tv_video");
-
                     video.currentTime = data.curtime || 0;
                     video.volume = window.location.hostname == "localhost" ? 0 : 1;
                     video.play();
-
                     updateCurrentTime = setInterval(() => {
                         socket.emit("setbonzitvtime", { curtime: video.currentTime });
                         console.log(video.currentTime);
                     }, 5000);
-
                     video.onended = () => {
                         socket.emit("updatebonzitv");
                     };
-
                 } else {
-                    // YouTube playback
                     function onPlayerReady(event) {
                         event.target.setVolume(window.location.hostname == "localhost" ? 0 : 100);
                         event.target.playVideo();
                     }
-
                     const youtube = new YT.Player("bonzi_tv_player", {
                         height: "100%",
                         width: "100%",
@@ -8164,10 +7441,10 @@ function setup() {
                             onReady: onPlayerReady,
                             onStateChange: function (event) {
                                 switch (event.data) {
-                                    case 0: // Ended
+                                    case 0: 
                                         socket.emit("updatebonzitv");
                                         break;
-                                    case 1: // Playing
+                                    case 1: 
                                         updateCurrentTime = setInterval(() => {
                                             socket.emit("setbonzitvtime", {
                                                 curtime: youtube.getCurrentTime(),
@@ -8179,19 +7456,15 @@ function setup() {
                             },
                         },
                     });
-
                     $("#bonzi_canvas").click(function () {
                         youtube.playVideo();
                     });
                 }
             }
         });
-
-
     socket.on("topic", function (data) {
         $("#room_info").html("<h1>Topic - " + data.topic + "</h1>");
     });
-
     socket.on("rooms", function (data) {
         new Dialog({
             title: "Room Count",
@@ -8202,14 +7475,11 @@ function setup() {
             height: 150,
         });
     });
-
     socket.on("updateGuid", function (data) {
         window.bonzi_guid = data.guid;
-            
         localAgent = agents[bonzi_guid];
         socket.on("state_banhammer", () => {
             startBanhammerMode();
-                    
             new Dialog({
                 title: "OH NO!!!",
                 class: "flex_window",
@@ -8225,17 +7495,12 @@ function setup() {
                 height: 400,
             })
         });
-        
         socket.on("banhammer_death", () => {
             localAgent.run = false; 
-            //$(localAgent.selElement).css("transition", "all 0.5s ease").css("transform", "translateY(-1000px)");
         });
-
         socket.on("banhammer_respawn", () => {
-            //$(localAgent.selElement).css("transition", "").css("transform", "");
             localAgent.run = true;
         });
-
         socket.on("state_bowserfight", () => {
             startBowserFight();
             new Dialog({
@@ -8253,22 +7518,21 @@ function setup() {
                 height: 400,
             });
         });
-
         socket.on("bowser_death", () => {
             localAgent.run = false;
         });
-
         socket.on("bowser_respawn", () => {
             localAgent.run = true;
         });
+        socket.on("state_bombminigame", () => {
+            startBombMinigame();
+        });
     });
-    
     socket.on("updateAll", function (data) {
         usersPublic = data.usersPublic;
         usersUpdate();
         AgentHandler.agentsCheck();
     });
-
     socket.on("update", function (data) {
         window.usersPublic[data.guid] = data.userPublic;
         usersUpdate();
@@ -8280,28 +7544,24 @@ function setup() {
         b.cancel();
         b.youtube(data.vid);
     });
-
     socket.on("video", function (data) {
         var b = agents[data.guid];
         if (b.mute) return;
         b.cancel();
         b.video(data.vid);
     });
-
     socket.on("video_flash", function (data) {
         var b = agents[data.guid];
         if (b.mute) return;
         b.cancel();
         b.video_flash(data.vid);
     });
-
     socket.on("img", function (data) {
         var b = agents[data.guid];
         if (b.mute) return;
         b.cancel();
         b.img(data.vid);
     });
-
     socket.on("background", function (data) {
         if (data.url) {
             $("#content").css("background-image", `url(${data.url})`);
@@ -8314,28 +7574,24 @@ function setup() {
         authlevel = a.level;
         console.log(a.level);
     });
-
     socket.on("linux", function (data) {
         var b = agents[data.guid];
         if (b.mute) return;
         b.cancel();
         b.runSingleEvent(b.data.event_list_linux);
     });
-
     socket.on("pawn", function (data) {
         var b = agents[data.guid];
         if (b.mute) return;
         b.cancel();
         b.runSingleEvent(b.data.event_list_pawn);
     });
-
     socket.on("bees", function (data) {
         var b = agents[data.guid];
         if (b.mute) return;
         b.cancel();
         b.runSingleEvent(b.data.event_list_bees);
     });
-
     socket.on("talk", function (data) {
         var b = agents[data.guid];
         if (b.mute) return;
@@ -8347,11 +7603,9 @@ function setup() {
             },
         ]);
     });
-
     socket.on("leave", function (data) {
         var b = agents[data.guid];
         if (!b.leaving) {
-
             if (typeof b != "undefined") {
                 let msg = `${nmarkup(b.userPublic.name)} has left.`;
                 bonzilog("server", "", msg, null, msg, false);
@@ -8393,7 +7647,6 @@ function setup() {
                         AgentHandler.needsUpdate = true;
                     }, 33);
                 } else {
-
                     b.exit(
                         function (data) {
                             if (this.sprite.currentAnimation == "gone") {
@@ -8406,33 +7659,24 @@ function setup() {
                             }
                         }.bind(b, data)
                     );
-                    
                 }
             }
             b.leaving = true;
         }
     });
-
     socket.emit("command", { list: ["dialogueended"] });
-
     socket.on("inflate", () => {
-        // No seriously why does this even exist
         const originalScale = {};
         const originalPitch = {};
         for (const id in agents) {
             const agent = agents[id];
             if (!agent || !agent.sprite) continue;
-
             if (agent.goingToSpeak) {
-                // Save original scale and pitch
                 originalScale[id] = { x: 1, y: 1 };
                 originalPitch[id] = 1;
-                // Enlarge the agent
                 agent.sprite.scaleX *= 1.05;
                 agent.sprite.scaleY *= 1.05;
                 agent.$canvas.css("transform", `scale(${agent.sprite.scaleX})`);
-
-                // Decrease playbackRate by 5%
                 agent.playbackRate *= 0.95;
                 if (agent.audio) {
                     agent.audio.playbackRate = agent.playbackRate || 1;
@@ -8443,8 +7687,6 @@ function setup() {
                 for (const id in agents) {
                     const agent = agents[id];
                     if (!agent || !agent.sprite || !originalScale[id]) continue;
-
-                    // Restore original scale and pitch
                     agent.sprite.scaleX = originalScale[id].x;
                     agent.sprite.scaleY = originalScale[id].y;
                     agent.playbackRate = originalPitch[id];
@@ -8462,17 +7704,12 @@ function setup() {
         for (const id in agents) {
             const agent = agents[id];
             if (!agent || !agent.sprite) continue;
-
             if (agent.goingToSpeak) {
-                // Save original scale and pitch
                 originalScale[id] = { x: 1, y: 1 };
                 originalPitch[id] = 1;
-                // Enlarge the agent
                 agent.sprite.scaleX *= 0.95;
                 agent.sprite.scaleY *= 0.95;
                 agent.$canvas.css("transform", `scale(${agent.sprite.scaleX})`);
-
-                // Decrease playbackRate by 5%
                 agent.playbackRate *= 1.05;
                 if (agent.audio) {
                     agent.audio.playbackRate = agent.playbackRate || 1;
@@ -8483,8 +7720,6 @@ function setup() {
                 for (const id in agents) {
                     const agent = agents[id];
                     if (!agent || !agent.sprite || !originalScale[id]) continue;
-
-                    // Restore original scale and pitch
                     agent.sprite.scaleX = originalScale[id].x;
                     agent.sprite.scaleY = originalScale[id].y;
                     agent.playbackRate = originalPitch[id];
@@ -8502,15 +7737,11 @@ function setup() {
         const agent = agents[data.guid];
         if (!agent) return;
         if (agent.sprite.scaleX > 2) return;
-                // Save original scale and pitch
                 originalScale[data.guid] = { x: 1, y: 1 };
                 originalPitch[data.guid] = 1;
-                // Enlarge the agent
                 agent.sprite.scaleX *= 1.05;
                 agent.sprite.scaleY *= 1.05;
                 agent.$canvas.css("transform", `scale(${agent.sprite.scaleX})`);
-
-                // Decrease playbackRate by 5%
                 agent.playbackRate *= 0.95;
                 if (agent.audio) {
                     agent.audio.playbackRate = agent.playbackRate || 1;
@@ -8523,15 +7754,11 @@ function setup() {
         const agent = agents[data.guid];
         if (!agent) return;
         if (agent.sprite.scaleX < 0.25) return;
-                // Save original scale and pitch
                 originalScale[data.guid] = { x: 1, y: 1 };
                 originalPitch[data.guid] = 1;
-                // Enlarge the agent
                 agent.sprite.scaleX *= 0.95;
                 agent.sprite.scaleY *= 0.95;
                 agent.$canvas.css("transform", `scale(${agent.sprite.scaleX})`);
-
-                // Decrease playbackRate by 5%
                 agent.playbackRate *= 1.05;
                 if (agent.audio) {
                     agent.audio.playbackRate = agent.playbackRate || 1;
@@ -8543,49 +7770,35 @@ function setup() {
         const originalPitch = {};
         const agent = agents[data.guid];
         if (!agent) return;
-        
-                // Save original scale and pitch
                 originalScale[data.guid] = { x: 1, y: 1 };
                 originalPitch[data.guid] = 1;
-                // Enlarge the agent
                 agent.sprite.scaleX = 1;
                 agent.sprite.scaleY = 1;
-
                 agent.$canvas.css("transform", `scale(1)`);
-                // Decrease playbackRate by 5%
                 agent.playbackRate = 1;
                 if (agent.audio) {
                     agent.audio.playbackRate = agent.playbackRate || 1;
                     agent.audio.preservesPitch = false;
                 }
-                
     });
     socket.on("smite", () => {
         var audio = new Audio("./smite.mp3");
         audio.play();
         const originalScale = {};
         const originalPitch = {};
-
         for (const id in agents) {
             const agent = agents[id];
             if (!agent || !agent.sprite) continue;
-
-            // Save original scale and pitch
             originalScale[id] = { x: 1, y: 1 };
             originalPitch[id] = 1;
-
-            // Make small and raise pitch
             agent.sprite.scaleX *= 0.5;
             agent.sprite.scaleY *= 0.5;
             agent.playbackRate *= 2;
         }
-
         setTimeout(() => {
             for (const id in agents) {
                 const agent = agents[id];
                 if (!agent || !agent.sprite || !originalScale[id]) continue;
-
-                // Restore original scale and pitch
                 agent.sprite.scaleX = originalScale[id].x;
                 agent.sprite.scaleY = originalScale[id].y;
                 agent.playbackRate = originalPitch[id];
@@ -8594,11 +7807,8 @@ function setup() {
     });
     socket.on("nuke", (data) => {
         const agent = agents[data.id];
-
         const chance = Math.floor(Math.random() * 3) + 1;
-
         const debrischance = Math.floor(Math.random() * 3) + 1;
-
         if (chance === 1) {
             audio = new Audio("./explode3.wav");
             audio.play();
@@ -8623,7 +7833,6 @@ function setup() {
         sfx.explode.currentTime = 0;
         sfx.explode.play();
     });
-
     socket.on("nuked", () => {
     });
     socket.on("blessed", () => {
@@ -8632,10 +7841,8 @@ function setup() {
         blessedPopup();
     });
 }
-
 var usersAmt = 0;
 var usersKeys = [];
-
 function usersUpdate() {
     usersKeys = Object.keys(usersPublic);
     usersAmt = usersKeys.length;
@@ -8676,7 +7883,6 @@ function sendInput() {
             });
             return;
         }
-
         if (text.substring(1, 0) == "/") {
             var list = text.substring(1).split(" ");
             if (list[0] === "settings") {
@@ -8732,8 +7938,6 @@ function sendInput() {
         }
     }
 }
-// http://stackoverflow.com/a/1781750
-
 function touchHandler(event) {
     var touches = event.changedTouches,
         first = touches[0],
@@ -8751,18 +7955,10 @@ function touchHandler(event) {
         default:
             return;
     }
-
-    // initMouseEvent(type, canBubble, cancelable, view, clickCount,
-    //                screenX, screenY, clientX, clientY, ctrlKey,
-    //                altKey, shiftKey, metaKey, button, relatedTarget);
-
     var simulatedEvent = document.createEvent("MouseEvent");
-    simulatedEvent.initMouseEvent(type, true, true, window, 1, first.screenX, first.screenY, first.clientX, first.clientY, false, false, false, false, 0 /*left*/, null);
-
+    simulatedEvent.initMouseEvent(type, true, true, window, 1, first.screenX, first.screenY, first.clientX, first.clientY, false, false, false, false, 0  , null);
     first.target.dispatchEvent(simulatedEvent);
-    // event.preventDefault();
 }
-
 $(window).load(function () {
     if (localStorage.length === 0) {
         initSettings();
@@ -8794,18 +7990,15 @@ $(window).load(function () {
     document.addEventListener("touchmove", touchHandler, true);
     document.addEventListener("touchend", touchHandler, true);
     document.addEventListener("touchcancel", touchHandler, true);
-
     $("#chat_log_button").click(function () {
         $("#chat_log_button").hide();
         $("#chat_log").show();
         window.onresize();
     });
-
     $("#chat_log_close").click(function () {
         $("#chat_log_button").show();
         $("#chat_log").hide();
     });
-
     window.onresize = () => {
         for (const id in agents) {
             const agent = agents[id];
@@ -8813,11 +8006,9 @@ $(window).load(function () {
         }
     };
 });
-
 function newupdate() {
     alert("AgentCHAT Version 0.1.4b - Agents will now fall asleep from being idle/afk. This is the final update due to a request by our benefactors.");
 }
-
 function createIframeWindow(url, title = "New Window") {
     const window = document.createElement("div");
     window.className = "iframe-window";
@@ -8825,22 +8016,17 @@ function createIframeWindow(url, title = "New Window") {
     window.style.top = "50px";
     window.style.width = "600px";
     window.style.height = "450px";
-
     const titlebar = document.createElement("div");
     titlebar.className = "iframe-titlebar";
-
     const titleText = document.createElement("span");
     titleText.textContent = title;
-
     const controls = document.createElement("div");
     controls.className = "iframe-controls";
-
     const closeBtn = document.createElement("button");
     closeBtn.className = "iframe-control iframe-close";
     closeBtn.style.width = "16px";
     closeBtn.style.height = "16px";
     closeBtn.onclick = () => window.remove();
-
     const maximizeBtn = document.createElement("button");
     maximizeBtn.className = "iframe-control iframe-maximize";
     maximizeBtn.style.width = "16px";
@@ -8858,7 +8044,6 @@ function createIframeWindow(url, title = "New Window") {
             window.style.top = "0";
         }
     };
-
     const minimizeBtn = document.createElement("button");
     minimizeBtn.className = "iframe-control iframe-minimize";
     minimizeBtn.style.width = "16px";
@@ -8866,14 +8051,11 @@ function createIframeWindow(url, title = "New Window") {
     minimizeBtn.onclick = () => {
         window.style.height = "36px";
     };
-
     controls.appendChild(minimizeBtn);
     controls.appendChild(maximizeBtn);
     controls.appendChild(closeBtn);
-
     titlebar.appendChild(titleText);
     titlebar.appendChild(controls);
-
     const iframe = document.createElement("iframe");
     iframe.className = "iframe-content";
     iframe.src = url;
@@ -8883,77 +8065,55 @@ function createIframeWindow(url, title = "New Window") {
     iframe.setAttribute("mozallowfullscreen", "true");
     iframe.setAttribute("scrolling", "no");
     iframe.setAttribute("allow", "autoplay; fullscreen; gamepad");
-
     window.appendChild(titlebar);
     window.appendChild(iframe);
     document.body.appendChild(window);
-
-    // Make window draggable
     let isDragging = false;
     let currentX;
     let currentY;
     let initialX;
     let initialY;
-
     titlebar.onmousedown = dragStart;
-
     function dragStart(e) {
         initialX = e.clientX - window.offsetLeft;
         initialY = e.clientY - window.offsetTop;
-
         if (e.target === titlebar) {
             isDragging = true;
         }
     }
-
     document.onmousemove = drag;
     document.onmouseup = dragEnd;
-
     function drag(e) {
         if (isDragging) {
             e.preventDefault();
             currentX = e.clientX - initialX;
             currentY = e.clientY - initialY;
-
             window.style.left = `${currentX}px`;
             window.style.top = `${currentY}px`;
         }
     }
-
     function dragEnd() {
         initialX = currentX;
         initialY = currentY;
         isDragging = false;
     }
 }
-
 function addChatLog(username, message, type = "message", shouldSpeak = true) {
     const chatLog = document.getElementById("chatLog");
     const msgDiv = document.createElement("div");
     msgDiv.className = "message";
-
     const timestamp = new Date().toLocaleTimeString();
     msgDiv.innerHTML = `<span class="timestamp">[${timestamp}]</span> <span class="theusername">${username}:</span> ${message}`;
-
     chatLog.appendChild(msgDiv);
     chatLog.scrollTop = chatLog.scrollHeight;
 }
-
-// Add this function after the createSharedWindow function
 const loadFlashPlayer = async (file, ruffleContainer) => {
     try {
-        // Clear container and show loading state
         ruffleContainer.innerHTML = "<p>Loading Flash player...</p>";
-
-        // Create dedicated container for the player
         const playerContainer = document.createElement("div");
         playerContainer.style.width = "100%";
         playerContainer.style.height = "100%";
-
-        // Clear loading message
         ruffleContainer.innerHTML = "";
-
-        // Create and configure player
         playerContainer.innerHTML = `<object type='application/x-shockwave-flash' data='${window.URL.createObjectURL(file)}' id='vv_player' width='400' height='300'><param name='movie' value='${window.URL.createObjectURL(
             file
         )}'><param name='allowFullScreen' value='true'></object>`;
@@ -8965,7 +8125,6 @@ const loadFlashPlayer = async (file, ruffleContainer) => {
             <p>Please try again</p>
             <input type="file" accept=".swf" />
         `;
-
         const newInput = ruffleContainer.querySelector("input");
         if (newInput) {
             newInput.onchange = async (e) => {
@@ -8976,7 +8135,6 @@ const loadFlashPlayer = async (file, ruffleContainer) => {
         }
     }
 };
-
 function blessedPopup() {
     new Dialog({
         title: "Blessmode",
@@ -9000,7 +8158,6 @@ function blessedPopup() {
     })
 }
 function coinPopup() {
-    
         new Dialog({
             title: "Help Menu",
             class: "flex_window",
@@ -9031,20 +8188,15 @@ function createFlashWindow() {
     window.style.top = "50px";
     window.style.width = "600px";
     window.style.height = "450px";
-
     const titlebar = document.createElement("div");
     titlebar.className = "iframe-titlebar";
-
     const titleText = document.createElement("span");
     titleText.textContent = "Flash Player";
-
     const controls = document.createElement("div");
     controls.className = "iframe-controls";
-
     const closeBtn = document.createElement("button");
     closeBtn.className = "iframe-control iframe-close";
     closeBtn.onclick = () => window.remove();
-
     const maximizeBtn = document.createElement("button");
     maximizeBtn.className = "iframe-control iframe-maximize";
     maximizeBtn.onclick = () => {
@@ -9060,22 +8212,17 @@ function createFlashWindow() {
             window.style.top = "0";
         }
     };
-
     const minimizeBtn = document.createElement("button");
     minimizeBtn.className = "iframe-control iframe-minimize";
     minimizeBtn.onclick = () => {
         window.style.height = "41px";
     };
-
     const behh = document.createElement("a");
     controls.appendChild(minimizeBtn);
     controls.appendChild(maximizeBtn);
     controls.appendChild(closeBtn);
-
     titlebar.appendChild(titleText);
     titlebar.appendChild(controls);
-
-    // Create ruffle dropzone container
     const ruffleContainer = document.createElement("div");
     ruffleContainer.className = "ruffle-dropzone";
     ruffleContainer.innerHTML = `
@@ -9083,12 +8230,10 @@ function createFlashWindow() {
         <input type="file" accept=".swf" />
                 <button class="ruffle-demo">Or click here for a demo</a>
     `;
-    // Handle file selection
     const fileInput = ruffleContainer.querySelector("input");
     fileInput.onchange = async (e) => {
         const file = e.target.files?.[0];
         if (!file) return;
-
         if (!file.name.toLowerCase().endsWith(".swf")) {
             ruffleContainer.innerHTML = `
                 <p style="color: red">Error: Please select a valid SWF file</p>
@@ -9097,35 +8242,27 @@ function createFlashWindow() {
             `;
             return;
         }
-
         ruffleContainer.innerHTML = "<p>Loading SWF file...</p>";
         await loadFlashPlayer(file, ruffleContainer);
     };
-
-    // Handle drag and drop
     ruffleContainer.ondragover = (e) => {
         e.preventDefault();
         ruffleContainer.style.backgroundColor = "rgba(0, 255, 0, 0.1)";
     };
-
     ruffleContainer.ondragleave = () => {
         ruffleContainer.style.backgroundColor = "rgba(0, 0, 0, 0.4)";
     };
-
     ruffleContainer.ondrop = async (e) => {
         e.preventDefault();
         ruffleContainer.style.backgroundColor = "rgba(0, 0, 0, 0.4)";
-
         try {
             const file = e.dataTransfer?.files?.[0];
             if (!file) {
                 throw new Error("No file was dropped");
             }
-
             if (!file.name.toLowerCase().endsWith(".swf")) {
                 throw new Error("Please drop a valid SWF file");
             }
-
             ruffleContainer.innerHTML = "<p>Loading SWF file...</p>";
             await loadFlashPlayer(file, ruffleContainer);
         } catch (error) {
@@ -9138,79 +8275,52 @@ function createFlashWindow() {
         }
     };
     $(".ruffle-demo").click(function () {
-        // Clear container and show loading state
         ruffleContainer.innerHTML = "<p>Loading Flash player...</p>";
-
-        // Create dedicated container for the player
         const playerContainer = document.createElement("div");
         playerContainer.style.width = "100%";
         playerContainer.style.height = "100%";
-
-        // Clear loading message
         ruffleContainer.innerHTML = "";
-
-        // Create and configure player
         playerContainer.innerHTML = `<object type='application/x-shockwave-flash' data='./swfs/precious_thing.swf' id='vv_player' width='400' height='300'><param name='movie' value='./swfs/precious_thing.swf'><param name='allowFullScreen' value='true'></object>`;
         ruffleContainer.appendChild(playerContainer);
     });
-
     window.appendChild(titlebar);
     window.appendChild(ruffleContainer);
     document.body.appendChild(window);
-
     makeDraggable(window, titlebar, false);
-
     $(".ruffle-demo").click(function () {
-        // Clear container and show loading state
         ruffleContainer.innerHTML = "<p>Loading Flash player...</p>";
-
-        // Create dedicated container for the player
         const playerContainer = document.createElement("div");
         playerContainer.style.width = "100%";
         playerContainer.style.height = "100%";
-
-        // Clear loading message
         ruffleContainer.innerHTML = "";
-
-        // Create and configure player
         playerContainer.innerHTML = `<object type='application/x-shockwave-flash' data='./swfs/precious_thing.swf' id='vv_player' width='400' height='300'><param name='movie' value='./swfs/precious_thing.swf'><param name='allowFullScreen' value='true'></object>`;
         ruffleContainer.appendChild(playerContainer);
     });
-
     return window;
 }
-
 function makeDraggable(window, titlebar, isStream) {
     let isDragging = false;
     let currentX;
     let currentY;
     let initialX;
     let initialY;
-
     titlebar.onmousedown = dragStart;
-
     function dragStart(e) {
         initialX = e.clientX - window.offsetLeft;
         initialY = e.clientY - window.offsetTop;
-
         if (e.target === titlebar) {
             isDragging = true;
         }
     }
-
     document.addEventListener("mousemove", drag);
     document.addEventListener("mouseup", dragEnd);
-
     function drag(e) {
         if (isDragging) {
             e.preventDefault();
             currentX = e.clientX - initialX;
             currentY = e.clientY - initialY;
-
             window.style.left = `${currentX}px`;
             window.style.top = `${currentY}px`;
-
-            // If this is a stream window, broadcast position to other users
             if (isStream && currentStreamUser === room.party.client.username) {
                 room.send({
                     type: "stream_window_moved",
@@ -9220,7 +8330,6 @@ function makeDraggable(window, titlebar, isStream) {
             }
         }
     }
-
     function dragEnd() {
         initialX = currentX;
         initialY = currentY;

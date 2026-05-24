@@ -41,18 +41,24 @@ let balances = {};
   } catch (err) {
     console.error("Error reading balances.json:", err);
   }
-// Save balances to file
+// Save balances to file (debounced — batches rapid saves into one write every 5s)
+let _saveBalancesTimer = null;
 function saveBalances() {
-    fs.writeFile(
-        "./balances.json",
-        JSON.stringify(balances),
-        { flag: 'w' },
-        function(error) {
-            log.info.log('info', 'banSave', {
-                error: error
-            });
-        }
-    );
+    if (_saveBalancesTimer) return;
+    _saveBalancesTimer = setTimeout(function() {
+        _saveBalancesTimer = null;
+        fs.writeFile(
+            "./balances.json",
+            JSON.stringify(balances),
+            { flag: 'w' },
+            function(error) {
+                if (error) {
+                    log.info.log('error', 'banSave', { error: error });
+                }
+                // suppress no-error log — it was spamming every few seconds
+            }
+        );
+    }, 5000);
 }
 function ipsConnected(ip) {
     let count = 0;
@@ -1202,22 +1208,13 @@ let userCommands = {
           this.bounceInterval = null;
       }
       
-      if (this.private.runlevel > 0.5) {
-          this.room.emit("move", {
-              guid: this.guid,
-              posX: x,
-              posY: y,
-          });
-      } else {
-        // fuck it. lol
-          this.socket.emit("move", {
-              guid: this.guid,
-              posX: x,
-              posY: y,
-          });
-      }
       this.public.x = x;
       this.public.y = y;
+      this.room.emit("move", {
+          guid: this.guid,
+          posX: x,
+          posY: y,
+      });
     },
     dvdbounce: function() {
         // Clear any existing bounce interval for this user
@@ -1255,19 +1252,11 @@ let userCommands = {
             }
             
             // Emit the movement to all users
-            if (_this.private.runlevel > 0.5) {
-                _this.room.emit("move", {
-                    guid: _this.guid,
-                    posX: _this.public.x,
-                    posY: _this.public.y,
-                });
-            } else {
-                _this.socket.emit("move", {
-                    guid: _this.guid,
-                    posX: _this.public.x,
-                    posY: _this.public.y,
-                });
-            }
+            _this.room.emit("move", {
+                guid: _this.guid,
+                posX: _this.public.x,
+                posY: _this.public.y,
+            });
         }, 16); // ~60 FPS
     },
     stopdvd: function() {
@@ -1293,6 +1282,10 @@ let userCommands = {
     },
     bowserfight: function () {
         this.room.emit("state_bowserfight");
+    },
+    bombminigame: function () {
+        if (this.private.runlevel < 4) return;
+        this.room.emit("state_bombminigame");
     },
         "linux": "passthrough",
         "pawn": "passthrough",
@@ -1417,6 +1410,10 @@ class User {
         });
 
         this.socket.on("bowser_hit", (data) => {
+            _this.room.emit("explode", data);
+        });
+
+        this.socket.on("bomb_hit", (data) => {
             _this.room.emit("explode", data);
         });
         
@@ -1672,6 +1669,7 @@ class User {
 
     async command(data) {
         if (typeof data != 'object') return; // Crash fix (issue #9)
+        if (!this.room) return; // Guard: command fired before login — this.room is undefined
 
         var command;
         var args;
