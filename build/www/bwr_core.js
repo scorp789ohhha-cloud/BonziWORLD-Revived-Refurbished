@@ -7552,8 +7552,14 @@ function startBowserFight() {
     let bowserY = 0;
     let bowserDir = 3;
     let bowserShootingEnabled = true;
+    let coinTickAmount = 0;
+    let coinTickCurrent = 0;
+    let coinTickActive = false;
+    let coinTickTimer = null;
 
     const zoomoutAudio = new Audio("../bowserzoomout.mp3");
+    const completionAudio = new Audio("../completionthemeyay.mp3");
+    const coinAudio = new Audio("../coinclink.mp3");
     let defeatFrame = 0;
     let defeatStartX = 0;
     let defeatStartY = 0;
@@ -7578,18 +7584,52 @@ function startBowserFight() {
 
     const spawnInterval = setInterval(spawnHammers, 700);
 
+    function startCoinTick(targetAmount) {
+        coinTickAmount = targetAmount;
+        coinTickCurrent = 0;
+        coinTickActive = true;
+        const step = Math.max(1, Math.floor(targetAmount / 120));
+        coinTickTimer = setInterval(() => {
+            coinTickCurrent = Math.min(coinTickCurrent + step, coinTickAmount);
+            coinAudio.currentTime = 0;
+            coinAudio.play();
+            if (coinTickCurrent >= coinTickAmount) {
+                clearInterval(coinTickTimer);
+                coinTickActive = false;
+                setTimeout(() => {
+                    canvas.remove();
+                    bowserShootingEnabled = false;
+                }, 1200);
+            }
+        }, 50);
+    }
+
+    function drawCoinOverlay() {
+        if (!coinTickActive) return;
+        const cx = canvas.width / 2;
+        const cy = canvas.height / 2;
+        ctx.save();
+        ctx.font = "bold 48px Arial";
+        ctx.textAlign = "center";
+        ctx.fillStyle = "gold";
+        ctx.strokeStyle = "black";
+        ctx.lineWidth = 4;
+        const text = "+" + coinTickCurrent + " BonziCOINs!";
+        ctx.strokeText(text, cx, cy);
+        ctx.fillText(text, cx, cy);
+        ctx.restore();
+    }
+
     function update() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
         if (!defeated) {
-            // straight linear left-right at the top
             bowserX += bowserDir;
             if (bowserX <= 0 || bowserX >= canvas.width - 256) bowserDir *= -1;
             bowserY = 0;
             bossEl.style.left = bowserX + "px";
             bossEl.style.top = bowserY + "px";
-        } else {
-            // linear defeat: zoom out, spin, fly to top-left
+        } else if (!coinTickActive) {
             defeatFrame++;
             const progress = Math.min(defeatFrame / 90, 1);
             const newS = 256 - (208 * progress);
@@ -7604,13 +7644,14 @@ function startBowserFight() {
             bossEl.style.transform = "rotate(" + rot + "deg)";
 
             if (progress >= 1) {
-                bowserShootingEnabled = false;
                 bossEl.remove();
-                canvas.remove();
-                zoomoutAudio.pause();
-                return;
+                if (!coinTickActive && coinTickAmount === 0) {
+                    // wait for earned event to start coin tick
+                }
             }
         }
+
+        drawCoinOverlay();
 
         const agent = agents?.[bonzi_guid];
         if (!agent) return requestAnimationFrame(update);
@@ -7680,6 +7721,10 @@ function startBowserFight() {
                     defeatStartY = bowserY;
                     bossEl.src = "../img/bye.gif";
                     zoomoutAudio.play();
+                    completionAudio.currentTime = 0;
+                    completionAudio.volume = 0.6;
+                    completionAudio.loop = true;
+                    completionAudio.play();
                     socket.emit("bowserkilled", bonzi_guid);
                 }
                 continue;
@@ -7710,6 +7755,10 @@ function startBowserFight() {
         bullets.push({ x: agent.x + 100, y: agent.y, speed: 8, size: 16, id: data.id });
         sfx.shoot.currentTime = 0;
         sfx.shoot.play();
+    });
+
+    socket.once("earned", (amount) => {
+        if (amount === 150) startCoinTick(150);
     });
 }
 

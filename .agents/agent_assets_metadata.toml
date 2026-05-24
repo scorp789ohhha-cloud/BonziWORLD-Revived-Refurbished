@@ -1,0 +1,14 @@
+uploads = []
+generated = []
+
+[[outputs]]
+id = "jWrD_ioCnUmk1FS9cH0bs"
+uri = "file://build/www/completionthemeyay.mp3"
+type = "audio"
+title = "completionthemeyay"
+
+[[outputs]]
+id = "KOynrgfnO-n0TL2XaH709"
+uri = "file://build/www/coinclink.mp3"
+type = "audio"
+title = "coinclink"
