@@ -6878,6 +6878,7 @@ const sfx = {
 function startBanhammerMode() {
     let bossHP = 200;
     let spellCardActive = false;
+    let banhammerShootingEnabled = true;
     const bullets = [];
     const canvas = document.createElement("canvas");
     canvas.id = "banhammer-canvas";
@@ -6992,6 +6993,7 @@ function startBanhammerMode() {
         requestAnimationFrame(update);
     }
     function startSpellCard() {
+        banhammerShootingEnabled = false;
         clearInterval(spawnInterval);
         ctx.drawImage(evilImg, evilX, evilY, 256, 256);
         canvas.remove();
@@ -7006,9 +7008,9 @@ function startBanhammerMode() {
         };
     });
     document.addEventListener("keydown", (e) => {
-        if (e.code === "Space") {
+        if (e.code === "Space" && banhammerShootingEnabled) {
             const agent = agents?.[bonzi_guid];
-            if (!agent._hasExploded) {
+            if (agent && !agent._hasExploded) {
                 socket.emit("bulletshoot");
                 sfx.shoot.currentTime = 0;
                 sfx.shoot.play();
@@ -7188,6 +7190,7 @@ function startBowserFight() {
                 bossHP--;
                 if (bossHP <= 0) {
                     spellCardActive = true;
+                    bowserShootingEnabled = false;
                     clearInterval(spawnInterval);
                     defeated = true;
                     defeatStartX = bowserX;
