@@ -6986,11 +6986,6 @@ function startMasterHandFight() {
 
     const bombImg = new Image();
     bombImg.src = "https://upload.wikimedia.org/wikipedia/commons/2/20/MkII_07.JPG";
-
-   if (typeof socket !== 'undefined') {
-    socket.emit("state_masterhandfight");
-}
-
     const introAudio = new Audio("03.wav");
     const deathAudio = new Audio("31.wav");
 
