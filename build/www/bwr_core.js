@@ -6934,6 +6934,7 @@ function startMasterHandFight() {
     let defeated = false;
     let isSpawning = true;
     let spawnFrame = 0;
+    let isLaserPhase = false;
     const bullets = [];
     
     const canvas = document.createElement("canvas");
@@ -6975,9 +6976,12 @@ function startMasterHandFight() {
     `;
     bossContainer.appendChild(hpBar);
 
+    const normalImg = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRY1PZW4Cr8CioJ2xTfQHOy2JWzNkdDZ4Nlmg&s";
+    const laserImg = "https://origin.giantbomb.com/a/uploads/original/0/8675/482140-master_hand_2.jpg";
+
     const bossEl = document.createElement("img");
     bossEl.id = "master-hand-boss";
-    bossEl.src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRY1PZW4Cr8CioJ2xTfQHOy2JWzNkdDZ4Nlmg&s";
+    bossEl.src = normalImg;
     bossEl.style.cssText = `
         width: 256px;
         height: 256px;
@@ -6998,7 +7002,8 @@ function startMasterHandFight() {
     const bombs = [];
     let bossX = canvas.width / 2 - 128;
     let bossY = 30;
-    let bossDir = 3;
+    let bossDirX = 3;
+    let bossDirY = 2;
     let shootingEnabled = true;
 
     function spawnBombs() {
@@ -7052,6 +7057,7 @@ function startMasterHandFight() {
         clearInterval(spawnInterval);
         defeated = true;
         
+        bossEl.src = normalImg;
         hpBar.remove();
         deathAudio.play();
         fadeOutBGM();
@@ -7076,6 +7082,22 @@ function startMasterHandFight() {
         if (typeof socket !== 'undefined') socket.emit("bowserkilled", bonzi_guid);
     }
 
+    function animateCoinCount(target) {
+        const el = document.querySelector(".coin_count");
+        if (!el) return;
+        const start = parseInt(el.textContent) || 0;
+        const dur = 6000; 
+        const startTime = performance.now();
+        const timer = setInterval(() => {
+            const elapsed = performance.now() - startTime;
+            const progress = Math.min(elapsed / dur, 1);
+            el.textContent = Math.floor(start + target * progress);
+            if (progress >= 1) {
+                clearInterval(timer);
+            }
+        }, 10);
+    }
+
     function update() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -7093,8 +7115,16 @@ function startMasterHandFight() {
             }
         } 
         else if (!defeated) {
-            bossX += bossDir;
-            if (bossX <= 0 || bossX >= canvas.width - 256) bossDir *= -1;
+            if (isLaserPhase) {
+                bossX += bossDirX;
+                bossY += bossDirY;
+
+                if (bossX <= 0 || bossX >= canvas.width - 256) bossDirX *= -1;
+                if (bossY <= 0 || bossY >= canvas.height - 400) bossDirY *= -1;
+            } else {
+                bossX += bossDirX;
+                if (bossX <= 0 || bossX >= canvas.width - 256) bossDirX *= -1;
+            }
             bossContainer.style.left = bossX + "px";
             bossContainer.style.top = bossY + "px";
         }
@@ -7146,6 +7176,13 @@ function startMasterHandFight() {
                 bossHP--;
                 
                 hpBar.value = bossHP;
+                
+                if (bossHP <= 50 && !isLaserPhase) {
+                    isLaserPhase = true;
+                    bossEl.src = laserImg;
+                    bossDirX = (bossDirX > 0 ? 5 : -5);
+                    bossDirY = 4;
+                }
                 
                 if (bossHP < (maxHP * 0.35)) {
                     hpBar.style.accentColor = "#ff0000";
