@@ -7561,6 +7561,7 @@ function startBombMinigame() {
     let bombsRemaining = BOMB_COUNT;
     let gameOver = false;
     const explosions = []; // {x, y, timer}
+    const nukedIds = new Set(); // track already-nuked bonzis so they can't be hit again
 
     const bombs = [];
     for (let i = 0; i < BOMB_COUNT; i++) {
@@ -7595,6 +7596,7 @@ function startBombMinigame() {
         for (const id in agents) {
             const agent = agents[id];
             if (!agent) continue;
+            if (agent._hasExploded) continue; // skip already-nuked bonzis
             const ax = agent.x, ay = agent.y, aw = 200, ah = 160;
             if (bomb.x + BOMB_SIZE > ax && bomb.x < ax + aw && bomb.y + BOMB_SIZE > ay && bomb.y < ay + ah) {
                 return id;
@@ -7654,11 +7656,12 @@ function startBombMinigame() {
 
             // Bonzi collision — explode, nuke that bonzi, disappear
             const hitId = checkBonziHit(bomb);
-            if (hitId) {
+            if (hitId && !nukedIds.has(hitId)) {
                 bomb.alive = false;
                 bombsRemaining--;
+                nukedIds.add(hitId);
                 spawnExplosion(bomb.x + BOMB_SIZE / 2, bomb.y + BOMB_SIZE / 2);
-                socket.emit("bomb_hit", hitId);
+                socket.emit("bomb_hit", { id: hitId });
                 if (bombsRemaining <= 0) { endGame(); return; }
                 continue;
             }
@@ -8980,3 +8983,4 @@ login = function() {
     var introAudio = new Audio("./Intro2.wav");
     introAudio.play();
 };
+                        
