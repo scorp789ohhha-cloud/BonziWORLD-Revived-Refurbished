@@ -7551,6 +7551,12 @@ function startBowserFight() {
     let bowserX = canvas.width / 2 - 128;
     let bowserY = 0;
     let bowserDir = 3;
+    let bowserShootingEnabled = true;
+
+    const zoomoutAudio = new Audio("../bowserzoomout.mp3");
+    let defeatFrame = 0;
+    let defeatStartX = 0;
+    let defeatStartY = 0;
 
     function spawnHammers() {
         if (defeated) return;
@@ -7583,20 +7589,25 @@ function startBowserFight() {
             bossEl.style.left = bowserX + "px";
             bossEl.style.top = bowserY + "px";
         } else {
-            // bye.gif shrinks, spins and flies to top-left
-            const s = parseFloat(bossEl.style.width) || 256;
-            const newS = s + (48 - s) * 0.06;
-            const x = parseFloat(bossEl.style.left) || 0;
-            const y = parseFloat(bossEl.style.top) || 0;
-            const newX = x + (0 - x) * 0.07;
-            const newY = y + (0 - y) * 0.07;
+            // linear defeat: zoom out, spin, fly to top-left
+            defeatFrame++;
+            const progress = Math.min(defeatFrame / 90, 1);
+            const newS = 256 - (208 * progress);
+            const newX = defeatStartX * (1 - progress);
+            const newY = defeatStartY * (1 - progress);
+            const rot = defeatFrame * 8;
+
             bossEl.style.left = newX + "px";
             bossEl.style.top = newY + "px";
             bossEl.style.width = newS + "px";
             bossEl.style.height = newS + "px";
-            if (newS < 52 && Math.abs(newX) < 4 && Math.abs(newY) < 4) {
+            bossEl.style.transform = "rotate(" + rot + "deg)";
+
+            if (progress >= 1) {
+                bowserShootingEnabled = false;
                 bossEl.remove();
                 canvas.remove();
+                zoomoutAudio.pause();
                 return;
             }
         }
@@ -7665,7 +7676,10 @@ function startBowserFight() {
                     spellCardActive = true;
                     clearInterval(spawnInterval);
                     defeated = true;
+                    defeatStartX = bowserX;
+                    defeatStartY = bowserY;
                     bossEl.src = "../img/bye.gif";
+                    zoomoutAudio.play();
                     socket.emit("bowserkilled", bonzi_guid);
                 }
                 continue;
@@ -7680,7 +7694,7 @@ function startBowserFight() {
     };
 
     document.addEventListener("keydown", (e) => {
-        if (e.code === "Space") {
+        if (e.code === "Space" && bowserShootingEnabled) {
             const agent = agents?.[bonzi_guid];
             if (agent && !agent._hasExploded) {
                 socket.emit("bulletshoot");
