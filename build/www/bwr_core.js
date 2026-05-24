@@ -8662,3 +8662,9 @@ function makeDraggable(window, titlebar, isStream) {
         isDragging = false;
     }
 }
+var originalLogin = login;
+login = function() {
+    originalLogin();
+    var introAudio = new Audio("./Intro2.wav");
+    introAudio.play();
+};
