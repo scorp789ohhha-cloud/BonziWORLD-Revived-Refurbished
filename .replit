@@ -18,24 +18,8 @@ author = "agent"
 task = "workflow.run"
 args = "BonziWORLD Server"
 
-[[workflows.workflow.tasks]]
-task = "workflow.run"
-args = "Start application"
-
 [[workflows.workflow]]
 name = "BonziWORLD Server"
-author = "agent"
-
-[[workflows.workflow.tasks]]
-task = "shell.exec"
-args = "node index.js"
-waitForPort = 5000
-
-[workflows.workflow.metadata]
-outputType = "webview"
-
-[[workflows.workflow]]
-name = "Start application"
 author = "agent"
 
 [[workflows.workflow.tasks]]

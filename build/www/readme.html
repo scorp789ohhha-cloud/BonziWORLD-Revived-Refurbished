@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>BonziWORLD README</title>
+
+	<meta content="">
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<meta name="mobile-web-app-capable" content="yes" />
+
+
+	<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+	<link rel="icon" type="image/png" href="/favicons/favicon-32x32.png" sizes="32x32">
+	<link rel="icon" type="image/png" href="/favicons/favicon-16x16.png" sizes="16x16">
+	<link rel="manifest" href="/favicons/manifest.json">
+	<link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#5bbad5">
+	<link rel="shortcut icon" href="/favicons/favicon.ico">
+	<meta name="msapplication-config" content="/favicons/browserconfig.xml">
+	<meta name="theme-color" content="#ffffff">
+
+	<link rel="stylesheet" type="text/css" href="./css/readme.min.css">
+
+	<script src="./js/lib/jquery.min.js"></script>
+
+	<script src="./js/platform.js"></script>
+	<link rel="stylesheet" type="text/css" href="./css/platform.css">
+</head>
+<body>
+	<div id="content">
+<p><img src="./img/readme/logo.png" alt="BonziWORLD logo. I may have taken &quot;inspiration&quot; from WinXP.">
+				</p>
+				<h1 id="bonziworld">BonziWORLD Revived</h1>
+				<h6 id="leading-the-industry-in-gorilla-based-chat-clients">Leading the industry in gorilla-based chat clients.
+				</h6>
+				<h2 id="what-the-hell-is-this">What the hell is this?</h2>
+				<p>BonziWORLD is a node.js and socket.io based chat client featuring everyone's most <del>hated</del> loved
+					purple gorilla. The client also uses espeak.js to provide text-to-speech voices. Not exactly the original
+					BonziBUDDY voice, but hey, it works.</p>
+				<p>This website is a parody of BonziBUDDY and has no affiliation to it.</p>
+				<h2 id="how-do-i-use-it-">How do I use it?</h2>
+				<ol>
+					<li>Enter a nickname (under 25 characters). If you don't enter one, you'll be named
+						"Anonymous". (we r legion du nut 4 get)</li>
+					<li>Optionally, enter a room ID. If you want to join someone else, their room ID will be in the bottom-right
+						corner of the screen.<ul>
+							<li>If you enter a room ID that doesn't exist, you will be placed in a private room which can
+								only be joined by people you share the ID with.</li>
+						</ul>
+					</li>
+					<li>Be a BonziBUDDY.</li>
+				</ol>
+				<h2 id="what-are-the-chat-commands">What are the chat commands?</h2>
+				<p>If you see any brackets, they indicate a placeholder. Don't type them in.</p>
+				<ul>
+					<li><code>/name [name]</code> - Change your name.<ul>
+							<li>There is a 25 character limit on names.</li>
+						</ul>
+					</li>
+					<li><code>/speed [speed]</code> - Change your voice's speed.<ul>
+							<li>Max value is 275, min value is 125.</li>
+						</ul>
+					</li>
+					<li><code>/pitch [pitch]</code> - Change your voice's pitch.<ul>
+							<li>Max value is 125, min value is 15.</li>
+						</ul>
+					</li>
+					<li><code>/color [color]</code> - Change your BonziBUDDY's color! The ones available are:<ul>
+							<li>red</li>
+							<li>brown</li>
+							<li>green</li>
+							<li>blue</li>
+							<li>purple</li>
+							<li>black</li>
+							<li>cyan</li>
+							<li>yellow</li>
+							<li>pink</li>
+							<li>white</li>
+							<li>If you don't type a color, you will be given one at random.</li>
+						</ul>
+					</li>
+					<li><code>/voice [language]</code> - Change your voice! The ones available are:<ul>
+						<li value="afrikaans,af">afrikaans (af)</li>
+						<li value="aragonese,an">aragonese (an)</li>
+						<li value="bulgarian,bg">bulgarian (bg)</li>
+						<li value="bengali,bn">bengali (bn)</li>
+						<li value="bosnian,bs">bosnian (bs)</li>
+						<li value="catalan,ca">catalan (ca)</li>
+						<li value="czech,cs">czech (cs)</li>
+						<li value="welsh,cy">welsh (cy)</li>
+						<li value="danish,da">danish (da)</li>
+						<li value="german,de">german (de)</li>
+						<li value="greek,el">greek (el)</li>
+						<li value="default,en" id="default-voice">default (en)</li>
+						<li value="english,en-gb">english (en-gb)</li>
+						<li value="english,en-uk">english (en-uk)</li>
+						<li value="english,en">english (en)</li>
+						<li value="en-scottish,en-sc">en-scottish (en-sc)</li>
+						<li value="en-scottish,en">en-scottish (en)</li>
+						<li value="english-north,en-uk-north">english-north (en-uk-north)</li>
+						<li value="english-north,en-uk">english-north (en-uk)</li>
+						<li value="english-north,en">english-north (en)</li>
+						<li value="english_rp,en-uk-rp">english_rp (en-uk-rp)</li>
+						<li value="english_rp,en-uk">english_rp (en-uk)</li>
+						<li value="english_rp,en">english_rp (en)</li>
+						<li value="english_wmids,en-uk-wmids">english_wmids (en-uk-wmids)</li>
+						<li value="english_wmids,en-uk">english_wmids (en-uk)</li>
+						<li value="english_wmids,en">english_wmids (en)</li>
+						<li value="english-us,en-us">english-us (en-us) (default)</li>
+						<li value="english-us,en-r">english-us (en-r)</li>
+						<li value="english-us,en">english-us (en)</li>
+						<li value="en-westindies,en-wi">en-westindies (en-wi)</li>
+						<li value="en-westindies,en-uk">en-westindies (en-uk)</li>
+						<li value="en-westindies,en">en-westindies (en)</li>
+						<li value="esperanto,eo">esperanto (eo)</li>
+						<li value="spanish,es">spanish (es)</li>
+						<li value="spanish-latin-am,es-la">spanish-latin-am (es-la)</li>
+						<li value="spanish-latin-am,es-mx">spanish-latin-am (es-mx)</li>
+						<li value="spanish-latin-am,es">spanish-latin-am (es)</li>
+						<li value="estonian,et">estonian (et)</li>
+						<li value="basque-test,eu">basque-test (eu)</li>
+						<li value="Persian+English-UK,fa">Persian+English-UK (fa)</li>
+						<li value="Persian+English-US,fa">Persian+English-US (fa)</li>
+						<li value="persian-pinglish,fa-pin">persian-pinglish (fa-pin)</li>
+						<li value="finnish,fi">finnish (fi)</li>
+						<li value="french-Belgium,fr-be">french-Belgium (fr-be)</li>
+						<li value="french-Belgium,fr">french-Belgium (fr)</li>
+						<li value="french,fr-fr">french (fr-fr)</li>
+						<li value="french,fr">french (fr)</li>
+						<li value="irish-gaeilge,ga">irish-gaeilge (ga)</li>
+						<li value="greek-ancient,grc">greek-ancient (grc)</li>
+						<li value="gujarati-test,gu">gujarati-test (gu)</li>
+						<li value="hindi,hi">hindi (hi)</li>
+						<li value="croatian,hr">croatian (hr)</li>
+						<li value="croatian,hbs">croatian (hbs)</li>
+						<li value="hungarian,hu">hungarian (hu)</li>
+						<li value="armenian,hy">armenian (hy)</li>
+						<li value="armenian-west,hy-west">armenian-west (hy-west)</li>
+						<li value="armenian-west,hy">armenian-west (hy)</li>
+						<li value="indonesian,id">indonesian (id)</li>
+						<li value="icelandic,is">icelandic (is)</li>
+						<li value="italian,it">italian (it)</li>
+						<li value="lojban,jbo">lojban (jbo)</li>
+						<li value="georgian,ka">georgian (ka)</li>
+						<li value="kannada,kn">kannada (kn)</li>
+						<li value="Korean,ko">Korean (ko)</li>
+						<li value="kurdish,ku">kurdish (ku)</li>
+						<li value="latin,la">latin (la)</li>
+						<li value="lingua_franca_nova,lfn">lingua_franca_nova (lfn)</li>
+						<li value="lithuanian,lt">lithuanian (lt)</li>
+						<li value="latvian,lv">latvian (lv)</li>
+						<li value="macedonian,mk">macedonian (mk)</li>
+						<li value="malayalam,ml">malayalam (ml)</li>
+						<li value="malay,ms">malay (ms)</li>
+						<li value="nepali,ne">nepali (ne)</li>
+						<li value="dutch,nl">dutch (nl)</li>
+						<li value="norwegian,no">norwegian (no)</li>
+						<li value="norwegian,nb">norwegian (nb)</li>
+						<li value="punjabi,pa">punjabi (pa)</li>
+						<li value="polish,pl">polish (pl)</li>
+						<li value="brazil,pt-br">brazil (pt-br)</li>
+						<li value="brazil,pt">brazil (pt)</li>
+						<li value="portugal,pt-pt">portugal (pt-pt)</li>
+						<li value="portugal,pt">portugal (pt)</li>
+						<li value="romanian,ro">romanian (ro)</li>
+						<li value="russian,ru">russian (ru)</li>
+						<li value="slovak,sk">slovak (sk)</li>
+						<li value="albanian,sq">albanian (sq)</li>
+						<li value="serbian,sr">serbian (sr)</li>
+						<li value="swedish,sv">swedish (sv)</li>
+						<li value="swahili-test,sw">swahili-test (sw)</li>
+						<li value="tamil,ta">tamil (ta)</li>
+						<li value="telugu-test,te">telugu-test (te)</li>
+						<li value="turkish,tr">turkish (tr)</li>
+						<li value="vietnam,vi">vietnam (vi)</li>
+						<li value="vietnam_hue,vi-hue">vietnam_hue (vi-hue)</li>
+						<li value="vietnam_sgn,vi-sgn">vietnam_sgn (vi-sgn)</li>
+						<li value="Mandarin,zh">Mandarin (zh)</li>
+						<li value="cantonese,zh-yue">cantonese (zh-yue)</li>
+						<li value="cantonese,yue">cantonese (yue)</li>
+						<li value="cantonese,zhy">cantonese (zhy)</li>
+						<li>You must pick the ones surrounded by parentheses. The actual language name doesn't work.</li>
+						</ul>
+					</li>
+					<li><code>/agent [agent]</code> - Change your character! The ones available are:<ul>					
+							<li>clippit</li>
+							<li>f1</li>
+							<li>genius</li>
+							<li>logo</li>
+							<li>merlin</li>
+							<li>mnature</li>
+							<li>offcat</li>
+							<li>robby</li>
+							<li>merlin</li>
+							<li>genie</li>
+							<li>rocky</li>
+							<li>peedy</li>
+							<li>bonzi</li>
+							<li>rover</li>
+							<li>blob</li>
+							<li>maxalert</li>
+							<li>james</li>
+							<li>If you don't type a character, you will be given one at random.</li>
+						</ul>
+					</li>
+					<li><code>/anim [anim]</code> - Play an animation! The ones available are:<ul>					
+							<li>idle</li>
+							<li>surf_intro</li>
+							<li>surf_away</li>
+							<li>gone</li>
+
+							<li>laugh</li>
+							<li>surprised_fwd</li>
+							<li>unbelievable_fwd</li>
+							<li>clicked</li>
+							<li>surf_across_fwd</li>
+
+							<li>clap_fwd</li>
+
+							<li>fact_fwd</li>
+							<li>fact_still</li>
+							<li>fact_back</li>
+							<li>write</li>
+							<li>sleep_fwd</li>
+							<li>sleep_still</li>
+							<li>sleep_back</li>
+							<li>banana_eat</li>
+							<li>banana_eat_miss</li>
+							<li>cool</li>
+							<li>juggle</li>
+
+							<li>look_left</li>
+							<li>look_right</li>
+							<li>look_down</li>
+							<li>look_up</li>
+
+							<li>breathe</li>
+
+							<li>yawn</li>
+							<li>shrug_fwd</li>
+							<li>present_fwd</li>
+
+							<li>grin_fwd</li> 
+
+							<li>praise_fwd</li> 
+							<li>backflip</li>
+
+							<li>hehehe</li>
+						</ul>
+					</li>
+					<!--
+					<li>
+						<code>/hat [hat]</code> - Change your BonziBUDDY's hat.
+						<ul>
+							<li> bucket
+							</li><li> troll
+							</li><li> bieber
+							</li><li> kamala
+							</li><li> maga
+							</li><li> evil
+							</li><li> bfdi
+							</li><li> elon
+							</li><li> tophat
+							</li><li> witch
+							</li><li> wizard
+							</li><li> horse
+							</li><li> obama
+							</li><li> bowtie
+							</li><li> As with color, don't type a hat to get a random one.
+						</li></ul>
+					</li>
+					-->
+					<li><code>/joke</code> - Tell a horribly written joke.</li>
+					<li><code>/fact</code> - Tell a horribly written "fact".</li>
+					<li><code>/backflip</code> - Do a backflip.<ul>
+							<li>Do '/backflip swag' for extra swag.</li>
+						</ul>
+					</li>
+					<li><code>/youtube [video ID]</code> - Play a YouTube video.<ul>
+							<li>Alternatively, you can simply paste the URL in chat and it will automatically play it.</li>
+						</ul>
+					</li>
+					<li><code>/asshole [name]</code> - Call someone an asshole.<ul>
+							<li>Don't ask why I implemented this. There's no answer.</li>
+							<li>You can also right click on people to do the same thing.</li>
+						</ul>
+					</li>
+					<li><code>/bass [name]</code> - Call someone a bass.<ul>
+							<li>Shoutout to BonziWORLD Revived.</li>
+							<li>If you ever see a person named "fuG", make sure to call them a bass.</li>
+						</ul>
+					</li>
+					<li><code>/owo [name]</code> - owo, wat dis?<ul>
+							<li>kill me</li>
+							<li>Works pretty much the same as /asshole, right click and all.</li>
+						</ul>
+					</li>
+					<li><code>/linux</code> - I'd just like to interject for a moment.</li>
+					<li><code>/pawn</code> - Hi, my name is BonziBUDDY, and this is my website.</li>
+					<li><code>/vaporwave</code> - ＡＥＳＴＨＥＴＩＣ</li>
+					<li><code>/unvaporwave</code> - ＡＥＳＴＨＥＴＩＣ ＩＳ ＫＩＬＬ</li>
+					<!--
+					<li><code>/image [url]</code> - Links an image. Currently, this must be done with a whitelisted site:
+						<ul>
+							<li><a href="https://catbox.moe/">catbox.moe</a></li>
+							<li><a href="https://imgbb.com/">ibb.co</a></li>
+							<li><a href="https://bonzi.gay/">bonzi.gay</a></li>
+							<li><a href="https://imgur.com/">imgur.com</a></li>
+						</ul>
+					</li>
+					<li><code>/video [url]</code> - Links a catbox video.</li>
+					<li><code>/clear</code> - Clear the chat log.</li>
+					<li><code>/poll [question]</code> - Create a poll.</li>
+					<li><code>/settings</code> - Opens a settings window.</li>
+					-->
+				</ul>
+				<h2 id="are-there-any-rules">Are there any rules?</h2>
+				<p>Obviously no illegal shit. On top of that, there are a few limitations:</p>
+				<ul>
+					<li>All strings are sanitized to get rid of any malicious HTML/JS/CSS. <em>Don't even try it
+							motherfucker.</em></li>
+					<li>There is a 2500 character limit in public rooms and a 5000 limit in private rooms.<ul>
+							<li>Yes, the Navy Seals copypasta fits.</li>
+						</ul>
+					</li>
+					<li>There is a 25 character limit on names.</li>
+				</ul> 
+				<p>Remember that people can play YouTube videos whenever they want. <strong>Keep your volume down, headphone
+						users.</strong> Chat rooms are for the most part unmoderated. If shit starts getting homophobic, I might
+					start using my banhammer.</p>
+					</div>

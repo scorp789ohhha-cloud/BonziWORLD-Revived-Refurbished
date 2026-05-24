@@ -1,0 +1,49 @@
+        <link rel="stylesheet" type="text/css" href="./css/mash.css" />
+        <script src="./js/lib/easeljs.min.js"></script>
+        <script src="./js/lib/preloadjs-0.6.2.min.js"></script>
+        <script src="./js/lib/jquery.min.js"></script>
+        <script src="./js/lib/seedrandom.min.js"></script>
+        <script src="./js/lib/socket.io-1.4.5.js"></script>
+        <script src="./js/lib/speakjs/speakClient.js"></script>
+        <script src="./js/lib/jquery.contextMenu.min.js"></script>
+        <script src="./js/mash.js"></script>
+		
+			<div class="xp_window" id="bonzi_speak_window">
+				<div class="xp_window_bar">
+					<div class="xp_window_close"></div>
+					<div class="xp_window_icon"></div>
+					<div class="xp_window_text">Speaking Bruteforcer for Bonzi</div>
+				</div>
+				<div class="bonzi_speak_button" id="bonzi_speak_say">Speak</div>
+				<div class="bonzi_speak_button xp_window_cancel" id="bonzi_speak_cancel">Cancel</div>
+				<textarea id="bonzi_speak_text"></textarea>
+			</div>
+
+			<div class="xp_window" id="peedy_speak_window">
+				<div class="xp_window_bar">
+					<div class="xp_window_close"></div>
+					<div class="xp_window_icon"></div>
+					<div class="xp_window_text">Speaking Bruteforcer for Peedy</div>
+				</div>
+				<div class="peedy_speak_button" id="peedy_speak_say">Speak</div>
+				<div class="peedy_speak_button xp_window_cancel" id="peedy_speak_cancel">Cancel</div>
+				<textarea id="peedy_speak_text"></textarea>
+			</div>
+
+			<div id="bonzi_cont" class="bonzi">
+				<canvas id="canvas" class="canvas_bonzi"></canvas>
+				<p class="bubble_xp" id="bonzi_xp_bubble" style="display:none"></p>
+			</div>
+
+			<div id="peedy_cont" class="peedy">
+				<canvas id="canvas_peedy" class="canvas_peedy"></canvas>
+				<p class="bubble_xp" id="peedy_xp_bubble" style="display:none"></p>
+			</div>
+
+			<div id="bonzi_xp_menu" class="xp_menu xp_menu_root">
+				<div class="xp_menu_list">
+					<div id="bonzi_speak">Speak</div>
+					<div>Hide</div>
+				</div>
+			</div>
+        </div>

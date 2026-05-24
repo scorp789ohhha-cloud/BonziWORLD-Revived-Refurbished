@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>BonziWORLD Revived 2025 Edition</title>
+        <meta charset="utf-8" />
+        <meta content="" />
+        <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <link rel="stylesheet" type="text/css" href="./css/style.min.css" />
+        <link rel="stylesheet" type="text/css" href="./css/bzw_style.css" />
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css" />
+        <link rel="apple-touch-icon" sizes="180x180" href="./favicons/apple-touch-icon.png" />
+        <link rel="icon" type="image/png" href="./favicons/favicon-32x32.png" sizes="32x32" />
+        <link rel="icon" type="image/png" href="./favicons/favicon-16x16.png" sizes="16x16" />
+        <link rel="manifest" href="./favicons/manifest.json" />
+        <link rel="mask-icon" href="./favicons/safari-pinned-tab.svg" color="#5bbad5" />
+        <link rel="shortcut icon" href="./favicons/favicon.ico" />
+        <meta name="msapplication-config" content="./favicons/browserconfig.xml" />
+        <meta name="theme-color" content="#ffffff" />
+        <style id="theme"></style>
+        <script src="https://code.createjs.com/1.0.0/easeljs.min.js"></script>
+        <script src="https://code.createjs.com/1.0.0/preloadjs.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+        <script src="https://code.jquery.com/jquery-migrate-1.4.1.min.js"></script>
+        <script src="./js/lib/seedrandom.min.js"></script>
+        <script src="./js/lib/socket.io-1.4.5.js"></script>
+        <script src="./espeak.js"></script>
+        <script src="./js/lib/jquery.contextMenu.min.js"></script>
+        <script src="./js/platform.js"></script>
+        <script src="https://www.youtube.com/iframe_api"></script>
+        <script src="bwr_core.js"></script>
+     
+
+    </head>
+    <body oncontextmenu="return false">
+        <div id="page_login" class="page">
+            <div id="login_apps" class="app_showcase"></div>
+            <div id="login_readme">
+                 Welcome to bonziWORLD Revived!
+                <br>
+                <a href="readme.html">README</a> <a href="rules.html">RULES</a> <a href="slang.html">BonziWORLD Slang</a>
+                <br />
+            </div>
+            <div id="login_card" style="display: none;">
+                <input id="login_name" type="text" placeholder="Name" />
+                <input id="login_room" list="login_rooms" type="text" placeholder="Room ID (Optional)" />
+                <datalist id="login_rooms">
+                    <option value="default"></option>
+                    <option value="bonzi_tv"></option>
+                    <option value="ai"></option>
+                </datalist>
+                <div id="login_error" style="display: none;"></div>
+                <div id="login_go"></div>
+            </div>
+            <div id="login_load">loading</div>
+            <div id="login_version">Version 1.0BETA</div>
+            <div id="login_social">
+            </div>
+        </div>
+
+        <div id="page_error" class="page" style="display: none;">
+            <div id="error_cont" class="message_cont">
+                <img src="./img/error/logo.png">
+                <br>
+                An error has occurred. Please try reloading the page. If that doesn't work, report the bug.
+            </div>
+        </div>
+        <div id="page_ban" class="page" style="display: none;">
+            <div id="ban_cont" class="message_cont">
+                <img src="./img/ban/logo.png">
+                <br />
+                <h1>You have been banned from BWR</h1>
+                <br />
+                <br />
+                <b>Reason: </b><span id="ban_reason"></span><br />
+                <b>Deadline: </b><span id="ban_end"></span><br />
+            </div>
+        </div>
+        <div id="page_kick" class="page" style="display: none;">
+            <div id="kick_cont" class="message_cont">
+                <img src="./img/ban/logo.png">
+                <br />
+                <h1>You have been kicked from BWR</h1>
+                <br />
+                <br />
+                <b>Reason: </b><span id="kick_reason"></span><br />
+            </div>
+        </div>
+        <div id="content">
+            <div id="bonzi_tv"></div>
+            </div>
+            <div id="room_info">
+                Room ID - <span class="room_id">???</span>
+                <br />
+                <span id="room_public">This room is public.</span>
+                <span id="room_private">This room is private.</span>
+                <span id="room_owner">
+                    <br />
+                    You are the owner of this room.
+                </span>
+                <div id="bonzicoins" onclick="coinPopup()"><b>You have <span class="coin_count">0</span> BonziCOINs. <img src="bonzicoin.png" width=16></b></div>
+            </div>
+            <div id="chat_log_button"></div>
+            <div id="chat_log" class="window" style="display: none;">
+                <div class="window_header">
+                    BonziLOG™
+                    <div id="chat_log_close" class="window_close"></div>
+                </div>
+                <div class="window_body">
+                    <div id="chat_log_content"></div>
+                </div>
+                <div id="chat_log_resize"></div>
+            </div>
+            <table id="chat_bar">
+                <tbody>
+                    <tr>
+                        <td id="chat_send">Send</td>
+                        <td id="chat_message_cont"><input id="chat_message" type="text" placeholder="To chat click here or press any key on your keyboard | /help for help" /></td>
+                        <td id="chat_tray"><div id="btn_tile" class="tray_btn"></div></td>
+                    </tr>
+                </tbody>
+            </table>
+
+
+
+            <canvas id="agent_canvas" width="100" height="100"></canvas>
+        </div>
+        <div id="titlebar">
+            <div id="minimize"></div>
+            <div id="maximize"></div>
+            <div id="close"></div>
+        </div>
+    </body>
+</html>
