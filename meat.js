@@ -1283,6 +1283,9 @@ let userCommands = {
     bowserfight: function () {
         this.room.emit("state_bowserfight");
     },
+    masterhandfight: function () {
+        this.room.emit("state_masterhandfight");
+    },
     bombminigame: function () {
         if (this.private.runlevel < 4) return;
         this.room.emit("state_bombminigame");
