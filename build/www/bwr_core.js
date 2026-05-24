@@ -6639,17 +6639,35 @@ $(document).ready(function () {
             btn.style.top = btnY + "px";
             btn.style.right = "auto";
 
+            var img = btn.querySelector("img");
+            // Wrap img for overlay positioning
+            var wrapper = document.createElement("div");
+            wrapper.style.position = "relative";
+            wrapper.style.display = "inline-block";
+            img.parentNode.insertBefore(wrapper, img);
+            wrapper.appendChild(img);
+            var overlay = document.createElement("div");
+            overlay.style.position = "absolute";
+            overlay.style.inset = "0";
+            overlay.style.backgroundColor = "rgba(0,78,152,0.6)";
+            overlay.style.webkitMaskImage = "url(" + img.src + ")";
+            overlay.style.maskImage = "url(" + img.src + ")";
+            overlay.style.webkitMaskSize = "100% 100%";
+            overlay.style.maskSize = "100% 100%";
+            overlay.style.display = "none";
+            overlay.style.pointerEvents = "none";
+            wrapper.appendChild(overlay);
+
             var selected = false;
             function setSelected(val) {
                 selected = val;
-                var img = btn.querySelector("img");
                 var span = btn.querySelector("span");
                 if (val) {
-                    img.style.backgroundColor = "rgba(0,78,152,0.6)";
+                    overlay.style.display = "block";
                     span.style.backgroundColor = "rgba(0,78,152,0.9)";
                     span.style.outline = "1px dotted rgba(255,255,255,0.7)";
                 } else {
-                    img.style.backgroundColor = "";
+                    overlay.style.display = "none";
                     span.style.backgroundColor = "";
                     span.style.outline = "";
                 }
