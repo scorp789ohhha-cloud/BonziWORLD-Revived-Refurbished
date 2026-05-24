@@ -8485,6 +8485,7 @@ function sendInput() {
         if (text.startsWith("/explodeme")) {
             var b = agents[bonzi_guid];
             if (b) {
+                new Audio("./sfx/explode.wav").play();
                 b.explode();
             }
             return;
