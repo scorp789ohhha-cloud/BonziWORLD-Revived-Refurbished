@@ -6645,12 +6645,10 @@ $(document).ready(function () {
                 var img = btn.querySelector("img");
                 var span = btn.querySelector("span");
                 if (val) {
-                    img.style.outline = "2px solid rgba(255,255,255,0.6)";
                     img.style.backgroundColor = "rgba(0,78,152,0.6)";
                     span.style.backgroundColor = "rgba(0,78,152,0.9)";
                     span.style.outline = "1px dotted rgba(255,255,255,0.7)";
                 } else {
-                    img.style.outline = "";
                     img.style.backgroundColor = "";
                     span.style.backgroundColor = "";
                     span.style.outline = "";
