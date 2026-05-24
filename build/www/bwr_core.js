@@ -7027,8 +7027,8 @@ function startMasterHandFight() {
             position: absolute;
             left: ${offsetX}px;
             top: ${offsetY}px;
-            width: 120px;
-            height: 120px;
+            width: 240px;
+            height: 240px;
             pointer-events: none;
             transform: translate(-50%, -50%);
         `;
