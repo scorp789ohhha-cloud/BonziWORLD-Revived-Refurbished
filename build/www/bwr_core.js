@@ -6993,7 +6993,7 @@ function startMasterHandFight() {
 
     const introAudio = new Audio("03.wav");
     const deathAudio = new Audio("31.wav");
-    const laserAudio = new Audio("31.wav");
+    const laserAudio = new Audio("32.wav");
     const bgm = new Audio("https://nu.vgmtreasurechest.com/soundtracks/super-smash-bros-brawl-gamerip/qhpdwzgj/22-05.%20Final%20Destination.mp3");
     bgm.loop = true;
 
