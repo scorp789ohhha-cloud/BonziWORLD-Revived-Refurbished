@@ -6628,7 +6628,7 @@ $(document).ready(function () {
             dragged = null;
             chatLogDragged = false;
         };
-        // Make games_btn draggable like a desktop icon
+        // Make games_btn draggable like a desktop icon (XP-style)
         (function() {
             var btn = document.getElementById("games_btn");
             if (!btn) return;
@@ -6638,6 +6638,30 @@ $(document).ready(function () {
             btn.style.left = btnX + "px";
             btn.style.top = btnY + "px";
             btn.style.right = "auto";
+
+            var selected = false;
+            function setSelected(val) {
+                selected = val;
+                var img = btn.querySelector("img");
+                var span = btn.querySelector("span");
+                if (val) {
+                    img.style.outline = "2px solid rgba(255,255,255,0.6)";
+                    img.style.backgroundColor = "rgba(0,78,152,0.6)";
+                    span.style.backgroundColor = "rgba(0,78,152,0.9)";
+                    span.style.outline = "1px dotted rgba(255,255,255,0.7)";
+                } else {
+                    img.style.outline = "";
+                    img.style.backgroundColor = "";
+                    span.style.backgroundColor = "";
+                    span.style.outline = "";
+                }
+            }
+
+            // Deselect when clicking elsewhere
+            document.addEventListener("pointerdown", function(e) {
+                if (!btn.contains(e.target)) setSelected(false);
+            });
+
             var gamesBtnObj = {
                 _x: btnX,
                 _y: btnY,
@@ -6650,6 +6674,7 @@ $(document).ready(function () {
                     this._clickThreshold = true;
                 }
             };
+
             btn.onpointerdown = function(e) {
                 gamesBtnObj._clickThreshold = false;
                 dragged = gamesBtnObj;
@@ -6658,12 +6683,18 @@ $(document).ready(function () {
                 btn.setPointerCapture(e.pointerId);
                 e.stopPropagation();
             };
+
             btn.onclick = function(e) {
                 if (gamesBtnObj._clickThreshold) {
                     gamesBtnObj._clickThreshold = false;
-                } else {
-                    new Dialog({ title: 'Games', html: '<iframe src=\'./games.html\' style=\'width:100%;height:100%;border:none;\'></iframe>', width: 800, height: 600, x: 80, y: 40 });
+                    return;
                 }
+                setSelected(true);
+            };
+
+            btn.ondblclick = function() {
+                setSelected(false);
+                new Dialog({ title: 'Games', html: '<iframe src=\'./games.html\' style=\'width:100%;height:100%;border:none;\'></iframe>', width: 800, height: 600, x: 80, y: 40 });
             };
         })();
         $("#btn_tile").click(function () {
