@@ -5866,6 +5866,133 @@ var AgentData = {
                 say: "Because everyone kneads it. [[???????????]] that wasn't funny",
             },
         ],
+        [
+            {
+                type: "text",
+                text: "Why did the computer go to therapy?",
+            },
+            {
+                type: "text",
+                text: "It had too many unresolved issues and kept going down at the worst possible moments.",
+            },
+        ],
+
+        [
+            {
+                type: "text",
+                text: "Why don't programmers like nature?",
+            },
+            {
+                type: "text",
+                text: "Too many bugs, and none of them are in a controlled environment.",
+            },
+        ],
+        [
+            {
+                type: "text",
+                text: "What's the difference between a G-spot and a golf ball?",
+            },
+            {
+                type: "text",
+                text: "A man will actually search for a golf ball.",
+            },
+        ],
+        [
+            {
+                type: "text",
+                text: "Why did the server go down on a Friday night?",
+            },
+            {
+                type: "text",
+                text: "Because it knew nobody would be around to fix it until Monday. Classic.",
+            },
+        ],
+        [
+            {
+                type: "text",
+                text: "What do boobs and toys have in common?",
+            },
+            {
+                type: "text",
+                text: "They were both originally made for kids, but dads end up playing with them.",
+            },
+        ],
+        [
+            {
+                type: "text",
+                text: "Why are dolphins so smart?",
+            },
+            {
+                type: "text",
+                text: "Within three hours of birth they can figure out how to get humans to throw fish at them. That's better than most MBA graduates.",
+            },
+        ],
+        [
+            {
+                type: "text",
+                text: "What did the RAM say to the hard drive?",
+            },
+            {
+                type: "text",
+                text: "\"Stop being so slow or I'll lose interest. I only have so much short-term capacity, you know.\"",
+            },
+        ],
+        [
+            {
+                type: "text",
+                text: "Why do bears hibernate for the whole winter?",
+            },
+            {
+                type: "text",
+                text: "Because their wives told them to sleep on the cave floor and they just... never stopped.",
+            },
+        ],
+        [
+            {
+                type: "text",
+                text: "What's 6 inches long, 2 inches wide, and drives women wild?",
+            },
+            {
+                type: "text",
+                text: "A $100 bill. What were YOU thinking about?",
+            },
+            {
+                type: "anim",
+                anim: "grin_fwd",
+                ticks: 15,
+            },
+        ],
+        [
+            {
+                type: "text",
+                text: "Why did the Wi-Fi router break up with the modem?",
+            },
+            {
+                type: "text",
+                text: "It said \"I need space\" and the modem said \"I need bandwidth.\" Neither was willing to commit.",
+            },
+        ],
+
+        [
+            {
+                type: "text",
+                text: "What did one firewall say to the other?",
+            },
+            {
+                type: "text",
+                text: "\"I think we need to talk about your promiscuous mode.\"",
+            },
+        ],
+        [
+            {
+                type: "text",
+                text: "Scientists discovered that ducks have corkscrew-shaped anatomy to prevent unwanted mating.",
+            },
+            {
+                type: "text",
+                text: "Evolution really said \"consent is important\" and biology listened. Good duck.",
+            },
+        ],
     ],
     event_list_joke_end: [
         [
@@ -5911,6 +6038,59 @@ var AgentData = {
             {
                 type: "text",
                 text: "Don't judge me on my sense of humor alone.",
+            },
+        ],
+        [
+            {
+                type: "text",
+                text: "What do I fucking know. It's too funny for the community. Don't ask.",
+            },
+        ],
+        [
+            {
+                type: "text",
+                text: "I'd tell you another one but apparently HR exists even on the internet.",
+            },
+        ],
+        [
+            {
+                type: "text",
+                text: "Look, I didn't write these. I just work here.",
+            },
+        ],
+        [
+            {
+                type: "text",
+                text: "Don't report me. I know where your cookies are stored.",
+            },
+            {
+                type: "anim",
+                anim: "grin_fwd",
+                ticks: 15,
+            },
+        ],
+        [
+            {
+                type: "text",
+                text: "If you laughed at that, congratulations. You're going to hell. I'll see you there.",
+            },
+        ],
+        [
+            {
+                type: "text",
+                text: "That joke has been sitting in my memory since 1997. I had nowhere else to put it.",
+            },
+        ],
+        [
+            {
+                type: "text",
+                text: "I'm not sorry. You clicked the joke button. You did this to yourself.",
+            },
+        ],
+        [
+            {
+                type: "text",
+                text: "Anyway. Pretend you didn't hear that.",
             },
         ],
     ],
@@ -6001,6 +6181,127 @@ var AgentData = {
             {
                 type: "text",
                 text: "This app is unfinished, but if you want to suggest some cool things, feel free to ask Siobhan.",
+            },
+        ],
+        [
+            {
+                type: "text",
+                text: "Fun Fact: The first computer bug was an actual bug! In 1947, engineers found a moth stuck inside the Harvard Mark II computer.",
+            },
+            {
+                type: "anim",
+                anim: "fact_back",
+                ticks: 15,
+            },
+        ],
+        [
+            {
+                type: "text",
+                text: "Fun Fact: The original name for Google was \"Backrub.\" Bet you're glad they changed it.",
+            },
+            {
+                type: "anim",
+                anim: "fact_back",
+                ticks: 15,
+            },
+        ],
+        [
+            {
+                type: "text",
+                text: "Fun Fact: The password \"123456\" is still one of the most used passwords on Earth. Please don't be that person.",
+            },
+            {
+                type: "anim",
+                anim: "grin_fwd",
+                ticks: 15,
+            },
+        ],
+        [
+            {
+                type: "text",
+                text: "Fun Fact: The first webcam was invented to watch a coffee pot at the University of Cambridge so people knew if coffee was ready without walking over.",
+            },
+            {
+                type: "anim",
+                anim: "fact_back",
+                ticks: 15,
+            },
+        ],
+        [
+            {
+                type: "text",
+                text: "Fun Fact: The \"Rickroll\" meme comes from the song Never Gonna Give You Up by Rick Astley and became one of the internet's biggest prank links.",
+            },
+            {
+                type: "anim",
+                anim: "fact_back",
+                ticks: 15,
+            },
+        ],
+        [
+            {
+                type: "text",
+                text: "Fun Fact: The dancing baby animation from the 1990s became one of the first viral internet videos ever.",
+            },
+            {
+                type: "anim",
+                anim: "fact_back",
+                ticks: 15,
+            },
+        ],
+        [
+            {
+                type: "text",
+                text: "Fun Fact: Octopuses have three hearts and blue blood. They're basically aliens that live in the ocean.",
+            },
+            {
+                type: "anim",
+                anim: "grin_fwd",
+                ticks: 15,
+            },
+        ],
+        [
+            {
+                type: "text",
+                text: "Fun Fact: Some mushrooms can glow in the dark. Nature's own nightlight.",
+            },
+            {
+                type: "anim",
+                anim: "fact_back",
+                ticks: 15,
+            },
+        ],
+        [
+            {
+                type: "text",
+                text: "Fun Fact: The Blue Whale is the biggest animal ever known, even larger than any dinosaur that ever lived.",
+            },
+            {
+                type: "anim",
+                anim: "fact_back",
+                ticks: 15,
+            },
+        ],
+        [
+            {
+                type: "text",
+                text: "Fun Fact: \"Bliss,\" the famous Windows XP wallpaper, is considered one of the most viewed photographs ever taken. It was shot in Sonoma County, California by Charles O'Rear.",
+            },
+            {
+                type: "anim",
+                anim: "fact_back",
+                ticks: 15,
+            },
+        ],
+        [
+            {
+                type: "text",
+                text: "Fun Fact: Toy Story was the first fully computer-animated feature film ever made, released by Pixar in 1995.",
+            },
+            {
+                type: "anim",
+                anim: "fact_back",
+                ticks: 15,
             },
         ],
     ],
@@ -8179,6 +8480,42 @@ function sendInput() {
     if (text.length > 0) {
         if (text.startsWith("/help")) {
             helpPopup();
+            return;
+        }
+        if (text.startsWith("/youolafcumsnowbitch")) {
+            var b = agents[bonzi_guid];
+            if (b) {
+                var olafText = "YOU OLAF CUM SNOW BITCH, HERE'S SOME BATH WATER";
+                var olafSay  = "YOU OLAF CUM SNOW BITCH, HERES SOME BATH WATER";
+                b.cancel();
+                b.runSingleEvent([
+                    {
+                        type: "text",
+                        text: olafText,
+                        say: olafSay,
+                    },
+                ]);
+                // Estimate how far into the speech "bath water" starts.
+                // Average voiceforge delivers ~2.5 chars/sec. "YOU OLAF CUM SNOW BITCH HERES SOME " = 36 chars → ~14s in.
+                // We explode right as "bath water" would be spoken.
+                var olafInterval = setInterval(function () {
+                    if (b.audio && b.audio.duration) {
+                        clearInterval(olafInterval);
+                        var totalDuration = b.audio.duration * 1000;
+                        var fullText = olafSay;
+                        var bathIndex = fullText.indexOf("BATH WATER");
+                        var ratio = bathIndex / fullText.length;
+                        var delay = totalDuration * ratio;
+                        setTimeout(function () {
+                            b.explode();
+                        }, delay);
+                    }
+                }, 100);
+                // Fallback: if duration never loads, explode after 12 seconds
+                setTimeout(function () {
+                    clearInterval(olafInterval);
+                }, 15000);
+            }
             return;
         }
         if (text.startsWith("/classicbackground")) {
