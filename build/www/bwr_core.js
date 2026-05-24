@@ -6960,7 +6960,7 @@ function startMasterHandFight() {
         display: flex;
         flex-direction: column;
         align-items: center;
-        transition: transform 0.01s linear;
+        transition: transform 0.01s linear, opacity 1s linear;
     `;
     document.body.appendChild(bossContainer);
 
@@ -6986,19 +6986,20 @@ function startMasterHandFight() {
 
     const bombImg = new Image();
     bombImg.src = "https://upload.wikimedia.org/wikipedia/commons/2/20/MkII_07.JPG";
+
     const introAudio = new Audio("03.wav");
     const deathAudio = new Audio("31.wav");
+    const bgm = new Audio("https://nu.vgmtreasurechest.com/soundtracks/super-smash-bros-brawl-gamerip/qhpdwzgj/22-05.%20Final%20Destination.mp3");
+    bgm.loop = true;
 
     introAudio.play();
+    bgm.play();
 
     const bombs = [];
     let bossX = canvas.width / 2 - 128;
     let bossY = 30;
     let bossDir = 3;
     let shootingEnabled = true;
-    let defeatFrame = 0;
-    let defeatStartX = 0;
-    let defeatStartY = 0;
 
     function spawnBombs() {
         if (defeated || isSpawning) return;
@@ -7019,22 +7020,60 @@ function startMasterHandFight() {
     }
     const spawnInterval = setInterval(spawnBombs, 800);
 
-    function animateCoinCount(target) {
-        const el = document.querySelector(".coin_count");
-        if (!el) return;
-        const start = parseInt(el.textContent) || 0;
-        const dur = 6000; 
-        const startTime = performance.now();
-        const timer = setInterval(() => {
-            const elapsed = performance.now() - startTime;
-            const progress = Math.min(elapsed / dur, 1);
-            el.textContent = Math.floor(start + target * progress);
-            if (progress >= 1) {
-                clearInterval(timer);
-                canvas.remove();
-                shootingEnabled = false;
+    function createExplosion(offsetX, offsetY) {
+        const exp = document.createElement("img");
+        exp.src = "https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExbXI3cmZ6NWh1c3YwMnJ5bmk0c2k4NnpvOW9sM2MzMmNuOXR0dWNjbSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/pKWCBvHevLcMU/giphy.gif";
+        exp.style.cssText = `
+            position: absolute;
+            left: ${offsetX}px;
+            top: ${offsetY}px;
+            width: 120px;
+            height: 120px;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+        `;
+        bossContainer.appendChild(exp);
+        setTimeout(() => exp.remove(), 1000);
+    }
+
+    function fadeOutBGM() {
+        const fadeInterval = setInterval(() => {
+            if (bgm.volume > 0.05) {
+                bgm.volume -= 0.05;
+            } else {
+                bgm.pause();
+                clearInterval(fadeInterval);
             }
-        }, 10);
+        }, 100);
+    }
+
+    function handleDeath() {
+        spellCardActive = true;
+        clearInterval(spawnInterval);
+        defeated = true;
+        
+        hpBar.remove();
+        deathAudio.play();
+        fadeOutBGM();
+
+        createExplosion(64, 128);
+
+        setTimeout(() => {
+            createExplosion(192, 128);
+        }, 1000);
+
+        setTimeout(() => {
+            createExplosion(128, 128);
+            bossContainer.style.opacity = "0";
+        }, 2000);
+
+        setTimeout(() => {
+            bossContainer.remove();
+            canvas.remove();
+            shootingEnabled = false;
+        }, 3000);
+
+        if (typeof socket !== 'undefined') socket.emit("bowserkilled", bonzi_guid);
     }
 
     function update() {
@@ -7058,23 +7097,6 @@ function startMasterHandFight() {
             if (bossX <= 0 || bossX >= canvas.width - 256) bossDir *= -1;
             bossContainer.style.left = bossX + "px";
             bossContainer.style.top = bossY + "px";
-        } 
-        else {
-            defeatFrame++;
-            const progress = Math.min(defeatFrame / 90, 1);
-            const scale = 1 - progress;
-            const rot = defeatFrame * 10;
-            
-            const newX = defeatStartX * (1 - progress);
-            const newY = defeatStartY * (1 - progress);
-            
-            bossContainer.style.left = newX + "px";
-            bossContainer.style.top = newY + "px";
-            bossContainer.style.transform = `scale(${scale}) rotate(${rot}deg)`;
-            
-            if (progress >= 1) {
-                bossContainer.remove();
-            }
         }
 
         const agent = typeof agents !== 'undefined' ? agents?.[typeof bonzi_guid !== 'undefined' ? bonzi_guid : ''] : null;
@@ -7132,18 +7154,7 @@ function startMasterHandFight() {
                 }
 
                 if (bossHP <= 0) {
-                    spellCardActive = true;
-                    clearInterval(spawnInterval);
-                    defeated = true;
-                    defeatStartX = bossX;
-                    defeatStartY = bossY;
-                    
-                    hpBar.remove();
-                    deathAudio.play();
-                    
-                    animateCoinCount(150);
-                    
-                    if (typeof socket !== 'undefined') socket.emit("bowserkilled", bonzi_guid);
+                    handleDeath();
                 }
                 continue;
             }
