@@ -7552,17 +7552,17 @@ function startBowserFight() {
     let bowserY = 0;
     let bowserDir = 3;
     let bowserShootingEnabled = true;
-    let coinTickAmount = 0;
-    let coinTickCurrent = 0;
-    let coinTickActive = false;
-    let coinTickTimer = null;
 
-    const zoomoutAudio = new Audio("../bowserzoomout.mp3");
-    const completionAudio = new Audio("../completionthemeyay.mp3");
-    const coinAudio = new Audio("../coinclink.mp3");
+    const bossAudio = new Audio("musix.mp3");
+    const zoomoutAudio = new Audio("bowserzoomout.mp3");
+    const completionAudio = new Audio("completionthemeyay.mp3");
+    const coinAudio = new Audio("coinclink.mp3");
     let defeatFrame = 0;
     let defeatStartX = 0;
     let defeatStartY = 0;
+
+    bossAudio.volume = 0.5;
+    bossAudio.play();
 
     function spawnHammers() {
         if (defeated) return;
@@ -7584,40 +7584,28 @@ function startBowserFight() {
 
     const spawnInterval = setInterval(spawnHammers, 700);
 
-    function startCoinTick(targetAmount) {
-        coinTickAmount = targetAmount;
-        coinTickCurrent = 0;
-        coinTickActive = true;
-        const step = Math.max(1, Math.floor(targetAmount / 120));
-        coinTickTimer = setInterval(() => {
-            coinTickCurrent = Math.min(coinTickCurrent + step, coinTickAmount);
+    function animateCoinCount(target) {
+        const el = document.querySelector(".coin_count");
+        if (!el) return;
+        const start = parseInt(el.textContent) || 0;
+        const dur = 6000; // 6 seconds
+        const startTime = performance.now();
+
+        function tick(now) {
+            const elapsed = now - startTime;
+            const progress = Math.min(elapsed / dur, 1);
+            const current = Math.floor(start + (target - start) * progress);
+            el.textContent = current;
             coinAudio.currentTime = 0;
             coinAudio.play();
-            if (coinTickCurrent >= coinTickAmount) {
-                clearInterval(coinTickTimer);
-                coinTickActive = false;
-                setTimeout(() => {
-                    canvas.remove();
-                    bowserShootingEnabled = false;
-                }, 1200);
+            if (progress < 1) {
+                requestAnimationFrame(tick);
+            } else {
+                canvas.remove();
+                bowserShootingEnabled = false;
             }
-        }, 50);
-    }
-
-    function drawCoinOverlay() {
-        if (!coinTickActive) return;
-        const cx = canvas.width / 2;
-        const cy = canvas.height / 2;
-        ctx.save();
-        ctx.font = "bold 48px Arial";
-        ctx.textAlign = "center";
-        ctx.fillStyle = "gold";
-        ctx.strokeStyle = "black";
-        ctx.lineWidth = 4;
-        const text = "+" + coinTickCurrent + " BonziCOINs!";
-        ctx.strokeText(text, cx, cy);
-        ctx.fillText(text, cx, cy);
-        ctx.restore();
+        }
+        requestAnimationFrame(tick);
     }
 
     function update() {
@@ -7629,7 +7617,7 @@ function startBowserFight() {
             bowserY = 0;
             bossEl.style.left = bowserX + "px";
             bossEl.style.top = bowserY + "px";
-        } else if (!coinTickActive) {
+        } else {
             defeatFrame++;
             const progress = Math.min(defeatFrame / 90, 1);
             const newS = 256 - (208 * progress);
@@ -7645,13 +7633,8 @@ function startBowserFight() {
 
             if (progress >= 1) {
                 bossEl.remove();
-                if (!coinTickActive && coinTickAmount === 0) {
-                    // wait for earned event to start coin tick
-                }
             }
         }
-
-        drawCoinOverlay();
 
         const agent = agents?.[bonzi_guid];
         if (!agent) return requestAnimationFrame(update);
@@ -7720,11 +7703,12 @@ function startBowserFight() {
                     defeatStartX = bowserX;
                     defeatStartY = bowserY;
                     bossEl.src = "../img/bye.gif";
+                    bossAudio.pause();
                     zoomoutAudio.play();
                     completionAudio.currentTime = 0;
                     completionAudio.volume = 0.6;
-                    completionAudio.loop = true;
                     completionAudio.play();
+                    animateCoinCount(150);
                     socket.emit("bowserkilled", bonzi_guid);
                 }
                 continue;
@@ -7757,9 +7741,6 @@ function startBowserFight() {
         sfx.shoot.play();
     });
 
-    socket.once("earned", (amount) => {
-        if (amount === 150) startCoinTick(150);
-    });
 }
 
 var localAgent = null;
@@ -7807,8 +7788,7 @@ function setup() {
     });
 
     socket.on("earned", amount => {
-        let msg = `<font color="green">You earned ${amount} BonziCOINs! <img src="bonzicoin.png" width=16></font>`;
-        bonzilog("server", "", msg, null, msg, true);
+        // coin amount already animated in the corner counter
     });
 
     socket.on("errorMessage", msg => {

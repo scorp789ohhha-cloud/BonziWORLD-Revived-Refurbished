@@ -12,3 +12,9 @@ id = "KOynrgfnO-n0TL2XaH709"
 uri = "file://build/www/coinclink.mp3"
 type = "audio"
 title = "coinclink"
+
+[[outputs]]
+id = "5CQO-p7aLA0Zqu3HtOfib"
+uri = "file://build/www/musix.mp3"
+type = "audio"
+title = "musix"
