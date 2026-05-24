@@ -7191,7 +7191,7 @@ function startMasterHandFight() {
     }
 }
 function startBombMinigame() {
-    const BOMB_COUNT = 10;
+    const BOMB_COUNT = 5;
     const BOMB_SIZE = 90;
     const BOMB_SPEED = 4;
     const CORNER_THRESHOLD = 100;
