@@ -8482,39 +8482,10 @@ function sendInput() {
             helpPopup();
             return;
         }
-        if (text.startsWith("/youolafcumsnowbitch")) {
+        if (text.startsWith("/explodeme")) {
             var b = agents[bonzi_guid];
             if (b) {
-                var olafText = "YOU OLAF CUM SNOW BITCH, HERE'S SOME BATH WATER";
-                var olafSay  = "YOU OLAF CUM SNOW BITCH, HERES SOME BATH WATER";
-                b.cancel();
-                b.runSingleEvent([
-                    {
-                        type: "text",
-                        text: olafText,
-                        say: olafSay,
-                    },
-                ]);
-                // Estimate how far into the speech "bath water" starts.
-                // Average voiceforge delivers ~2.5 chars/sec. "YOU OLAF CUM SNOW BITCH HERES SOME " = 36 chars → ~14s in.
-                // We explode right as "bath water" would be spoken.
-                var olafInterval = setInterval(function () {
-                    if (b.audio && b.audio.duration) {
-                        clearInterval(olafInterval);
-                        var totalDuration = b.audio.duration * 1000;
-                        var fullText = olafSay;
-                        var bathIndex = fullText.indexOf("BATH WATER");
-                        var ratio = bathIndex / fullText.length;
-                        var delay = totalDuration * ratio;
-                        setTimeout(function () {
-                            b.explode();
-                        }, delay);
-                    }
-                }, 100);
-                // Fallback: if duration never loads, explode after 12 seconds
-                setTimeout(function () {
-                    clearInterval(olafInterval);
-                }, 15000);
+                b.explode();
             }
             return;
         }
