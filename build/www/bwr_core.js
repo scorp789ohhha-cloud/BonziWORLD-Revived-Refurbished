@@ -6927,6 +6927,263 @@ function startBowserFight() {
         sfx.shoot.play();
     });
 }
+function startMasterHandFight() {
+    let bossHP = 300;
+    const maxHP = 300;
+    let spellCardActive = false;
+    let defeated = false;
+    let isSpawning = true;
+    let spawnFrame = 0;
+    const bullets = [];
+    
+    const canvas = document.createElement("canvas");
+    canvas.id = "masterhand-canvas";
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    canvas.style.cssText = `
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        pointer-events: none;
+        z-index: 9998;
+    `;
+    document.body.appendChild(canvas);
+    const ctx = canvas.getContext("2d");
+
+    const bossContainer = document.createElement("div");
+    bossContainer.style.cssText = `
+        position: fixed;
+        width: 256px;
+        height: 290px;
+        z-index: 9999;
+        pointer-events: none;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        transition: transform 0.01s linear;
+    `;
+    document.body.appendChild(bossContainer);
+
+    const hpBar = document.createElement("progress");
+    hpBar.max = maxHP;
+    hpBar.value = bossHP;
+    hpBar.style.cssText = `
+        width: 200px;
+        height: 16px;
+        margin-bottom: 10px;
+        accent-color: #00ff00;
+    `;
+    bossContainer.appendChild(hpBar);
+
+    const bossEl = document.createElement("img");
+    bossEl.id = "master-hand-boss";
+    bossEl.src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRY1PZW4Cr8CioJ2xTfQHOy2JWzNkdDZ4Nlmg&s";
+    bossEl.style.cssText = `
+        width: 256px;
+        height: 256px;
+    `;
+    bossContainer.appendChild(bossEl);
+
+    const bombImg = new Image();
+    bombImg.src = "https://upload.wikimedia.org/wikipedia/commons/2/20/MkII_07.JPG";
+
+   if (typeof socket !== 'undefined') {
+    socket.emit("state_masterhandfight");
+}
+
+    const introAudio = new Audio("03.wav");
+    const deathAudio = new Audio("31.wav");
+
+    introAudio.play();
+
+    const bombs = [];
+    let bossX = canvas.width / 2 - 128;
+    let bossY = 30;
+    let bossDir = 3;
+    let shootingEnabled = true;
+    let defeatFrame = 0;
+    let defeatStartX = 0;
+    let defeatStartY = 0;
+
+    function spawnBombs() {
+        if (defeated || isSpawning) return;
+        const count = 1 + Math.floor(Math.random() * 2);
+        for (let i = 0; i < count; i++) {
+            bombs.push({
+                x: bossX + 128 + (Math.random() * 80 - 40),
+                y: bossY + 200,
+                speed: 4 + Math.random() * 4,
+                size: 40
+            });
+            if (typeof sfx !== 'undefined' && sfx.banThrow) {
+                sfx.banThrow.currentTime = 0;
+                sfx.banThrow.volume = 0.1;
+                sfx.banThrow.play();
+            }
+        }
+    }
+    const spawnInterval = setInterval(spawnBombs, 800);
+
+    function animateCoinCount(target) {
+        const el = document.querySelector(".coin_count");
+        if (!el) return;
+        const start = parseInt(el.textContent) || 0;
+        const dur = 6000; 
+        const startTime = performance.now();
+        const timer = setInterval(() => {
+            const elapsed = performance.now() - startTime;
+            const progress = Math.min(elapsed / dur, 1);
+            el.textContent = Math.floor(start + target * progress);
+            if (progress >= 1) {
+                clearInterval(timer);
+                canvas.remove();
+                shootingEnabled = false;
+            }
+        }, 10);
+    }
+
+    function update() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        if (isSpawning) {
+            spawnFrame++;
+            const progress = Math.min(spawnFrame / 60, 1);
+            const scale = progress;
+            bossContainer.style.left = bossX + "px";
+            bossContainer.style.top = bossY + "px";
+            bossContainer.style.transform = `scale(${scale})`;
+            
+            if (progress >= 1) {
+                isSpawning = false;
+                bossContainer.style.transform = "none";
+            }
+        } 
+        else if (!defeated) {
+            bossX += bossDir;
+            if (bossX <= 0 || bossX >= canvas.width - 256) bossDir *= -1;
+            bossContainer.style.left = bossX + "px";
+            bossContainer.style.top = bossY + "px";
+        } 
+        else {
+            defeatFrame++;
+            const progress = Math.min(defeatFrame / 90, 1);
+            const scale = 1 - progress;
+            const rot = defeatFrame * 10;
+            
+            const newX = defeatStartX * (1 - progress);
+            const newY = defeatStartY * (1 - progress);
+            
+            bossContainer.style.left = newX + "px";
+            bossContainer.style.top = newY + "px";
+            bossContainer.style.transform = `scale(${scale}) rotate(${rot}deg)`;
+            
+            if (progress >= 1) {
+                bossContainer.remove();
+            }
+        }
+
+        const agent = typeof agents !== 'undefined' ? agents?.[typeof bonzi_guid !== 'undefined' ? bonzi_guid : ''] : null;
+        const ax = agent ? agent.x : 0, ay = agent ? agent.y : 0, aw = 200, ah = 160;
+
+        if (agent && !defeated && !isSpawning && bossX + 256 > ax && bossX < ax + aw && bossY + 256 > ay && bossY < ay + ah) {
+            if (!agent._hasExploded) {
+                agent._hasExploded = true;
+                if (typeof sfx !== 'undefined' && sfx.explode) sfx.explode.play();
+                if (typeof socket !== 'undefined') socket.emit("bowser_hit", bonzi_guid);
+                setTimeout(() => { agent._hasExploded = false; }, 5000);
+            }
+        }
+
+        for (let i = bombs.length - 1; i >= 0; i--) {
+            const b = bombs[i];
+            b.y += b.speed;
+
+            ctx.drawImage(bombImg, b.x - b.size / 2, b.y - b.size / 2, b.size, b.size);
+
+            if (agent && !defeated && b.x + b.size/2 > ax && b.x - b.size/2 < ax + aw && b.y + b.size/2 > ay && b.y - b.size/2 < ay + ah) {
+                if (!agent._hasExploded) {
+                    agent._hasExploded = true;
+                    if (typeof sfx !== 'undefined' && sfx.explode) sfx.explode.play();
+                    if (typeof socket !== 'undefined') socket.emit("bowser_hit", bonzi_guid);
+                    setTimeout(() => { agent._hasExploded = false; }, 5000);
+                }
+            }
+
+            if (b.y > canvas.height + 100) bombs.splice(i, 1);
+        }
+
+        for (let i = bullets.length - 1; i >= 0; i--) {
+            const b = bullets[i];
+            b.y -= b.speed;
+            
+            ctx.fillStyle = "yellow";
+            ctx.beginPath();
+            ctx.arc(b.x, b.y, b.size / 2, 0, Math.PI * 2);
+            ctx.fill();
+
+            if (!defeated && !isSpawning && !spellCardActive &&
+                b.x > bossX && b.x < bossX + 256 &&
+                b.y > bossY && b.y < bossY + 256
+            ) {
+                bullets.splice(i, 1);
+                bossHP--;
+                
+                hpBar.value = bossHP;
+                
+                if (bossHP < (maxHP * 0.35)) {
+                    hpBar.style.accentColor = "#ff0000";
+                } else if (bossHP < (maxHP * 0.70)) {
+                    hpBar.style.accentColor = "#ffa500";
+                }
+
+                if (bossHP <= 0) {
+                    spellCardActive = true;
+                    clearInterval(spawnInterval);
+                    defeated = true;
+                    defeatStartX = bossX;
+                    defeatStartY = bossY;
+                    
+                    hpBar.remove();
+                    deathAudio.play();
+                    
+                    animateCoinCount(150);
+                    
+                    if (typeof socket !== 'undefined') socket.emit("bowserkilled", bonzi_guid);
+                }
+                continue;
+            }
+            if (b.y < -20) bullets.splice(i, 1);
+        }
+        requestAnimationFrame(update);
+    }
+
+    update();
+
+    document.addEventListener("keydown", (e) => {
+        if (e.code === "Space" && shootingEnabled) {
+            const agent = typeof agents !== 'undefined' ? agents?.[typeof bonzi_guid !== 'undefined' ? bonzi_guid : ''] : null;
+            if (agent && !agent._hasExploded) {
+                if (typeof socket !== 'undefined') socket.emit("bulletshoot");
+                if (typeof sfx !== 'undefined' && sfx.shoot) {
+                    sfx.shoot.currentTime = 0;
+                    sfx.shoot.play();
+                }
+            }
+        }
+    });
+
+    if (typeof socket !== 'undefined') {
+        socket.on("agent_bullet", (data) => {
+            const agent = agents[data.id];
+            if (!agent) return;
+            bullets.push({ x: agent.x + 100, y: agent.y, speed: 8, size: 16, id: data.id });
+            if (typeof sfx !== 'undefined' && sfx.shoot) {
+                sfx.shoot.currentTime = 0;
+                sfx.shoot.play();
+            }
+        });
+    }
+}
 function startBombMinigame() {
     const BOMB_COUNT = 10;
     const BOMB_SIZE = 120;
@@ -7518,6 +7775,32 @@ function setup() {
                 height: 400,
             });
         });
+        socket.on("state_masterhandfight", () => {
+    startMasterHandFight();
+    new Dialog({
+        title: "WARNING",
+        class: "flex_window smash_theme",
+        html: `
+            <div class="blessed_body" style="text-align: center; font-family: 'Arial Black', Gadget, sans-serif; text-transform: uppercase;">
+                <h1 style="color: #ff0000; font-size: 32px; letter-spacing: -1px; margin-bottom: 5px; text-shadow: 2px 2px 0px #000;">
+                    Master Hand has ARRIVED!
+                </h1>
+                <div style="border-top: 2px solid #fff; border-bottom: 2px solid #fff; padding: 10px 0; margin: 15px 0; background: rgba(255,255,255,0.1);">
+                    <p style="font-size: 16px; color: #fff; margin: 0; letter-spacing: 1px;">
+                        READY? Press SPACEBAR to strike!
+                    </p>
+                </div>
+                <p style="font-size: 14px; color: #ccc; font-style: italic; text-transform: none;">
+                    Evade the incoming bombs at all costs!
+                </p>
+            </div>
+        `,
+        x: 300,
+        y: 400,
+        width: 600,
+        height: 400,
+    });
+});
         socket.on("bowser_death", () => {
             localAgent.run = false;
         });
