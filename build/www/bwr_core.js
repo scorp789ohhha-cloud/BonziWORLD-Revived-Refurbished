@@ -7553,10 +7553,10 @@ function startBowserFight() {
     let bowserDir = 3;
     let bowserShootingEnabled = true;
 
-    const bossAudio = new Audio("musix.mp3");
+    const bossAudio = new Audio("sfx/musix.mp3");
     const zoomoutAudio = new Audio("bowserzoomout.mp3");
-    const completionAudio = new Audio("completionthemeyay.mp3");
-    const coinAudio = new Audio("coinclink.mp3");
+    const completionAudio = new Audio("sfx/completionthemeyay.mp3");
+    const coinAudio = new Audio("sfx/coinclink.mp3");
     let defeatFrame = 0;
     let defeatStartX = 0;
     let defeatStartY = 0;
@@ -7594,7 +7594,7 @@ function startBowserFight() {
         function tick(now) {
             const elapsed = now - startTime;
             const progress = Math.min(elapsed / dur, 1);
-            const current = Math.floor(start + (target - start) * progress);
+            const current = Math.floor(start + target * progress);
             el.textContent = current;
             coinAudio.currentTime = 0;
             coinAudio.play();
