@@ -7604,7 +7604,7 @@ function startBowserFight() {
                 canvas.remove();
                 bowserShootingEnabled = false;
             }
-        }, 200);
+        }, 10);
     }
 
     function update() {
@@ -7641,7 +7641,7 @@ function startBowserFight() {
         const ax = agent.x, ay = agent.y, aw = 200, ah = 160;
 
         // Collision with bowser body
-        if (bowserX + 256 > ax && bowserX < ax + aw && bowserY + 256 > ay && bowserY < ay + ah) {
+        if (!defeated && bowserX + 256 > ax && bowserX < ax + aw && bowserY + 256 > ay && bowserY < ay + ah) {
             if (!agent._hasExploded) {
                 agent._hasExploded = true;
                 sfx.explode.play();
@@ -7663,7 +7663,7 @@ function startBowserFight() {
             ctx.drawImage(hammerImg, -h.size / 2, -h.size / 2, h.size, h.size);
             ctx.restore();
 
-            if (h.x + h.size > ax && h.x < ax + aw && h.y + h.size > ay && h.y < ay + ah) {
+            if (!defeated && h.x + h.size > ax && h.x < ax + aw && h.y + h.size > ay && h.y < ay + ah) {
                 if (!agent._hasExploded) {
                     agent._hasExploded = true;
                     sfx.explode.play();
