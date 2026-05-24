@@ -41,7 +41,7 @@ const http = require("http");
 
 // Root route - serve the main index.html
 app.get('/', function(req, res) {
-    res.sendFile(__dirname + '/www/index.html');
+    res.sendFile(__dirname + '/build/www/index.html');
 });
 
 app.get('/ivona-eric', function(req, res) {
@@ -208,7 +208,7 @@ app.get('/oddcast-julie', function(req, res) {
   })
 
 if (settings.express.serveStatic)
-        app.use(express.static('./www'));
+        app.use(express.static('./build/www'));
 
 // Add settings endpoint
 app.get('/api/settings', (req, res) => {
@@ -249,7 +249,7 @@ server.listen(port, '0.0.0.0', function () {
                 "Welcome to BonziWORLD Revived! Time to meme!\nServer listening at 0.0.0.0:" + port
         );
 });
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/build/www'));
 
 // ========================================================================
 // Banning functions

@@ -744,25 +744,21 @@ class Agent {
     mousemove(e) {
         if (this.drag) {
             if (this.id == window.bonzi_guid) {
+                var nx = e.pageX - this.drag_start.x;
+                var ny = e.pageY - this.drag_start.y;
+                this.move(nx, ny);
                 if (!window.moving) {
-
                     socket.emit("command", {
-                        list: ["move", e.pageX - this.drag_start.x, e.pageY - this.drag_start.y, true],
+                        list: ["move", nx, ny, true],
                     });
                     window.moving = true;
                     setTimeout(function(){
                         window.moving = false;
-                    },40)
+                    }, 10)
                 }
                 this.dragged = true;
             } else {
-                if (!window.moving) {
-                    this.move(e.pageX - this.drag_start.x, e.pageY - this.drag_start.y);
-                    window.moving = true;
-                    setTimeout(function(){
-                        window.moving = false;
-                    },40)
-                }
+                this.move(e.pageX - this.drag_start.x, e.pageY - this.drag_start.y);
                 this.dragged = true;
             }
         }
