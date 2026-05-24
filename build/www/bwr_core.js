@@ -7548,11 +7548,15 @@ function startBowserFight() {
     hammerImg.src = "../img/banhammer.png";
 
     const hammers = [];
-    let bowserX = canvas.width / 2 - 128;
+
+    // pendulum setup: anchor above screen, rope grows so swing gets wider and lower
+    const anchorX = canvas.width / 2;
+    const anchorY = -180;
+    let swingT = 0;
+    let ropeLen = 180; // starts with boss at top of screen
+    const maxRope = canvas.height + 100;
+    let bowserX = anchorX - 128;
     let bowserY = 0;
-    const SPEED = 3;
-    let phase = 0; // 0=left, 1=down, 2=right, 3=down ...
-    let dropAmt = 200;
 
     function spawnHammers() {
         if (defeated) return;
@@ -7578,25 +7582,18 @@ function startBowserFight() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
         if (!defeated) {
-            // snake: left > down > right > down > left > down ...
-            if (phase === 0) {
-                bowserX -= SPEED;
-                if (bowserX <= 0) { bowserX = 0; phase = 1; }
-            } else if (phase === 1) {
-                bowserY += SPEED;
-                if (bowserY >= dropAmt) { bowserY = dropAmt; phase = 2; }
-            } else if (phase === 2) {
-                bowserX += SPEED;
-                if (bowserX >= canvas.width - 256) { bowserX = canvas.width - 256; phase = 3; }
-            } else if (phase === 3) {
-                bowserY += SPEED;
-                if (bowserY >= dropAmt + 200) {
-                    bowserY = dropAmt + 200;
-                    dropAmt += 200;
-                    phase = 0;
-                }
-            }
+            // pendulum sway: swings left-right like a wrecking ball, rope gets longer
+            swingT += 0.035;
+            ropeLen = Math.min(ropeLen + 0.4, maxRope);
+
+            bowserX = anchorX + ropeLen * Math.sin(swingT) - 128;
+            bowserY = anchorY + ropeLen * Math.cos(swingT);
+
+            // clamp to screen
+            if (bowserX < 0) bowserX = 0;
+            if (bowserX > canvas.width - 256) bowserX = canvas.width - 256;
             if (bowserY > canvas.height - 256) bowserY = canvas.height - 256;
+
             bossEl.style.left = bowserX + "px";
             bossEl.style.top = bowserY + "px";
         } else {
