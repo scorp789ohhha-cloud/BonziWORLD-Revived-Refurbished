@@ -6993,6 +6993,7 @@ function startMasterHandFight() {
 
     const introAudio = new Audio("03.wav");
     const deathAudio = new Audio("31.wav");
+    const laserAudio = new Audio("31.wav");
     const bgm = new Audio("https://nu.vgmtreasurechest.com/soundtracks/super-smash-bros-brawl-gamerip/qhpdwzgj/22-05.%20Final%20Destination.mp3");
     bgm.loop = true;
 
@@ -7007,7 +7008,7 @@ function startMasterHandFight() {
     let shootingEnabled = true;
 
     function spawnBombs() {
-        if (defeated || isSpawning) return;
+        if (defeated || isSpawning || isLaserPhase) return;
         const count = 1 + Math.floor(Math.random() * 2);
         for (let i = 0; i < count; i++) {
             bombs.push({
@@ -7024,6 +7025,13 @@ function startMasterHandFight() {
         }
     }
     const spawnInterval = setInterval(spawnBombs, 800);
+
+    let laserSoundInterval;
+    function playLaserSounds() {
+        if (defeated) return;
+        laserAudio.currentTime = 0;
+        laserAudio.play();
+    }
 
     function createExplosion(offsetX, offsetY) {
         const exp = document.createElement("img");
@@ -7055,6 +7063,7 @@ function startMasterHandFight() {
     function handleDeath() {
         spellCardActive = true;
         clearInterval(spawnInterval);
+        clearInterval(laserSoundInterval);
         defeated = true;
         
         bossEl.src = normalImg;
@@ -7080,22 +7089,6 @@ function startMasterHandFight() {
         }, 3000);
 
         if (typeof socket !== 'undefined') socket.emit("bowserkilled", bonzi_guid);
-    }
-
-    function animateCoinCount(target) {
-        const el = document.querySelector(".coin_count");
-        if (!el) return;
-        const start = parseInt(el.textContent) || 0;
-        const dur = 6000; 
-        const startTime = performance.now();
-        const timer = setInterval(() => {
-            const elapsed = performance.now() - startTime;
-            const progress = Math.min(elapsed / dur, 1);
-            el.textContent = Math.floor(start + target * progress);
-            if (progress >= 1) {
-                clearInterval(timer);
-            }
-        }, 10);
     }
 
     function update() {
@@ -7141,22 +7134,26 @@ function startMasterHandFight() {
             }
         }
 
-        for (let i = bombs.length - 1; i >= 0; i--) {
-            const b = bombs[i];
-            b.y += b.speed;
+        if (!isLaserPhase) {
+            for (let i = bombs.length - 1; i >= 0; i--) {
+                const b = bombs[i];
+                b.y += b.speed;
 
-            ctx.drawImage(bombImg, b.x - b.size / 2, b.y - b.size / 2, b.size, b.size);
+                ctx.drawImage(bombImg, b.x - b.size / 2, b.y - b.size / 2, b.size, b.size);
 
-            if (agent && !defeated && b.x + b.size/2 > ax && b.x - b.size/2 < ax + aw && b.y + b.size/2 > ay && b.y - b.size/2 < ay + ah) {
-                if (!agent._hasExploded) {
-                    agent._hasExploded = true;
-                    if (typeof sfx !== 'undefined' && sfx.explode) sfx.explode.play();
-                    if (typeof socket !== 'undefined') socket.emit("bowser_hit", bonzi_guid);
-                    setTimeout(() => { agent._hasExploded = false; }, 5000);
+                if (agent && !defeated && b.x + b.size/2 > ax && b.x - b.size/2 < ax + aw && b.y + b.size/2 > ay && b.y - b.size/2 < ay + ah) {
+                    if (!agent._hasExploded) {
+                        agent._hasExploded = true;
+                        if (typeof sfx !== 'undefined' && sfx.explode) sfx.explode.play();
+                        if (typeof socket !== 'undefined') socket.emit("bowser_hit", bonzi_guid);
+                        setTimeout(() => { agent._hasExploded = false; }, 5000);
+                    }
                 }
-            }
 
-            if (b.y > canvas.height + 100) bombs.splice(i, 1);
+                if (b.y > canvas.height + 100) bombs.splice(i, 1);
+            }
+        } else {
+            bombs.length = 0;
         }
 
         for (let i = bullets.length - 1; i >= 0; i--) {
@@ -7182,6 +7179,9 @@ function startMasterHandFight() {
                     bossEl.src = laserImg;
                     bossDirX = (bossDirX > 0 ? 5 : -5);
                     bossDirY = 4;
+                    
+                    playLaserSounds();
+                    laserSoundInterval = setInterval(playLaserSounds, 1500);
                 }
                 
                 if (bossHP < (maxHP * 0.35)) {
