@@ -6661,7 +6661,8 @@ $(document).ready(function () {
             btn.onclick = function(e) {
                 if (gamesBtnObj._clickThreshold) {
                     gamesBtnObj._clickThreshold = false;
-                    e.stopImmediatePropagation();
+                } else {
+                    new Dialog({ title: 'Games', html: '<iframe src=\'./games.html\' style=\'width:100%;height:100%;border:none;\'></iframe>', width: 800, height: 600, x: 80, y: 40 });
                 }
             };
         })();
