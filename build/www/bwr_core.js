@@ -7543,11 +7543,7 @@ function startBowserFight() {
     const hammers = [];
     let bowserX = canvas.width / 2 - 128;
     let bowserY = 0;
-    let bowserDir = 3;
-    let inCurve = false;
-    let curveProgress = 0;
-    let curveStartX = 0;
-    const CURVE_R = 80;
+    let swingT = 0;
 
     function spawnHammers() {
         if (defeated) return;
@@ -7571,58 +7567,34 @@ function startBowserFight() {
 
     // defeat animation state
     let defeatAngle = 0;
-    let defeatX = bowserX;
-    let defeatY = bowserY;
+    let defeatX = 0;
+    let defeatY = 0;
+    let defeatSize = 256;
 
     function update() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
         if (!defeated) {
-            if (!inCurve) {
-                bowserX += bowserDir;
-                if (bowserX <= 0 && bowserDir < 0) {
-                    inCurve = true;
-                    curveProgress = 0;
-                    curveStartX = bowserX;
-                } else if (bowserX >= canvas.width - 256 && bowserDir > 0) {
-                    inCurve = true;
-                    curveProgress = 0;
-                    curveStartX = bowserX;
-                }
-            } else {
-                curveProgress += 0.08;
-                if (curveProgress >= Math.PI) {
-                    inCurve = false;
-                    bowserDir *= -1;
-                    bowserY = 0;
-                } else {
-                    if (bowserDir > 0) {
-                        const cx = curveStartX + CURVE_R;
-                        const a = Math.PI - curveProgress;
-                        bowserX = cx + CURVE_R * Math.cos(a);
-                        bowserY = -CURVE_R * Math.sin(a);
-                    } else {
-                        const cx = curveStartX - CURVE_R;
-                        const a = curveProgress;
-                        bowserX = cx + CURVE_R * Math.cos(a);
-                        bowserY = -CURVE_R * Math.sin(a);
-                    }
-                }
-            }
+            // simple sway left-right like a swing at the top
+            swingT += 0.04;
+            const span = (canvas.width - 256) / 2;
+            bowserX = span + span * Math.sin(swingT);
+            bowserY = 0;
             ctx.drawImage(bowserImg, bowserX, bowserY, 256, 256);
         } else {
-            // bye.gif flies and spins to top-left corner
-            defeatAngle += 0.18;
-            defeatX += (0 - defeatX) * 0.06;
-            defeatY += (0 - defeatY) * 0.06;
+            // shrink, fly and spin to top-left corner
+            defeatAngle += 0.25;
+            defeatX += (0 - defeatX) * 0.07;
+            defeatY += (0 - defeatY) * 0.07;
+            defeatSize += (48 - defeatSize) * 0.06;
 
             ctx.save();
-            ctx.translate(defeatX + 128, defeatY + 128);
+            ctx.translate(defeatX + defeatSize / 2, defeatY + defeatSize / 2);
             ctx.rotate(defeatAngle);
-            ctx.drawImage(byeImg, -128, -128, 256, 256);
+            ctx.drawImage(byeImg, -defeatSize / 2, -defeatSize / 2, defeatSize, defeatSize);
             ctx.restore();
 
-            if (Math.abs(defeatX) < 5 && Math.abs(defeatY) < 5) {
+            if (defeatSize < 52 && Math.abs(defeatX) < 4 && Math.abs(defeatY) < 4) {
                 canvas.remove();
                 return;
             }
