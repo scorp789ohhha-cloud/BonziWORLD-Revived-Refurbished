@@ -8460,7 +8460,7 @@ function coinPopup() {
                 <li>Playing minigames in the 'minigames' room.</li>
                 <li>Being blessed.</li>
                 <li>Playing the available web games.</li>
-                <li>Getting gifted coins by a highly trusted user (e.g. Siobhan, kern)</li>
+                <li>Getting gifted coins by a highly trusted user (e.g. Darllo, UnrealSticky)</li>
                 <br>
                 Don't ask for coins.
             `,
