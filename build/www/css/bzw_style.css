@@ -28,6 +28,10 @@ body, html {
   left: 0;
   z-index: 999; }
 
+*, body {
+    font-family: 'Tahoma', sans-serif;
+}
+
 /* line 33, server/public/src/sass/style.scss */
 .xp_dialog, .message_cont {
   background: #ffffe1;
