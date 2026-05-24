@@ -7548,14 +7548,9 @@ function startBowserFight() {
     hammerImg.src = "../img/banhammer.png";
 
     const hammers = [];
-
-    // flat wrecking ball: swings left-right at the top with pendulum momentum
-    const centerX = canvas.width / 2 - 128;
-    const span = (canvas.width - 256) / 2;
-    let phase = Math.PI * 0.7; // start near right edge
-    let aVel = 0.022;          // initial push
-    let bowserX = centerX + span * Math.sin(phase);
+    let bowserX = canvas.width / 2 - 128;
     let bowserY = 0;
+    let bowserDir = 3;
 
     function spawnHammers() {
         if (defeated) return;
@@ -7581,20 +7576,10 @@ function startBowserFight() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
         if (!defeated) {
-            // pendulum physics constrained to horizontal line
-            const g = 0.0015;
-            const aAcc = -g * Math.sin(phase);
-            aVel += aAcc;
-            aVel *= 0.999; // tiny air resistance
-            phase += aVel;
-
-            bowserX = centerX + span * Math.sin(phase);
+            // straight linear left-right at the top
+            bowserX += bowserDir;
+            if (bowserX <= 0 || bowserX >= canvas.width - 256) bowserDir *= -1;
             bowserY = 0;
-
-            // clamp to screen edges
-            if (bowserX < 0) bowserX = 0;
-            if (bowserX > canvas.width - 256) bowserX = canvas.width - 256;
-
             bossEl.style.left = bowserX + "px";
             bossEl.style.top = bowserY + "px";
         } else {
