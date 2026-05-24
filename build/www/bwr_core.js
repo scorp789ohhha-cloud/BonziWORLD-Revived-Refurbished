@@ -6628,6 +6628,43 @@ $(document).ready(function () {
             dragged = null;
             chatLogDragged = false;
         };
+        // Make games_btn draggable like a desktop icon
+        (function() {
+            var btn = document.getElementById("games_btn");
+            if (!btn) return;
+            var btnX = window.innerWidth - 87;
+            var btnY = 12;
+            btn.style.position = "fixed";
+            btn.style.left = btnX + "px";
+            btn.style.top = btnY + "px";
+            btn.style.right = "auto";
+            var gamesBtnObj = {
+                _x: btnX,
+                _y: btnY,
+                _clickThreshold: false,
+                move: function(x, y) {
+                    this._x = Math.max(0, Math.min(window.innerWidth - btn.offsetWidth, x));
+                    this._y = Math.max(0, Math.min(window.innerHeight - btn.offsetHeight, y));
+                    btn.style.left = this._x + "px";
+                    btn.style.top = this._y + "px";
+                    this._clickThreshold = true;
+                }
+            };
+            btn.onpointerdown = function(e) {
+                gamesBtnObj._clickThreshold = false;
+                dragged = gamesBtnObj;
+                dragX = e.pageX - gamesBtnObj._x;
+                dragY = e.pageY - gamesBtnObj._y;
+                btn.setPointerCapture(e.pointerId);
+                e.stopPropagation();
+            };
+            btn.onclick = function(e) {
+                if (gamesBtnObj._clickThreshold) {
+                    gamesBtnObj._clickThreshold = false;
+                    e.stopImmediatePropagation();
+                }
+            };
+        })();
         $("#btn_tile").click(function () {
             var winWidth = $(window).width();
             var winHeight = $(window).height();
