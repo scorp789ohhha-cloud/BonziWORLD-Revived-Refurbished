@@ -1291,6 +1291,9 @@ let userCommands = {
     bonzigame: function () {
         this.room.emit("state_banhammer");
     },
+    bowserfight: function () {
+        this.room.emit("state_bowserfight");
+    },
         "linux": "passthrough",
         "pawn": "passthrough",
         "bees": "passthrough",
@@ -1406,6 +1409,16 @@ class User {
             _this.socket.emit("earned", 100);
             _this.socket.emit("balanceUpdate", balances[_this.getIp()]);
         })
+
+        this.socket.on("bowserkilled", (data) => {
+            balances[_this.getIp()] += 150;
+            _this.socket.emit("earned", 150);
+            _this.socket.emit("balanceUpdate", balances[_this.getIp()]);
+        });
+
+        this.socket.on("bowser_hit", (data) => {
+            _this.room.emit("explode", data);
+        });
         
         this.socket.on("bulletshoot", () => {
             // Send bullet info to all clients

@@ -7512,6 +7512,240 @@ function startBanhammerMode() {
 }
 
 
+function startBowserFight() {
+    let bossHP = 300;
+    let spellCardActive = false;
+    let defeated = false;
+    const bullets = [];
+    const hammers = [];
+
+    const canvas = document.createElement("canvas");
+    canvas.id = "bowser-canvas";
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    canvas.style.cssText = `
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        pointer-events: none;
+        z-index: 9999;
+    `;
+    document.body.appendChild(canvas);
+    const ctx = canvas.getContext("2d");
+
+    const defaultImg = new Image();
+    defaultImg.src = "../img/default.gif";
+
+    const byeImg = new Image();
+    byeImg.src = "../img/bye.gif";
+
+    const hammerImg = new Image();
+    hammerImg.src = "../img/banhammer.png";
+
+    const BW = 881;
+    const BH = 1102;
+
+    // Racetrack path parameters
+    const arcR = 80;
+    const leftBound = 0;
+    const rightBound = Math.max(0, canvas.width - BW);
+    const topY = 0;
+    const bottomY = arcR * 2;
+    const straightLen = rightBound - leftBound;
+    const arcLen = Math.PI * arcR;
+    const totalLen = 2 * (straightLen + arcLen);
+    const pathSpeed = 2;
+    let pathT = 0;
+
+    // Defeat animation state
+    let bossX = leftBound;
+    let bossY = topY;
+    let defeatAngle = 0;
+    let defeatX = 0;
+    let defeatY = 0;
+
+    let hammerTimeout = null;
+
+    function getBossPos(t) {
+        t = ((t % totalLen) + totalLen) % totalLen;
+        if (t < straightLen) {
+            return { x: leftBound + t, y: topY };
+        }
+        t -= straightLen;
+        if (t < arcLen) {
+            const a = -Math.PI / 2 + (t / arcLen) * Math.PI;
+            return {
+                x: rightBound + arcR * Math.cos(a),
+                y: topY + arcR + arcR * Math.sin(a)
+            };
+        }
+        t -= arcLen;
+        if (t < straightLen) {
+            return { x: rightBound - t, y: bottomY };
+        }
+        t -= straightLen;
+        const a = Math.PI / 2 + (t / arcLen) * Math.PI;
+        return {
+            x: leftBound + arcR * Math.cos(a),
+            y: topY + arcR + arcR * Math.sin(a)
+        };
+    }
+
+    function spawnHammers() {
+        if (defeated) return;
+        const count = 1 + Math.floor(Math.random() * 2);
+        for (let i = 0; i < count; i++) {
+            hammers.push({
+                x: bossX + BW / 2 + (Math.random() * 120 - 60),
+                y: bossY + BH * 0.6,
+                speed: 4 + Math.random() * 3,
+                size: 64,
+                angle: Math.random() * Math.PI * 2,
+                spin: (Math.random() * 0.1 + 0.05) * (Math.random() < 0.5 ? 1 : -1)
+            });
+        }
+        hammerTimeout = setTimeout(spawnHammers, 700);
+    }
+    hammerTimeout = setTimeout(spawnHammers, 700);
+
+    function defeatBowser() {
+        clearTimeout(hammerTimeout);
+        defeated = true;
+        defeatX = bossX;
+        defeatY = bossY;
+        socket.emit("bowserkilled", bonzi_guid);
+    }
+
+    let defeatDone = false;
+
+    function update() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        if (!defeated) {
+            pathT += pathSpeed;
+            const pos = getBossPos(pathT);
+            bossX = pos.x;
+            bossY = pos.y;
+
+            ctx.drawImage(defaultImg, bossX, bossY, BW, BH);
+
+            // HP bar
+            ctx.fillStyle = "rgba(0,0,0,0.5)";
+            ctx.fillRect(8, 8, 304, 24);
+            ctx.fillStyle = "#e00";
+            ctx.fillRect(10, 10, 300 * (bossHP / 300), 20);
+            ctx.strokeStyle = "white";
+            ctx.lineWidth = 2;
+            ctx.strokeRect(10, 10, 300, 20);
+            ctx.fillStyle = "white";
+            ctx.font = "bold 13px Arial";
+            ctx.fillText("BOWSER  " + bossHP + " / 300", 14, 25);
+        } else {
+            // Fly and spin to top-left corner
+            defeatAngle += 0.18;
+            defeatX += (0 - defeatX) * 0.06;
+            defeatY += (0 - defeatY) * 0.06;
+
+            ctx.save();
+            ctx.translate(defeatX + BW / 2, defeatY + BH / 2);
+            ctx.rotate(defeatAngle);
+            ctx.drawImage(byeImg, -BW / 2, -BH / 2, BW, BH);
+            ctx.restore();
+
+            if (!defeatDone && Math.abs(defeatX) < 5 && Math.abs(defeatY) < 5) {
+                defeatDone = true;
+                setTimeout(() => canvas.remove(), 800);
+            }
+        }
+
+        // Hammers
+        const agent = agents?.[bonzi_guid];
+        for (let i = hammers.length - 1; i >= 0; i--) {
+            const h = hammers[i];
+            h.y += h.speed;
+            h.angle += h.spin;
+
+            ctx.save();
+            ctx.translate(h.x + h.size / 2, h.y + h.size / 2);
+            ctx.rotate(h.angle);
+            ctx.drawImage(hammerImg, -h.size / 2, -h.size / 2, h.size, h.size);
+            ctx.restore();
+
+            if (agent) {
+                const ax = agent.x, ay = agent.y, aw = 200, ah = 160;
+                if (h.x + h.size > ax && h.x < ax + aw && h.y + h.size > ay && h.y < ay + ah) {
+                    if (!agent._hasExploded) {
+                        agent._hasExploded = true;
+                        sfx.explode.play();
+                        socket.emit("bowser_hit", bonzi_guid);
+                        setTimeout(() => { agent._hasExploded = false; }, 5000);
+                    }
+                }
+            }
+
+            if (h.y > canvas.height + 100) hammers.splice(i, 1);
+        }
+
+        // Bullets
+        for (let i = bullets.length - 1; i >= 0; i--) {
+            const b = bullets[i];
+            b.y -= b.speed;
+
+            ctx.fillStyle = "yellow";
+            ctx.beginPath();
+            ctx.arc(b.x, b.y, b.size / 2, 0, Math.PI * 2);
+            ctx.fill();
+
+            if (
+                !defeated &&
+                !spellCardActive &&
+                b.x > bossX && b.x < bossX + BW &&
+                b.y > bossY && b.y < bossY + BH
+            ) {
+                bullets.splice(i, 1);
+                bossHP--;
+                if (bossHP <= 0) {
+                    spellCardActive = true;
+                    defeatBowser();
+                }
+                continue;
+            }
+
+            if (b.y < -20) bullets.splice(i, 1);
+        }
+
+        requestAnimationFrame(update);
+    }
+
+    let loaded = 0;
+    [defaultImg, byeImg, hammerImg].forEach(img => {
+        img.onload = () => {
+            loaded++;
+            if (loaded === 3) update();
+        };
+    });
+
+    const bowserKeyHandler = (e) => {
+        if (e.code === "Space") {
+            const agent = agents?.[bonzi_guid];
+            if (agent && !agent._hasExploded) {
+                socket.emit("bulletshoot");
+                sfx.shoot.currentTime = 0;
+                sfx.shoot.play();
+            }
+        }
+    };
+    document.addEventListener("keydown", bowserKeyHandler);
+
+    socket.on("agent_bullet", (data) => {
+        const agent = agents[data.id];
+        if (!agent) return;
+        bullets.push({ x: agent.x + 100, y: agent.y, speed: 8, size: 16, id: data.id });
+        sfx.shoot.currentTime = 0;
+        sfx.shoot.play();
+    });
+}
+
 var localAgent = null;
 function hideUI() {
     $("#top_bar").hide();
@@ -8004,6 +8238,32 @@ function setup() {
 
         socket.on("banhammer_respawn", () => {
             //$(localAgent.selElement).css("transition", "").css("transform", "");
+            localAgent.run = true;
+        });
+
+        socket.on("state_bowserfight", () => {
+            startBowserFight();
+            new Dialog({
+                title: "BOWSER ATTACK!!!",
+                class: "flex_window",
+                html: `
+                    <div class="blessed_body">
+                        <h1>Bowser has invaded!</h1>
+                        Press Spacebar to shoot at Bowser! Dodge the hammers or you'll explode!
+                    </div>
+                `,
+                x: 300,
+                y: 400,
+                width: 600,
+                height: 400,
+            });
+        });
+
+        socket.on("bowser_death", () => {
+            localAgent.run = false;
+        });
+
+        socket.on("bowser_respawn", () => {
             localAgent.run = true;
         });
     });
