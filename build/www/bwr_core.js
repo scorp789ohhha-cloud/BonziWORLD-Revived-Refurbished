@@ -8710,34 +8710,22 @@ function createIframeWindow(url, title = "New Window") {
     window.appendChild(iframe);
     document.body.appendChild(window);
     let isDragging = false;
-    let currentX;
-    let currentY;
     let initialX;
     let initialY;
-    titlebar.onmousedown = dragStart;
-    function dragStart(e) {
+    titlebar.onpointerdown = (e) => {
+        isDragging = true;
         initialX = e.clientX - window.offsetLeft;
         initialY = e.clientY - window.offsetTop;
-        if (e.target === titlebar) {
-            isDragging = true;
-        }
-    }
-    document.onmousemove = drag;
-    document.onmouseup = dragEnd;
-    function drag(e) {
-        if (isDragging) {
-            e.preventDefault();
-            currentX = e.clientX - initialX;
-            currentY = e.clientY - initialY;
-            window.style.left = `${currentX}px`;
-            window.style.top = `${currentY}px`;
-        }
-    }
-    function dragEnd() {
-        initialX = currentX;
-        initialY = currentY;
-        isDragging = false;
-    }
+        titlebar.setPointerCapture(e.pointerId);
+    };
+    titlebar.onpointermove = (e) => {
+        if (!isDragging) return;
+        e.preventDefault();
+        window.style.left = (e.clientX - initialX) + "px";
+        window.style.top  = (e.clientY - initialY) + "px";
+    };
+    titlebar.onpointerup = () => { isDragging = false; };
+    titlebar.onpointercancel = () => { isDragging = false; };
 }
 function addChatLog(username, message, type = "message", shouldSpeak = true) {
     const chatLog = document.getElementById("chatLog");
@@ -8797,6 +8785,9 @@ function blessedPopup() {
         width: 600,
         height: 400,
     })
+}
+function gamesPopup() {
+    createIframeWindow("./games.html", "Games");
 }
 function coinPopup() {
         new Dialog({
