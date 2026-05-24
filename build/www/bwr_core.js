@@ -7590,22 +7590,21 @@ function startBowserFight() {
         const start = parseInt(el.textContent) || 0;
         const dur = 6000; // 6 seconds
         const startTime = performance.now();
+        const stepSize = Math.max(1, Math.floor(target / (dur / 200)));
 
-        function tick(now) {
-            const elapsed = now - startTime;
+        const timer = setInterval(() => {
+            const elapsed = performance.now() - startTime;
             const progress = Math.min(elapsed / dur, 1);
             const current = Math.floor(start + target * progress);
             el.textContent = current;
             coinAudio.currentTime = 0;
             coinAudio.play();
-            if (progress < 1) {
-                requestAnimationFrame(tick);
-            } else {
+            if (progress >= 1) {
+                clearInterval(timer);
                 canvas.remove();
                 bowserShootingEnabled = false;
             }
-        }
-        requestAnimationFrame(tick);
+        }, 200);
     }
 
     function update() {
