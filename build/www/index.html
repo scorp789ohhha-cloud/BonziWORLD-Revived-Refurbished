@@ -18,6 +18,31 @@
         <meta name="msapplication-config" content="./favicons/browserconfig.xml" />
         <meta name="theme-color" content="#ffffff" />
         <style id="theme"></style>
+        <style>
+            #games_btn {
+                position: fixed;
+                top: 12px;
+                right: 12px;
+                z-index: 9999;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                cursor: pointer;
+                user-select: none;
+                text-align: center;
+            }
+            #games_btn img {
+                display: block;
+                margin: 0 auto;
+            }
+            #games_btn span {
+                display: block;
+                margin-top: 4px;
+                color: #fff;
+                font-family: Tahoma, sans-serif;
+                font-size: 13px;
+            }
+        </style>
         <script src="https://code.createjs.com/1.0.0/easeljs.min.js"></script>
         <script src="https://code.createjs.com/1.0.0/preloadjs.min.js"></script>
         <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
@@ -136,6 +161,10 @@
             <div id="minimize"></div>
             <div id="maximize"></div>
             <div id="close"></div>
+        </div>
+        <div id="games_btn" onclick="gamesPopup()">
+            <img src="./img/games.png" />
+            <span>Games</span>
         </div>
     </body>
 </html>
