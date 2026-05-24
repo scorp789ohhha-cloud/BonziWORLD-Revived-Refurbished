@@ -6826,6 +6826,7 @@ function login() {
     socket.emit("command", { list: ["tag", localStorage.tag] });
     socket.emit("command", { list: ["voice", localStorage.voice] });
     $("#page_login").fadeOut(150);
+    $("#games_btn").css("display", "flex");
     setup();
 }
 $(function () {
