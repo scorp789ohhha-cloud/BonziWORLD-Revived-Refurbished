@@ -38,7 +38,8 @@
                                 "inflate": 3,
                                 "deflate": 3,
                                 "stop": 4,
-                                "smite": 3
+                                "smite": 3,
+                                "bowserfight": 3
                         },
                         "room_max": 999999,
                         "owner": null,
@@ -94,7 +95,8 @@
                                 "inflate": 3,
                                 "deflate": 3,
                                 "stop": 4,
-                                "smite": 3
+                                "smite": 3,
+                                "bowserfight": 3
                         },
                         "room_max": 30,
                         "owner": null,
