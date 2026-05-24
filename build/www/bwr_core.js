@@ -7549,13 +7549,14 @@ function startBowserFight() {
 
     const hammers = [];
 
-    // pendulum setup: anchor above screen, rope grows so swing gets wider and lower
+    // wrecking ball pendulum physics
     const anchorX = canvas.width / 2;
-    const anchorY = -180;
-    let swingT = 0;
-    let ropeLen = 180; // starts with boss at top of screen
-    const maxRope = canvas.height + 100;
-    let bowserX = anchorX - 128;
+    const anchorY = -40;
+    let ropeLen = 220; // initial rope length
+    const maxRope = canvas.height + 120;
+    let angle = Math.PI * 0.65; // start at 65 degrees (right side)
+    let aVel = 0;               // angular velocity
+    let bowserX = 0;
     let bowserY = 0;
 
     function spawnHammers() {
@@ -7582,17 +7583,31 @@ function startBowserFight() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
         if (!defeated) {
-            // pendulum sway: swings left-right like a wrecking ball, rope gets longer
-            swingT += 0.035;
-            ropeLen = Math.min(ropeLen + 0.4, maxRope);
+            // real pendulum physics: faster at bottom, slower at edges
+            ropeLen = Math.min(ropeLen + 0.35, maxRope);
+            const g = 0.003; // gravity
+            const aAcc = -(g / ropeLen) * Math.sin(angle);
+            aVel += aAcc;
+            aVel *= 0.9995; // tiny air resistance
+            angle += aVel;
 
-            bowserX = anchorX + ropeLen * Math.sin(swingT) - 128;
-            bowserY = anchorY + ropeLen * Math.cos(swingT);
+            bowserX = anchorX + ropeLen * Math.sin(angle) - 128;
+            bowserY = anchorY + ropeLen * Math.cos(angle);
 
             // clamp to screen
             if (bowserX < 0) bowserX = 0;
             if (bowserX > canvas.width - 256) bowserX = canvas.width - 256;
             if (bowserY > canvas.height - 256) bowserY = canvas.height - 256;
+
+            // draw chain
+            const bossCX = bowserX + 128;
+            const bossCY = bowserY + 128;
+            ctx.strokeStyle = "#888";
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.moveTo(anchorX, anchorY);
+            ctx.lineTo(bossCX, bossCY);
+            ctx.stroke();
 
             bossEl.style.left = bowserX + "px";
             bossEl.style.top = bowserY + "px";
