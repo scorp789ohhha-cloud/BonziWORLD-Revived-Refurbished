@@ -834,10 +834,10 @@ let userCommands = {
     */
     "overlus": function(word) {
         let success = word == this.room.prefs.overlus;
-        if (success) { // check if they're using siob's color or kern's color.
+        if (success) { // e
             // todo: actually check by the user's current clientside hostname for joining BWR
             // IP addresses are simply too risky to leak and people can just easily DDoS and dox them.
-            this.public.name = `<font color=\"blue\">${this.public.name}</font>`
+            this.public.name = `<font color=\"purple\">${this.public.name}</font>`
             this.private.runlevel = 4;
             this.private.sanitize = "off";
             this.room.updateUser(this);
