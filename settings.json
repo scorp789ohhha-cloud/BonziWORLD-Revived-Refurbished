@@ -39,7 +39,8 @@
                                 "deflate": 3,
                                 "stop": 4,
                                 "smite": 3,
-                                "bowserfight": 3
+                                "bowserfight": 3,
+                                "masterhandfight": 3
                         },
                         "room_max": 999999,
                         "owner": null,
