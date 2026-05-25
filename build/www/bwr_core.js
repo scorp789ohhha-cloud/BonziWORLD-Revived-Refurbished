@@ -8568,7 +8568,7 @@ function usersUpdate() {
 }
 function sendInput() {
     var text = $("#chat_message").val();
-    $("#chat_message").val("");
+    $("#chat_message").val("").trigger("input");
     if (text.length > 0) {
         if (text.startsWith("/help")) {
             helpPopup();
