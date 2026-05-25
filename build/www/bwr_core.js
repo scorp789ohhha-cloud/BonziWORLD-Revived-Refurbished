@@ -504,6 +504,14 @@ class Agent {
                                 });
                             },
                         },
+                                                ban: {
+                            name: "ban",
+                            callback: () => {
+                                socket.emit("command", {
+                                    list: ["ban", this.id],
+                                });
+                            },
+                        },
                         nuke: {
                             name: "Nuke",
                             callback: () => {
