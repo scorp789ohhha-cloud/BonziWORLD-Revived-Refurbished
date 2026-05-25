@@ -137,7 +137,7 @@ body, html {
     #jump-scare h1 span, .jump-scare h1 span {
       color: white;
       padding: 5px;
-      font-family: verdana;
+      font-family: Tahoma, sans-serif;
       display: table-cell;
       text-shadow: 0 1px 0 #999, 0 2px 0 #999, 0 3px 0 #999, 0 2px 5px rgba(0, 0, 0, 0.2);
       animation: jump 1s ease-in-out infinite;
@@ -526,7 +526,7 @@ body.vaporwave #chat_send {
   background-repeat: no-repeat;
   box-sizing: border-box;
   color: #000;
-  font-family: "MS Sans Serif", Tahoma, sans-serif;
+  font-family: Tahoma, sans-serif;
   font-style: normal;
   font-weight: bold;
   letter-spacing: 1px;
@@ -1015,7 +1015,7 @@ body .top-bar-wrapper {
           /* line 54, server/public/src/sass/top-bar.scss */
           body .top-bar-wrapper .top-bar-inner .top-bar-item.top-bar-left.top-bar-room-info .room-name-wrapper .room-name {
             font-weight: bold;
-            font-family: 'Ubuntu Mono', monospace;
+            font-family: Tahoma, sans-serif;
             display: flex;
             font-size: 14px;
             line-height: 25px;
@@ -1821,7 +1821,7 @@ img.emoji {
 
 /* line 42, server/public/src/sass/lib/jquery-contextmenu/jquery.contextMenu.scss */
 .context-menu-icon.context-menu-icon--fa span {
-  font-family: sans-serif; }
+  font-family: Tahoma, sans-serif; }
 
 /* line 48, server/public/src/sass/lib/jquery-contextmenu/jquery.contextMenu.scss */
 .context-menu-list {
