@@ -1,4 +1,4 @@
-![Icon](icon.webp)
+![Icon](https://files.catbox.moe/uh0bcj.png)
 # BonziWORLD Revived Refurbished
 
 ## Dependencies
