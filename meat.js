@@ -174,7 +174,21 @@ var videoIdsCommercials = [
   "https://www.youtube.com/watch?v=JBZhygY_IXs",
   "https://www.youtube.com/watch?v=K95EtwIEy3Q",
   "https://www.youtube.com/watch?v=nhAiTo_GJh4",  
-]
+  "https://www.youtube.com/watch?v=1KFVDDEaIEo",
+  "https://www.youtube.com/watch?v=_UEaBbz-gV0",
+  "https://www.youtube.com/watch?v=kH3_lRNawtA",
+  "https://www.youtube.com/watch?v=i0xpDILkXG8",
+  "https://www.youtube.com/watch?v=r3fF2bKOPK0",
+  "https://www.youtube.com/watch?v=HaXUjMxdA7M",
+  "https://www.youtube.com/watch?v=XY4MVmg_AkQ",
+  "https://www.youtube.com/watch?v=cdWKnmIN7ww",
+  "https://www.youtube.com/watch?v=XU-_F7K3p6A",
+  "https://www.youtube.com/watch?v=_Fp0NbYHt1A",
+  "https://www.youtube.com/watch?v=mHFqaDvarOQ",
+  "https://www.youtube.com/watch?v=SWEWhEmzrew",
+  "https://www.youtube.com/watch?v=Aid_yMrff-o",
+  "https://www.youtube.com/watch?v=yV_kAYu6g4E",
+]    
 var videoIdsMisc = [
     "https://www.youtube.com/watch?v=wPrIfIWE16A",
     "https://www.youtube.com/watch?v=QoXfKyc4RGo",
