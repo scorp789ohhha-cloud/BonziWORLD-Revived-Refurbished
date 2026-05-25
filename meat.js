@@ -190,6 +190,14 @@ var videoIdsCommercials = [
   "https://www.youtube.com/watch?v=yV_kAYu6g4E",
 ]    
 var videoIdsMisc = [
+    "https://www.youtube.com/watch?v=RClD1aPXNNs",
+    "https://www.youtube.com/watch?v=10r-qEUsUzI",
+    "https://www.youtube.com/watch?v=I42Oofhpf3o",
+    "https://www.youtube.com/watch?v=w6bKUI_jj4c",
+    "https://www.youtube.com/watch?v=wetOIrkZE7g",
+    "https://www.youtube.com/watch?v=jy-NdRZMqWA",
+    "https://www.youtube.com/watch?v=1tLWJyiQ35M",
+    "https://www.youtube.com/watch?v=PWcYhloCrwQ",
     "https://www.youtube.com/watch?v=wPrIfIWE16A",
     "https://www.youtube.com/watch?v=QoXfKyc4RGo",
     "https://www.youtube.com/watch?v=9yUuejUVikM",
