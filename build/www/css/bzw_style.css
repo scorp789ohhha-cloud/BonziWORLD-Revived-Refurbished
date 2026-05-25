@@ -323,11 +323,6 @@ body, html {
   padding: 0;
   font-size: 16px; }
 
-/* line 7, server/public/src/sass/common.scss */
-body, body * {
-  font-family: "Arial", "Comic Sans", cursive;
-  }
-
 /* line 11, server/public/src/sass/common.scss */
 input[type="text"] {
   background-color: #fff;
