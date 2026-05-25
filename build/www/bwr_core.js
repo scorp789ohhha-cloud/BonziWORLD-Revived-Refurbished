@@ -8861,7 +8861,7 @@ function blessedPopup() {
                 You now have access to:<br>
                 <ul>
                     <li> <b>Video and Image embedding</b>: Use the /video or /img command to display a file from catbox.moe.
-                    <li> <b>More BonziCOINs</b>: You will earn 10 BonziCOINs<img src="bonzicoin.png" width=16> every 10 seconds.
+                    <li> <b>More BonziCOINs</b>: You will earn 10 BonziCOINs<img src="coin.gif" width=16> every 10 seconds.
                     <li> <b>You can't be kicked and nuked</b>: Blessed users are treated with care and kindness.
                 </ul>
             </div>
