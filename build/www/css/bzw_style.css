@@ -5,7 +5,9 @@ body, html {
   height: 100%;
   max-width: 100%;
   max-width: 100vw;
-  overflow: hidden; }
+  overflow: hidden;
+  font-family: Tahoma, sans-serif;
+}
 
 /* line 14, server/public/src/sass/style.scss */
 .text-center {
