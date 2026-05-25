@@ -1,5 +1,5 @@
-
-After the longest time, the source code is FINALLY available. It will be updated gradually.
+[icon](./icon.webp)
+# BonziWORLD Revived Refurbished
 
 ## Dependencies
 - Node.js and npm (Be sure to download this)
