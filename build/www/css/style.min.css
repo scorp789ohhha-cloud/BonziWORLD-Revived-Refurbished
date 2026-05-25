@@ -260,8 +260,7 @@ video, img {
   overflow-x: hidden;
   overflow-y: auto;
   font-size: 16px;
-  font-family: "Arial", "Comic Sans", cursive;
-
+  font-family: "Tahoma", sans-serif;
   -webkit-font-smoothing: none;
   position: relative;
   overflow-wrap: break-word;
