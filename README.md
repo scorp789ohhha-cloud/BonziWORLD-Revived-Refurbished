@@ -1,4 +1,4 @@
-[icon](./icon.webp)
+![Icon](icon.webp)
 # BonziWORLD Revived Refurbished
 
 ## Dependencies
