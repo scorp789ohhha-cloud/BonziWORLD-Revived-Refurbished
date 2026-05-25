@@ -19,30 +19,34 @@ async function loadEmojisFromAPI() {
 
 loadEmojisFromAPI();
 
-const chatInput = document.getElementById('chat_message');
+document.addEventListener('DOMContentLoaded', () => {
+    const chatInput = document.getElementById('chat_message');
 
-chatInput.addEventListener('input', function(event) {
-    let text = event.target.value;
-    
-    const emojiRegex = /:[a-z0-9_]+:/g;
-    
-    let textChanged = false;
-    text = text.replace(emojiRegex, (match) => {
-        if (dynamicEmojiMap[match]) {
-            textChanged = true;
-            return dynamicEmojiMap[match];
+    if (!chatInput) return;
+
+    chatInput.addEventListener('input', function(event) {
+        let text = event.target.value;
+        
+        const emojiRegex = /:[a-z0-9_]+:/g;
+        
+        let textChanged = false;
+        text = text.replace(emojiRegex, (match) => {
+            if (dynamicEmojiMap[match]) {
+                textChanged = true;
+                return dynamicEmojiMap[match];
+            }
+            return match;
+        });
+
+        if (textChanged) {
+            const start = this.selectionStart;
+            const end = this.selectionEnd;
+            const oldLength = this.value.length;
+
+            this.value = text;
+
+            const lengthDiff = text.length - oldLength;
+            this.setSelectionRange(start + lengthDiff, end + lengthDiff);
         }
-        return match;
     });
-
-    if (textChanged) {
-        const start = this.selectionStart;
-        const end = this.selectionEnd;
-        const oldLength = this.value.length;
-
-        this.value = text;
-
-        const lengthDiff = text.length - oldLength;
-        this.setSelectionRange(start + lengthDiff, end + lengthDiff);
-    }
 });
