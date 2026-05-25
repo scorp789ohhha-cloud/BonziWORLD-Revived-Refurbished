@@ -46,6 +46,17 @@
 body {
     font-family: Tahoma, sans-serif;
 }
+#chat_send {
+    opacity: 0.4;
+    pointer-events: none;
+    cursor: default;
+    transition: opacity 0.15s ease;
+}
+#chat_send.active {
+    opacity: 1;
+    pointer-events: auto;
+    cursor: pointer;
+}
 </style>
 	
         <script src="https://code.createjs.com/1.0.0/easeljs.min.js"></script>
@@ -60,6 +71,21 @@ body {
         <script src="https://www.youtube.com/iframe_api"></script>
         <script src="bwr_core.js"></script>
 		<script src="emoji.js"></script>
+		<script>
+            document.addEventListener('DOMContentLoaded', function () {
+                var input = document.getElementById('chat_message');
+                var sendBtn = document.getElementById('chat_send');
+                if (input && sendBtn) {
+                    input.addEventListener('input', function () {
+                        if (input.value.trim().length > 0) {
+                            sendBtn.classList.add('active');
+                        } else {
+                            sendBtn.classList.remove('active');
+                        }
+                    });
+                }
+            });
+        </script>
 
     </head>
     <body oncontextmenu="return false">
