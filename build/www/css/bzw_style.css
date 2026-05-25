@@ -41,17 +41,6 @@ body, html {
   border-radius: 9px;
   border: #000000 solid 1px; }
 
-  .icon_label {
-    font-family: 'Comic Sans MS', serif, sans-serif;
-    font-size: 18px;
-    width: 90px;
-    text-shadow: 1px 1px 4px black;
-    color: white;
-    position: relative;
-    user-select: none;
-    top: 110%;
-    left: -25%;
-}
 
  .icon {
     position: absolute;
