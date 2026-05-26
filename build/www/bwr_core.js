@@ -600,17 +600,6 @@ class Agent {
                                 });
                             },
                         },
-                        permaBan: {
-                            name: "Permanent Ban",
-                            callback: () => {
-                                let reason = prompt("Enter a reason for the permanent ban:", "");
-                                if (reason === null) return; 
-                                
-                                socket.emit("command", {
-                                    list: ["ban", "perma " + this.id + " " + reason]
-                                });
-                            },
-                        },
                         nuke: {
                             name: "Nuke",
                             callback: () => {
@@ -7035,15 +7024,12 @@ $(function () {
     $("#login_name, #login_room").keypress(function (e) {
         if (e.which == 13) login();
     });
-socket.on("ban", function (data) {
+socket.on("ban", (data) => {
+    window.banned = !0;
+    window.banData = data;
     $("#page_ban").show();
-    $("#ban_reason").html(data.reason);
-    
-    if (data.end === "Permanent") {
-        $("#ban_end").html("Permanent");
-    } else {
-        $("#ban_end").html(new Date(data.end).toString());
-    }
+    $("#ban_reason").html(data.reason || "No reason");
+    $("#ban_end").html(new Date(data.end).toString());
 });
     socket.on("disconnect", function (data) {
         errorFatal()
