@@ -76,6 +76,22 @@ function ipsConnected(ip) {
 const activePlayers = {}; // Track who is alive
 exports.beat = function() {
     io.on('connection', function(socket) { 
+        let userIp = socket.handshake.address;
+
+        if (typeof Ban !== "undefined" && Ban.isBanned && Ban.isBanned(userIp)) {
+            let banInfo = Ban.getBan ? Ban.getBan(userIp) : {};
+            
+            socket.emit("ban", {
+                reason: banInfo.reason || "",
+                end: banInfo.end || "Permanent"
+            });
+
+            setTimeout(() => {
+                socket.disconnect(true);
+            }, 500);
+            return;
+        }
+
         new User(socket);
     });
 };
