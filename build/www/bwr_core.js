@@ -1057,7 +1057,6 @@ const emojiMap = {
   "zipper_mouth_face":"🤐", "zombie":"🧟",
   "zombie_man":"🧟‍♂️", "zombie_woman":"🧟‍♀️",
   "zzz":"💤",
-  # Extra emojis not in the original
   "heart_exclamation":"❣️",
   "aerial_tramway":"🚡",
   "baby_angel":"👼",
