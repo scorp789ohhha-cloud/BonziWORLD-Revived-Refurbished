@@ -590,16 +590,16 @@ class Agent {
                             },
                         },
                         ban: {
-                            name: "Ban",
-                            callback: () => {
-                                let reason = prompt("Enter a reason for the ban:", "");
-                                if (reason === null) return; 
-                                
-                                socket.emit("command", {
-                                    list: ["ban", this.id + " " + reason]
-                                });
-                            },
-                        },
+    name: "Ban",
+    callback: () => {
+        let reason = prompt("Enter a reason for the ban:", "");
+        if (reason === null) return; 
+        
+        socket.emit("command", {
+            list: ["ban", this.id, reason]
+        });
+    },
+},
                         nuke: {
                             name: "Nuke",
                             callback: () => {
