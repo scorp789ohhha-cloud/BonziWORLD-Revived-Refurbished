@@ -1110,33 +1110,63 @@ let userCommands = {
 
         this.room.updateUser(this);
     },
-       ban: function (data) {
+    "ban": function (data) {
         if (this.private.runlevel < 3) {
             this.socket.emit("alert", "This command requires administrator privileges");
             return;
         }
+
+        if (typeof data !== "string") return;
+
+        let args = data.trim().split(/\s+/);
+        let isPerma = false;
+        let targetId = "";
+        let reason = "";
+
+        if (args[0] === "perma") {
+            isPerma = true;
+            targetId = args[1];
+            reason = args.slice(2).join(" ");
+        } else {
+            targetId = args[0];
+            reason = args.slice(1).join(" ");
+        }
         
-        let pu = this.room.getUsersPublic()[data];
+        let pu = this.room.getUsersPublic()[targetId];
         if (pu && pu.color) {
             let target;
             this.room.users.map((n) => {
-                if (n.guid == data) {
+                if (n.guid == targetId) {
                     target = n;
                 }
             });
-            if (target.getIp() == "::1") {
-                Ban.removeBan(target.getIp());
-            } else if (target.getIp() == "::ffff:127.0.0.1") {
-                Ban.removeBan(target.getIp());
+
+            if (!target) return;
+
+            let targetIp = target.getIp();
+
+            if (targetIp == "::1") {
+                Ban.removeBan(targetIp);
+            } else if (targetIp == "::ffff:127.0.0.1") {
+                Ban.removeBan(targetIp);
             } else {
                 if (target.private.runlevel > 2 && this.getIp() != "::1" && this.getIp() != "::ffff:127.0.0.1") {
                     return;
                 }
-                Ban.addBan(target.getIp(), 24 * 3600, "You got banned.");
+                
+                let banDurationSeconds = isPerma ? 315360000 : 24 * 3600; 
+                let banEndTimestamp = isPerma ? "Permanent" : Date.now() + (banDurationSeconds * 1000);
+
+                Ban.addBan(targetIp, banDurationSeconds, reason);
+                
                 target.socket.emit("ban", {
-                    reason: data.reason,
+                    reason: reason,
+                    end: banEndTimestamp
                 });
-                target.disconnect();
+                
+                setTimeout(() => {
+                    target.disconnect();
+                }, 500);
             }
         } else {
             
