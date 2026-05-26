@@ -76,22 +76,6 @@ function ipsConnected(ip) {
 const activePlayers = {}; // Track who is alive
 exports.beat = function() {
     io.on('connection', function(socket) { 
-        let userIp = socket.handshake.address;
-
-        if (typeof Ban !== "undefined" && Ban.isBanned && Ban.isBanned(userIp)) {
-            let banInfo = Ban.getBan ? Ban.getBan(userIp) : {};
-            
-            socket.emit("ban", {
-                reason: banInfo.reason || "",
-                end: banInfo.end || "Permanent"
-            });
-
-            setTimeout(() => {
-                socket.disconnect(true);
-            }, 500);
-            return;
-        }
-
         new User(socket);
     });
 };
@@ -1126,63 +1110,33 @@ let userCommands = {
 
         this.room.updateUser(this);
     },
-    "ban": function (data) {
+           ban: function (data) {
         if (this.private.runlevel < 3) {
             this.socket.emit("alert", "This command requires administrator privileges");
             return;
         }
-
-        if (typeof data !== "string") return;
-
-        let args = data.trim().split(/\s+/);
-        let isPerma = false;
-        let targetId = "";
-        let reason = "";
-
-        if (args[0] === "perma") {
-            isPerma = true;
-            targetId = args[1];
-            reason = args.slice(2).join(" ");
-        } else {
-            targetId = args[0];
-            reason = args.slice(1).join(" ");
-        }
         
-        let pu = this.room.getUsersPublic()[targetId];
+        let pu = this.room.getUsersPublic()[data];
         if (pu && pu.color) {
             let target;
             this.room.users.map((n) => {
-                if (n.guid == targetId) {
+                if (n.guid == data) {
                     target = n;
                 }
             });
-
-            if (!target) return;
-
-            let targetIp = target.getIp();
-
-            if (targetIp == "::1") {
-                Ban.removeBan(targetIp);
-            } else if (targetIp == "::ffff:127.0.0.1") {
-                Ban.removeBan(targetIp);
+            if (target.getIp() == "::1") {
+                Ban.removeBan(target.getIp());
+            } else if (target.getIp() == "::ffff:127.0.0.1") {
+                Ban.removeBan(target.getIp());
             } else {
                 if (target.private.runlevel > 2 && this.getIp() != "::1" && this.getIp() != "::ffff:127.0.0.1") {
                     return;
                 }
-                
-                let banDurationSeconds = isPerma ? 315360000 : 24 * 3600; 
-                let banEndTimestamp = isPerma ? "Permanent" : Date.now() + (banDurationSeconds * 1000);
-
-                Ban.addBan(targetIp, banDurationSeconds, reason);
-                
+                Ban.addBan(target.getIp(), 24 * 3600, "You got banned.");
                 target.socket.emit("ban", {
-                    reason: reason,
-                    end: banEndTimestamp
+                    reason: data.reason,
                 });
-                
-                setTimeout(() => {
-                    target.disconnect();
-                }, 500);
+                target.disconnect();
             }
         } else {
             
