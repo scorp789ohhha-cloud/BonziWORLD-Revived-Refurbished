@@ -504,11 +504,25 @@ class Agent {
                                 });
                             },
                         },
-                                                ban: {
-                            name: "ban",
+                        ban: {
+                            name: "Ban",
                             callback: () => {
+                                let reason = prompt("Enter a reason for the ban:", "");
+                                if (reason === null) return; 
+                                
                                 socket.emit("command", {
-                                    list: ["ban", this.id],
+                                    list: ["ban", this.id + " " + reason]
+                                });
+                            },
+                        },
+                        permaBan: {
+                            name: "Permanent Ban",
+                            callback: () => {
+                                let reason = prompt("Enter a reason for the permanent ban:", "");
+                                if (reason === null) return; 
+                                
+                                socket.emit("command", {
+                                    list: ["ban", "perma " + this.id + " " + reason]
                                 });
                             },
                         },
@@ -6936,11 +6950,16 @@ $(function () {
     $("#login_name, #login_room").keypress(function (e) {
         if (e.which == 13) login();
     });
-    socket.on("ban", function (data) {
-        $("#page_ban").show();
-        $("#ban_reason").html(data.reason);
+socket.on("ban", function (data) {
+    $("#page_ban").show();
+    $("#ban_reason").html(data.reason);
+    
+    if (data.end === "Permanent") {
+        $("#ban_end").html("Permanent");
+    } else {
         $("#ban_end").html(new Date(data.end).toString());
-    });
+    }
+});
     socket.on("disconnect", function (data) {
         errorFatal()
     });
