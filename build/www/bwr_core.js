@@ -236,8 +236,93 @@ let rules = {
     $r$: "gay-rainbow",
     "||": "gay-spoiler",
 };
+const emojiMap = {
+    // Smileys & People
+    smile: "😊", grin: "😁", laugh: "😂", rofl: "🤣", joy: "😂",
+    wink: "😉", blush: "☺️", yum: "😋", sunglasses: "😎", heart_eyes: "😍",
+    kissing: "😗", kissing_heart: "😘", kissing_smiling_eyes: "😙",
+    smirk: "😏", unamused: "😒", neutral_face: "😐", expressionless: "😑",
+    raised_eyebrow: "🤨", thinking: "🤔", zipper_mouth: "🤐", hushed: "😯",
+    astonished: "😲", flushed: "😳", pleading: "🥺", cry: "😢", sob: "😭",
+    angry: "😠", rage: "😡", triumph: "😤", skull: "💀", poop: "💩",
+    clown: "🤡", ghost: "👻", alien: "👽", robot: "🤖", pile_of_poo: "💩",
+    sleeping: "😴", dizzy_face: "😵", exploding_head: "🤯", cowboy: "🤠",
+    partying: "🥳", nauseated: "🤢", sneezing: "🤧", hot_face: "🥵",
+    cold_face: "🥶", woozy: "🥴", dead: "💀", monocle: "🧐", nerd: "🤓",
+    worried: "😟", confused: "😕", slightly_frowning: "🙁", frowning: "☹️",
+    open_mouth: "😮", hushed2: "😯", grimacing: "😬", rolling_eyes: "🙄",
+    // Hand gestures
+    thumbsup: "+1", thumbsdown: "-1", ok_hand: "👌", pinched_fingers: "🤌",
+    victory: "✌️", crossed_fingers: "🤞", vulcan: "🖖", point_up: "☝️",
+    point_down: "👇", point_left: "👈", point_right: "👉", raised_hand: "✋",
+    wave: "👋", clap: "👏", open_hands: "👐", pray: "🙏", handshake: "🤝",
+    fist: "✊", punch: "👊", muscle: "💪", middle_finger: "🖕", pinch: "🤏",
+    writing: "✍️", nail_care: "💅", selfie: "🤳", mechanical_arm: "🦾",
+    // Hearts & Love
+    heart: "❤️", orange_heart: "🧡", yellow_heart: "💛", green_heart: "💚",
+    blue_heart: "💙", purple_heart: "💜", black_heart: "🖤", white_heart: "🤍",
+    brown_heart: "🤎", broken_heart: "💔", heart_fire: "❤️‍🔥", sparkling_heart: "💖",
+    heartpulse: "💗", heartbeat: "💓", revolving_hearts: "💞", two_hearts: "💕",
+    heartdecoration: "💟", peace: "☮️", cross: "✝️",
+    // Animals
+    dog: "🐶", cat: "🐱", mouse: "🐭", hamster: "🐹", rabbit: "🐰",
+    fox: "🦊", bear: "🐻", panda: "🐼", koala: "🐨", tiger: "🐯",
+    lion: "🦁", cow: "🐮", pig: "🐷", frog: "🐸", monkey: "🐵",
+    chicken: "🐔", penguin: "🐧", bird: "🐦", baby_chick: "🐤",
+    duck: "🦆", eagle: "🦅", owl: "🦉", bat: "🦇", wolf: "🐺",
+    boar: "🐗", horse: "🐴", unicorn: "🦄", bee: "🐝", bug: "🐛",
+    butterfly: "🦋", snail: "🐌", shell: "🐚", beetle: "🪲", ant: "🐜",
+    mosquito: "🦟", cricket: "🦗", spider: "🕷️", turtle: "🐢",
+    snake: "🐍", lizard: "🦎", dragon: "🐲", sauropod: "🦕", trex: "🦖",
+    whale: "🐳", dolphin: "🐬", seal: "🦭", fish: "🐟", blowfish: "🐡",
+    shark: "🦈", octopus: "🐙", crab: "🦀", lobster: "🦞", shrimp: "🦐",
+    // Food & Drink
+    pizza: "🍕", burger: "🍔", fries: "🍟", hotdog: "🌭", sandwich: "🥪",
+    taco: "🌮", burrito: "🌯", salad: "🥗", spaghetti: "🍝", ramen: "🍜",
+    sushi: "🍣", bento: "🍱", dumpling: "🥟", cookie: "🍪", cake: "🎂",
+    cupcake: "🧁", pie: "🥧", candy: "🍬", lollipop: "🍭", chocolate: "🍫",
+    popcorn: "🍿", coffee: "☕", tea: "🍵", milk: "🥛", juice: "🧃",
+    soda: "🥤", beer: "🍺", wine: "🍷", cocktail: "🍸", champagne: "🥂",
+    // Nature
+    sun: "☀️", moon: "🌙", star: "⭐", sparkles: "✨", rainbow: "🌈",
+    cloud: "☁️", rain: "🌧️", snow: "❄️", fire: "🔥", water: "💧",
+    wave2: "🌊", tornado: "🌪️", fog: "🌫️", comet: "☄️", earth: "🌍",
+    // Objects
+    phone: "📱", computer: "💻", keyboard: "⌨️", mouse2: "🖱️", printer: "🖨️",
+    tv: "📺", radio: "📻", camera: "📷", flashlight: "🔦", bulb: "💡",
+    battery: "🔋", plug: "🔌", money: "💰", coin: "🪙", credit_card: "💳",
+    gem: "💎", trophy: "🏆", medal: "🥇", ticket: "🎫", gift: "🎁",
+    balloon: "🎈", tada: "🎉", confetti: "🎊", party: "🎊", fireworks: "🎆",
+    music: "🎵", notes: "🎶", microphone: "🎤", headphones: "🎧",
+    guitar: "🎸", piano: "🎹", drum: "🥁", trumpet: "🎺", violin: "🎻",
+    book: "📖", books: "📚", pencil: "✏️", pen: "🖊️", memo: "📝",
+    paperclip: "📎", scissors: "✂️", lock: "🔒", unlock: "🔓", key: "🔑",
+    hammer: "🔨", wrench: "🔧", gear: "⚙️", chain: "⛓️", sword: "🗡️",
+    shield: "🛡️", axe: "🪓", knife: "🔪", gun: "🔫", bomb: "💣",
+    // Symbols & Misc
+    check: "✅", x: "❌", warning: "⚠️", no_entry: "⛔", ban2: "🚫",
+    recycle: "♻️", sos: "🆘", new2: "🆕", cool: "🆒", free: "🆓",
+    up: "🆙", ok: "🆗", top: "🔝", arrow_up: "⬆️", arrow_down: "⬇️",
+    arrow_left: "⬅️", arrow_right: "➡️", back: "🔙", end: "🔚",
+    hundred: "💯", infinity: "♾️", exclamation: "❗", question: "❓",
+    red_circle: "🔴", orange_circle: "🟠", yellow_circle: "🟡",
+    green_circle: "🟢", blue_circle: "🔵", purple_circle: "🟣",
+    white_circle: "⚪", black_circle: "⚫",
+    // Flags & Places
+    flag: "🏁", rainbow_flag: "🏳️‍🌈", us: "🇺🇸", gb: "🇬🇧", eu: "🇪🇺",
+    // Extra fun
+    sus: "📮", bonzi: "🐵", based: "💪", pog: "😮", copium: "🫁",
+    skill: "🗿", ratio: "📉", lmao: "💀", bruh: "😐", gigachad: "🗿",
+};
+function replaceEmojiShortcodes(text) {
+    return text.replace(/:([a-zA-Z0-9_+\-]+):/g, (match, name) => {
+        const key = name.toLowerCase();
+        return emojiMap[key] !== undefined ? emojiMap[key] : match;
+    });
+}
 function markup(text) {
     text = text.replace(/(^|\\n)(&gt;.*?)($|\\n)/g, '$1<span class="greentext">$2</span>$3').replaceAll("\\n", "<br>");
+    text = replaceEmojiShortcodes(text);
     for (let [token, tag] of entries(rules)) {
         let closing = false;
         while (text.includes(token)) {
