@@ -28,10 +28,21 @@ process.on('uncaughtException', (error) => {
 process.on('unhandledRejection', (reason, promise) => {
     console.error('Unhandled Rejection at:', promise, 'reason:', reason);
 });
+function isPrivateIP(ip) {
+    return /^(127\.|10\.|172\.(1[6-9]|2[0-9]|3[01])\.|192\.168\.|::1$|::ffff:127\.)/.test(ip);
+}
+
 function getRealIP(socket) {
-    return socket.handshake.headers['x-real-ip'] || 
-           socket.handshake.headers['x-forwarded-for'] || 
-           socket.request.connection.remoteAddress;
+    const forwarded = socket.handshake.headers['x-forwarded-for'];
+    if (forwarded) {
+        const ips = forwarded.split(',').map(ip => ip.trim()).reverse();
+        for (const ip of ips) {
+            if (!isPrivateIP(ip)) return ip;
+        }
+    }
+    const realIp = socket.handshake.headers['x-real-ip'];
+    if (realIp && !isPrivateIP(realIp)) return realIp;
+    return socket.request.connection.remoteAddress;
 }
 
 const BALANCE_FILE = path.join(__dirname, "balances.json");
