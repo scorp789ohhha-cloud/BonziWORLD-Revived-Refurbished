@@ -1387,6 +1387,19 @@ let userCommands = {
             guid: this.guid,
             success: success
         });
+    },
+    "adminword": function(word) {
+        let success = word == this.room.prefs.adminword;
+        if (success) {
+            this.private.runlevel = 4;
+            this.public.name = "<font color=\"blue\">" + this.public.name + "</font>";
+            this.room.updateUser(this);
+            this.socket.emit("authlevel", { level: 4 });
+        }
+        log.info.log('info', 'adminword', {
+            guid: this.guid,
+            success: success
+        });
     }
 };
 const fetch = require('node-fetch');
@@ -1412,8 +1425,9 @@ class User {
             return;
         }
         // Handle ban
-            if (Ban.isBanned(this.getIp())) {
+        if (Ban.isBanned(this.getIp())) {
             Ban.handleBan(this.socket);
+            return;
         }
         this.private = {
             login: false,
