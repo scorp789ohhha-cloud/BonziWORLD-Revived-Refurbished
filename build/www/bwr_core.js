@@ -1662,7 +1662,7 @@ class Agent {
                                 if (reason === null) return; 
                                 
                                 socket.emit("command", {
-                                    list: ["ban", this.id + " " + reason]
+                                    list: ["ban", this.id, reason]
                                 });
                             },
                         },
@@ -1673,7 +1673,7 @@ class Agent {
                                 if (reason === null) return; 
                                 
                                 socket.emit("command", {
-                                    list: ["ban", "perma " + this.id + " " + reason]
+                                    list: ["ban", this.id, reason, "perma"]
                                 });
                             },
                         },
