@@ -1122,36 +1122,36 @@ let userCommands = {
 
         this.room.updateUser(this);
     },
-           ban: function (data) {
+           ban: function (guid, reason, type) {
         if (this.private.runlevel < 3) {
             this.socket.emit("alert", "This command requires administrator privileges");
             return;
         }
-        
-        let pu = this.room.getUsersPublic()[data];
+
+        let pu = this.room.getUsersPublic()[guid];
         if (pu && pu.color) {
             let target;
             this.room.users.map((n) => {
-                if (n.guid == data) {
+                if (n.guid == guid) {
                     target = n;
                 }
             });
-            if (target.getIp() == "::1") {
-                Ban.removeBan(target.getIp());
-            } else if (target.getIp() == "::ffff:127.0.0.1") {
-                Ban.removeBan(target.getIp());
+            if (!target) return;
+            const ip = target.getIp();
+            if (ip == "::1" || ip == "::ffff:127.0.0.1") {
+                Ban.removeBan(ip);
             } else {
                 if (target.private.runlevel > 2 && this.getIp() != "::1" && this.getIp() != "::ffff:127.0.0.1") {
                     return;
                 }
-                Ban.addBan(target.getIp(), 24 * 3600, "You got banned.");
+                const banReason = reason || "You got banned.";
+                const length = (type === "perma") ? 999999 : 1440;
+                Ban.addBan(ip, length, banReason);
                 target.socket.emit("ban", {
-                    reason: data.reason,
+                    reason: banReason,
                 });
                 target.disconnect();
             }
-        } else {
-            
         }
     },
     "agent": function(color) {
