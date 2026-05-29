@@ -1539,8 +1539,8 @@ function removeBackslashEnclosedText(text) {
 }
 function isValidColor(value) {
     const validColors = [
-        "black", "brown", "green", "purple",
-        "red", "pink", "yellow", "white", "cyan",
+
+        "purple",
         "pope", "ban", "blessed"
     ];
     return validColors.includes(value);
@@ -2380,7 +2380,7 @@ class Agent {
                     audio.playbackRate = this.playbackRate || 1;
                     audio.preservesPitch = false;
                 }
-            } else if (this.color == "bonzi" || this.color == "blue") {
+            } else if (this.color == "bonzi" || this.color == "blue" || this.color == "red" || this.color == "brown" || this.color == "green" || this.color == "cyan" || this.color == "yellow" || this.color == "pink" || this.color == "white" || this.color == "black" || this.color == "red" || this.color == "brown" || this.color == "green" || this.color == "cyan" || this.color == "yellow" || this.color == "pink" || this.color == "white" || this.color == "black") {
                 if (this.sprite.currentFrame == 1158) {
                     var audio = new Audio("./sfx/bonzi/0019.mp3");
                     audio.play();
@@ -3336,7 +3336,7 @@ class Agent {
                     { type: "text", text: "You're a fucking asshole!", say: "You're a fucking asshole!", useBrackets: false },
                     { type: "anim", anim: "hehehe", ticks: 15 },
                 ]);
-            } else if (this.color == "bonzi" || this.color == "blue") {
+            } else if (this.color == "bonzi" || this.color == "blue" || this.color == "red" || this.color == "brown" || this.color == "green" || this.color == "cyan" || this.color == "yellow" || this.color == "pink" || this.color == "white" || this.color == "black") {
                 this.runSingleEvent([
                     { type: "text", text: "Hey, " + data + "!", useBrackets: false },
                     { type: "text", text: "You're a fucking asshole!", say: "You're a fucking asshole!", useBrackets: false },
@@ -3474,7 +3474,7 @@ class Agent {
                             ? AgentData.sprite.template_animations
                                                         : (this.color == "rover")
                             ? AgentData.sprite.rover_animations
-                                                        : (this.color == "bonzi" || this.color == "blue")
+                                                        : (this.color == "bonzi" || this.color == "blue" || this.color == "red" || this.color == "brown" || this.color == "green" || this.color == "cyan" || this.color == "yellow" || this.color == "pink" || this.color == "white" || this.color == "black")
                             ? AgentData.sprite.bonzi_animations
                                                         : (this.color == "ban")
                             ? AgentData.sprite.ban_animations
