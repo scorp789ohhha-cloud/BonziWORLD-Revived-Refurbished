@@ -2379,7 +2379,7 @@ class Agent {
                     audio.playbackRate = this.playbackRate || 1;
                     audio.preservesPitch = false;
                 }
-            } else if (this.color == "bonzi" || this.color == "blue" || this.color == "red" || this.color == "brown" || this.color == "green" || this.color == "cyan" || this.color == "yellow" || this.color == "pink" || this.color == "white" || this.color == "black" || this.color == "purple" || this.color == "red" || this.color == "brown" || this.color == "green" || this.color == "cyan" || this.color == "yellow" || this.color == "pink" || this.color == "white" || this.color == "black") {
+            } else if (this.color == "bonzi" || this.color == "blue" || this.color == "red" || this.color == "brown" || this.color == "green" || this.color == "cyan" || this.color == "yellow" || this.color == "pink" || this.color == "white" || this.color == "black" || this.color == "purple" || this.color == "red" || this.color == "brown" || this.color == "green" || this.color == "cyan" || this.color == "yellow" || this.color == "pink" || this.color == "white" || this.color == "black" || this.color == "gold") {
                 if (this.sprite.currentFrame == 1158) {
                     var audio = new Audio("./sfx/bonzi/0019.mp3");
                     audio.play();
